@@ -90,7 +90,7 @@ header h2 {
 }
 
 .inner {
-  width: 620px;
+  width: 820px;
   margin: 0 auto;
 }
 
@@ -166,10 +166,10 @@ a.button span {
 }
 
 code, pre {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
+  font-family:  Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
   color: #222;
   margin-bottom: 30px;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 code {
@@ -180,7 +180,7 @@ code {
 
 pre {
   padding: 20px;
-  background: #303030;
+  background: #293134;
   color: #f2f2f2;
   text-shadow: none;
   overflow: auto;
