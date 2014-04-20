@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Making Quines Prettier</title>
+
+<script src="stylesheets/prettify/run_prettify.js?autoload=true&amp;skin=sunburst&amp;lang=css" defer="defer"></script>
+</head>
+
+<body>
+
+<?prettify lang=html linenums=true?>
+<pre class="prettyprint" id="quine">
+</pre>
+
+<script>
+(function () {
+  function html(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  var quineHtml = html(document.documentElement.innerHTML);
+  document.getElementById("quine").innerHTML = quineHtml;
+})();
+</script></body>
+</html>
