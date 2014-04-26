@@ -1,9 +1,20 @@
 ---
 layout: default
 ---
-<h2>{{ page.title }}</h2>
-<p class="meta">{{ page.date | date_to_string }}</p>
+<h4>{{ page.title }}</h4>
+<span class="date">{{ page.date | date: "%Y年%m月%d日" }}</span>
+<hr/>
 
 <div class="post">
 {{ content }}
 </div>
+
+<hr/>
+<ul class="pager">
+	{% if page.previous %}
+  	<li class="previous"><a href="{{page.previous.url}}">{{page.previous.title}}</a></li>
+  {% endif %}
+	{% if page.next %}
+  	<li class="next"><a href="{{page.next.url}}">{{page.next.title}}</a></li>
+  {% endif %}
+</ul>

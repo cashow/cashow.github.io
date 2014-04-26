@@ -4,11 +4,14 @@ title: cashow的博客
 ---
 
 <div id="home">
-  <h4>博客列表</h4>
-  <hr/>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
+	<h4>博客列表</h4>
+	<hr/>
+	<ul class="posts">
+		{% for post in site.posts %}
+		<li>
+			<a href="{{ post.url }}">{{ post.title }}</a>
+			{{ post.excerpt }}
+		</li>
+		{% endfor %}
+	</ul>
 </div>
