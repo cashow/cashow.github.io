@@ -2,7 +2,7 @@ body {
   line-height: 1.5;
   background: #e7e7e7;
   color:#555;
-  font-family: "Hiragino Sans GB", "Microsoft YaHei",
+  font-family:  "Hiragino Sans GB", "Microsoft YaHei",
              "WenQuanYi Micro Hei", sans-serif;
 }
 
@@ -29,7 +29,8 @@ header {
 }
 
 .blog_text{
-  padding: 20px;
+  width:85%;
+  padding: 20px 30px 10px 30px;
 }
 
 #blog_title {
@@ -110,4 +111,9 @@ hr {
     .container{
         width:1000px;
     }
+}
+
+pre{
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  font-size: 14px;
 }

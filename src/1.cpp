@@ -26,7 +26,7 @@ const double eps=1e-8;
 
 struct edge
 {
-    int to,from,next,value,num;         //num¼ÇÂ¼µÄÊÇÕâÌõ±ßµÄ±àºÅ
+    int to,from,next,value,num;         //numè®°å½•çš„æ˜¯è¿™æ¡è¾¹çš„ç¼–å·
 } e[maxn*maxn*2];
 
 int level[maxn],pre[maxn],next[maxn],minadd[maxn];
@@ -52,7 +52,7 @@ void insert(int from,int to,int value)
     next[from]=cnt++;
 }
 
-bool bfs(int start,int end)               //¸üĞÂlevel²¢È·¶¨ÊÇ·ñÄÜµ½´ï»ãµã
+bool bfs(int start,int end)               //æ›´æ–°levelå¹¶ç¡®å®šæ˜¯å¦èƒ½åˆ°è¾¾æ±‡ç‚¹
 {
     int pos,to;
     q.push(start);
@@ -72,16 +72,16 @@ bool bfs(int start,int end)               //¸üĞÂlevel²¢È·¶¨ÊÇ·ñÄÜµ½´ï»ãµã
             }
         }
     }
-    return level[end]!=-1;              //ÄÜµ½´ïendÔò·µ»Øtrue£¬²»ÄÜÔò·µ»Øfalse
+    return level[end]!=-1;              //èƒ½åˆ°è¾¾endåˆ™è¿”å›trueï¼Œä¸èƒ½åˆ™è¿”å›false
 }
 
 void dfs(int start,int end)
 {
     int pos=start,to,change,minn=-1,minpos,id;
-    while(1)                            //·Çµİ¹édfs
+    while(1)                            //éé€’å½’dfs
     {
         bool flag=false;
-        for(id=next[pos];id!=-1;id=e[id].next)      //ÕÒÒ»Ìõ¿ÉÒÔ×ßµÄÂ·
+        for(id=next[pos];id!=-1;id=e[id].next)      //æ‰¾ä¸€æ¡å¯ä»¥èµ°çš„è·¯
         {
             int i=e[id].to;
             if(level[i]==level[pos]+1&&e[id].value>0)
@@ -92,26 +92,26 @@ void dfs(int start,int end)
             }
         }
 
-        if(flag)                            //ÕÒµ½Ò»¸ö¿ÉÒÔ×ßµÄÂ·¾¶
+        if(flag)                            //æ‰¾åˆ°ä¸€ä¸ªå¯ä»¥èµ°çš„è·¯å¾„
         {
-            pre[to]=id;                     //pre[to]¼ÇÂ¼µÄÊÇpos->toÕâÌõ±ßµÄid
-            if(minadd[pos]==-1)             //minadd[pos]È¡×îĞ¡¡£µ½´ïendÊ±minadd[end]ÎªÔö¹ãÂ·¿É¼ÓµÄ×î´óÁ÷Á¿
+            pre[to]=id;                     //pre[to]è®°å½•çš„æ˜¯pos->toè¿™æ¡è¾¹çš„id
+            if(minadd[pos]==-1)             //minadd[pos]å–æœ€å°ã€‚åˆ°è¾¾endæ—¶minadd[end]ä¸ºå¢å¹¿è·¯å¯åŠ çš„æœ€å¤§æµé‡
                 minadd[to]=e[id].value;
             else
                 minadd[to]=min(minadd[pos],e[id].value);
-            pos=to;			                //´ÓÕÒµ½µÄ½Úµã¿ªÊ¼ÔÚ²ã´ÎÍ¼ÀïÕÒÂ·
-            if(pos==end) 	                //ÕÒµ½tºó£¬Ôö¹ã
+            pos=to;			                //ä»æ‰¾åˆ°çš„èŠ‚ç‚¹å¼€å§‹åœ¨å±‚æ¬¡å›¾é‡Œæ‰¾è·¯
+            if(pos==end) 	                //æ‰¾åˆ°tåï¼Œå¢å¹¿
             {
-                ans+=minadd[end];           //minadd[end]:Ôö¹ãÂ·¿É¼ÓµÄ×î´óÁ÷Á¿
+                ans+=minadd[end];           //minadd[end]:å¢å¹¿è·¯å¯åŠ çš„æœ€å¤§æµé‡
                 change=minadd[end];
                 int id=pre[end];
-                while(1)              //Ò»Ö±´Ó»ãµã»ØÍËµ½Ô´µã£¬¸üĞÂÃ¿ÌõÂ·µÄÈİÁ¿
+                while(1)              //ä¸€ç›´ä»æ±‡ç‚¹å›é€€åˆ°æºç‚¹ï¼Œæ›´æ–°æ¯æ¡è·¯çš„å®¹é‡
                 {
                     minadd[e[id].to]-=change;
                     e[id].value-=change;
                     e[id^1].value+=change;
                     if(e[id].value==0)
-                        pos=e[id].from;           //u»ØÍËµ½ÈİÁ¿±ßÎª0µÄÂ·µÄµãÖ®Ç°
+                        pos=e[id].from;           //uå›é€€åˆ°å®¹é‡è¾¹ä¸º0çš„è·¯çš„ç‚¹ä¹‹å‰
                     if(pre[e[id].from]==-1)
                         break;
                     id=pre[e[id].from];
@@ -120,24 +120,24 @@ void dfs(int start,int end)
         }
         else
         {
-            if(pos!=start)	            //Èç¹ûpos!=startÄÇÃ´ÕâÌõÂ·×ß²»Í¨µÄ»°£¬´ÓposµÄÉÏÒ»¸ö½Úµã¼ÌĞøÕÒ¡£
+            if(pos!=start)	            //å¦‚æœpos!=starté‚£ä¹ˆè¿™æ¡è·¯èµ°ä¸é€šçš„è¯ï¼Œä»posçš„ä¸Šä¸€ä¸ªèŠ‚ç‚¹ç»§ç»­æ‰¾ã€‚
             {
-                level[pos]=-2;          //Ïàµ±ÓÚ´Ó²ã´ÎÍ¼ÀïÉ¾³ıÕâ¸ö½Úµã¡£
-                pos=e[pre[pos]].from;           //dfs»ØËİ
+                level[pos]=-2;          //ç›¸å½“äºä»å±‚æ¬¡å›¾é‡Œåˆ é™¤è¿™ä¸ªèŠ‚ç‚¹ã€‚
+                pos=e[pre[pos]].from;           //dfså›æº¯
             }
-            else                        //Èç¹û´ÓÔ´µãÕÒ²»µ½Ôö¹ãÂ·£¬¾Í½áÊøÁË¡£
+            else                        //å¦‚æœä»æºç‚¹æ‰¾ä¸åˆ°å¢å¹¿è·¯ï¼Œå°±ç»“æŸäº†ã€‚
                 return ;
         }
     }
 }
 
-int dinic(int s,int t)          //Çó´Ósµãµ½tµãµÄ×î´óÁ÷Á¿
+int dinic(int s,int t)          //æ±‚ä»sç‚¹åˆ°tç‚¹çš„æœ€å¤§æµé‡
 {
     ans=0;
-    while(bfs(s,t))             //Ã¿Ò»´ÎÏÈÇó³ö×î¶ÌÂ·¾¶,½¨ºÃ²ã´ÎÍ¼
+    while(bfs(s,t))             //æ¯ä¸€æ¬¡å…ˆæ±‚å‡ºæœ€çŸ­è·¯å¾„,å»ºå¥½å±‚æ¬¡å›¾
     {
-        MEST(pre);		        //dfsÖĞ£¬Èç¹ûĞèÒª»ØËİ£¬¾Í»ØËİµ½preÖĞµÄ½Úµã¡£
-        MEST(minadd);       //minaddÀïÃæ´æµÄÊÇÊ£ÓàÁ÷Á¿
+        MEST(pre);		        //dfsä¸­ï¼Œå¦‚æœéœ€è¦å›æº¯ï¼Œå°±å›æº¯åˆ°preä¸­çš„èŠ‚ç‚¹ã€‚
+        MEST(minadd);       //minaddé‡Œé¢å­˜çš„æ˜¯å‰©ä½™æµé‡
         dfs(s,t);
     }
     return ans;

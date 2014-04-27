@@ -2,5 +2,5 @@ name: Your New Jekyll Site
 markdown: redcarpet
 pygments: false
 encoding: utf-8
-excerpt_separator: "\n\r"
+excerpt_separator: "\n"
 permalink: /:title.html
