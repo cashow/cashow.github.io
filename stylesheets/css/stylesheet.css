@@ -29,7 +29,7 @@ header {
 }
 
 .blog_text{
-  width:85%;
+  width:100%;
   padding: 30px 40px 10px 40px;
 }
 
@@ -100,7 +100,7 @@ hr {
 }
 
 .container{
-  width:75%;
+  width:65%;
 }
 
 .blog_container{
@@ -137,4 +137,8 @@ a:visited{
 
 ::-webkit-selection {
     background:#d3d3d3; 
+}
+
+td{
+  padding-right: 30px
 }
