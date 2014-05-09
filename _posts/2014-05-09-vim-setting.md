@@ -291,6 +291,16 @@ date: 2014-05-09 10:41:05
    </tr>
 </table>
 <br/>
+
+<h4>vimrc_example.vim文件的配置：</h4>
+<table>
+   <tr>
+      <td>autocmd FileType text setlocal textwidth=0</td>
+      <td>修改这段代码，禁用vim的自动换行功能（在一行输入太多文字后会自动换行）</td>
+   </tr>
+</table>
+<br/>
+
 <h4>_vimrc文件的配置：</h4>
 <table>
    <tr>
@@ -364,10 +374,6 @@ date: 2014-05-09 10:41:05
    <tr>
       <td>set clipboard+=unnamed</td>
       <td>将vim的默认缓冲挂到Windows的剪贴版上。这样按y和p键就可以直接实现“复制”和“粘贴”的功能。</td>
-   </tr>
-   <tr>
-      <td>autocmd FileType text setlocal textwidth=0</td>
-      <td>修改vimrc_example.vim的这段代码，禁用vim的自动换行功能（在一行输入太多文字后会自动换行）</td>
    </tr>
    <tr>
       <td>au FileType php setlocal dict+=$VIMRUNTIME/php_funclist.txt</td>
