@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "vim常用配置"
+title: "Vim常用配置"
 date: 2014-05-09 10:41:05
 ---
 
