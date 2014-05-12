@@ -2,6 +2,7 @@
 layout: post
 title: "Svn在linux下的指令"
 date: 2014-05-09 17:41:20
+tags: svn 常用工具
 ---
 
 1.将文件checkout到本地  

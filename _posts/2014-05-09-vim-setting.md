@@ -2,6 +2,7 @@
 layout: post
 title: "Vim常用配置"
 date: 2014-05-09 10:41:05
+tags: vim 常用工具
 ---
 
 <h4>在普通模式下的指令：</h4>

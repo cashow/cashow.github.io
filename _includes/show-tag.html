@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	curTag = getUrlParam("tag");
+	var dataStr = '{ {% for tag in site.tags %}{% if tag[0] != site.tags.first[0] %},{% endif %}"{{ tag[0] }}":[{% for post in tag[1] %}{% if post != tag[1].first %},{% endif %}{"url":"{{post.url}}", "title":"{{post.title}}", "date":"{{post.date | date:"%d/%m/%Y"}}"}{% endfor %}]{% endfor %} }';
+	data = JSON.parse(dataStr);
+	archieves = "<ul class='posts'>";
+	$.each(data[curTag],function(i, item){
+    	archieves += "<li><h4><a href='"+item.url+"'>"+item.title+"</a></h4></li>";
+	});
+	archieves +="</ul>";
+    $("#show-tag").html(archieves);
+
+    function getUrlParam(name) {
+    	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    	var r = window.location.search.substr(1).match(reg);
+    	if (r != null) return decodeURI(r[2]); return null;
+    }
+</script>

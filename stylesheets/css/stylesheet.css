@@ -156,3 +156,10 @@ body {
   margin-left:10px;
   margin-right:10px;
 }
+
+.label-tags{
+  color:#999;
+  font-size:12px;
+  background: #EEE;
+  font-weight:normal;
+}
