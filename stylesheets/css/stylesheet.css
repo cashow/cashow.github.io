@@ -134,6 +134,14 @@ a:visited{
   border: 1px solid #CFCFCF;
 }
 
+.post a{
+  color:#008FFF;
+}
+
+.post a:visited{
+  color:#F15959;
+}
+
 ::selection {
     background:#d3d3d3; 
 }

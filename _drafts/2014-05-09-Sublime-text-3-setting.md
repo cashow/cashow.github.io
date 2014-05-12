@@ -29,10 +29,10 @@ Default(windows).sublime-keymap文件（Preferences -> Key Bindings - User）：
 </pre>
 
 <h4>插件：</h4>
-Emmet(原名zen coding)
-Trimmer
-git
-livereload
-ColorPicker
-JsFormat
-ConvertToUTF8
+[Emmet](http://docs.emmet.io/) (原名zen coding)  
+[Trimmer](http://jonlabelle.github.io/Trimmer/)  
+[git](https://github.com/kemayo/sublime-text-git)  
+[livereload](https://sublime.wbond.net/packages/LiveReload)  
+[ColorPicker](http://weslly.github.io/ColorPicker/)  
+[JsFormat](https://github.com/jdc0589/JsFormat)  
+[ConvertToUTF8](https://github.com/seanliang/ConvertToUTF8)  
