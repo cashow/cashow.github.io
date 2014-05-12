@@ -54,4 +54,8 @@ tags: git 常用工具
       <td>git rm -r --cached a.txt</td>
       <td>在提交之前撤销本地的add操作</td>
    </tr>
+   <tr>
+      <td>git reset --hard</td>
+      <td>撤销本地修改</td>
+   </tr>
 </table>
