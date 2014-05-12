@@ -4,7 +4,7 @@ layout: default
 ---
 <h4>所有标签：</h4>
 <div id="tag_cloud">
-	{% for tag in site.tags %}<a class="label label-default label-tags" href="http://cashow.github.io/tags/?tag={{tag[0] | cgi}}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">{{ tag[0] }}</a>
+	{% for tag in site.tags %}<a class="label label-default label-tags" href="{{site.baseurl}}/tags/?tag={{tag[0] | cgi}}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">{{ tag[0] }}</a>
 	{% endfor %}
 </div>
 <hr/>

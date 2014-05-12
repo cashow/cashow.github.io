@@ -4,3 +4,4 @@ pygments: false
 encoding: utf-8
 excerpt_separator: "\n"
 permalink: /:title.html
+baseurl: "http://cashow.github.io"
