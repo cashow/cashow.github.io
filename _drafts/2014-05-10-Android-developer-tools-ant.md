@@ -1,6 +1,54 @@
 ---
 layout: post
-title: "Android开发工具 - ant"
-date: 2014-05-09 16:58:06
+title: "Android开发工具 - ant实现自动化编译"
+date: 2014-05-13 13:26:41
 tags: Android Android开发工具 ant
 ---
+
+ant下载地址：<http://ant.apache.org/bindownload.cgi>  
+安装好后在系统变量里添加变量ANT_HOME，值为ant的安装路径，再将%ANT_HOME%\bin添加到path变量里面  
+输入android list并回车，得到电脑上已经安装的sdk版本号，如下所示：  
+<pre>
+id: 3 or "android-17"
+	Name: Android 4.2.2
+	Type: Platform
+	API level: 17
+	...
+</pre>
+切换到需要编译的项目目录里，输入以下代码即可添加build.xml等ant的配置文件
+<pre>
+android update project --path . --target 3
+</pre>
+--path指定的是所要处理的路径，--target指定的是项目所依赖的sdk版本，填入android list里获取到的id即可  
+如果要生成签名包，需要在项目的根目录下加入ant.properties文件，文件内容如下：
+<pre>
+key.store=../keystore/ReleaseKey
+key.store.password=123456
+key.alias=release
+key.alias.password=123456
+</pre>
+key.store是密钥库文件的地址，key.store.password是密钥库文件的密码，key.alias是签名所使用的私钥，key.alias.password是私钥的密码  
+<hr/>
+以下是ant的常用命令：
+<table>
+   <tr>
+      <td>ant debug</td>
+      <td>生成debug包</td>
+   </tr>
+   <tr>
+      <td>ant release</td>
+      <td>生成签名的apk包</td>
+   </tr>
+   <tr>
+      <td>ant debug install</td>
+      <td>生成debug包并安装</td>
+   </tr>
+   <tr>
+      <td>ant release install</td>
+      <td>生成release包并安装</td>
+   </tr>
+   <tr>
+      <td>ant clean</td>
+      <td>清理项目，删除bin目录及gen目录，具体操作可见${sdk.dir}/tools/ant/build.xml里的clean部分</td>
+   </tr>
+</table>
