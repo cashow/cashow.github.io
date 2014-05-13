@@ -2,7 +2,7 @@
 layout: post
 title: "Android开发工具 - aapt"
 date: 2014-05-13 11:42:02
-tags: Android AndroidTools aapt
+tags: Android Android开发工具 aapt
 ---
 
 aapt常用的命令如下：  
