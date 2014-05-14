@@ -41,8 +41,7 @@ aapt d badging 123.apk |grep versionName |awk '{print $4}' | awk -F[\'] '{print 
 </pre>
 获取123.apk的launchable-activity：
 <pre>
-launchActivity=`aapt d badging 123.apk | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'`
-echo $launchActivity
+aapt d badging 123.apk | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'
 </pre>
 通过以上脚本可实现安装并运行apk的功能：
 <pre>
