@@ -29,41 +29,29 @@ tags: Android Android开发工具 aapt
 ####aapt的应用
 获取123.apk的packagename：
 <pre>
-packageName=`aapt d badging 123.apk | grep package`
-packageName=${packageName#*"'"}
-packageName=${packageName%%"'"*}
+packageName=`aapt d badging 123.apk |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'`
 echo $packageName
 </pre>
 获取123.apk的versionCode：
 <pre>
-versionCode=`aapt d badging 123.apk | grep package`
-versionCode=${versionCode#*"versionCode='"}
-versionCode=${versionCode%%"'"*}
+versionCode=`aapt d badging 123.apk |grep versionCode |awk '{print $3}' | awk -F[\'] '{print $2}'`
 echo $versionCode
 </pre>
 获取123.apk的versionName：
 <pre>
-versionName=`aapt d badging 123.apk | grep package`
-versionName=${versionName#*"versionName='"}
-versionName=${versionName%%"'"*}
+versionName=`aapt d badging 123.apk |grep versionName |awk '{print $4}' | awk -F[\'] '{print $2}'`
 echo $versionName
 </pre>
 获取123.apk的launchable-activity：
 <pre>
-launchActivity=`aapt d badging 123.apk | grep launchable-activity`
-launchActivity=${launchActivity#*"name='"}
-launchActivity=${launchActivity%%"'"*}
+launchActivity=`aapt d badging 123.apk | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'`
 echo $launchActivity
 </pre>
 通过以上脚本可实现安装并运行apk的功能：
 <pre>
 filename='123.apk'
-packageName=`aapt d badging $filename | grep package`
-packageName=${packageName#*"'"}
-packageName=${packageName%%"'"*}
-launchActivity=`aapt d badging $filename | grep launchable-activity`
-launchActivity=${launchActivity#*"name='"}
-launchActivity=${launchActivity%%"'"*}
+packageName=`aapt d badging $filename |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'`
+launchActivity=`aapt d badging $filename | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'`
 adb install -r $filename
 adb shell am start -n $packageName/$launchActivity
 </pre>
