@@ -121,6 +121,11 @@ pre{
   font-size: 14px;
 }
 
+code{
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  font-size: 14px;
+}
+
 a:link{
   color:#555;
 }
@@ -165,6 +170,10 @@ body {
 .post{
   margin-left:10px;
   margin-right:10px;
+}
+
+.post h4{
+  font-weight:bold;
 }
 
 .label-tags{

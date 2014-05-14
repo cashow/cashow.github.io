@@ -5,6 +5,7 @@ date: 2014-05-13 15:05:18
 tags: Android Android开发工具 ant
 ---
 
+####ant的安装和使用
 ant下载地址：<http://ant.apache.org/bindownload.cgi>  
 安装好后在系统变量里添加变量ANT_HOME，值为ant的安装路径，再将%ANT_HOME%\bin添加到path变量里面  
 输入android list并回车，得到电脑上已经安装的sdk版本号，如下所示：  
@@ -28,8 +29,8 @@ key.alias=release
 key.alias.password=123456
 </pre>
 key.store是密钥库文件的地址，key.store.password是密钥库文件的密码，key.alias是签名所使用的私钥，key.alias.password是私钥的密码  
-<hr/>
-以下是ant的常用命令：
+******
+####ant的常用命令：
 <table>
    <tr>
       <td>ant debug</td>

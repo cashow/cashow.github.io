@@ -390,7 +390,7 @@ tags: vim 常用工具
    </tr>
 </table>
 
-ClosePair的定义：
+ClosePair的定义：  
 <pre>
 function ClosePair(char)
 if getline('.')[col('.') - 1] == a:char

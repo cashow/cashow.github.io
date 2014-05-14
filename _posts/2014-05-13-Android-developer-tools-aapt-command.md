@@ -5,7 +5,7 @@ date: 2014-05-13 11:42:02
 tags: Android Android开发工具 aapt
 ---
 
-aapt常用的命令如下：  
+####aapt常用命令  
 
 <table>
    <tr>
@@ -25,7 +25,8 @@ aapt常用的命令如下：
       <td>列出123.apk里的资源文件并将输出的信息存到apkinfo.txt文件</td>
    </tr>
 </table>
-<br/>
+******
+####aapt的应用
 获取123.apk的packagename：
 <pre>
 packageName=`aapt d badging 123.apk | grep package`
@@ -66,8 +67,8 @@ launchActivity=${launchActivity%%"'"*}
 adb install -r $filename
 adb shell am start -n $packageName/$launchActivity
 </pre>
-<hr/>
-以下是aapt的官方说明：
+******
+####aapt的部分官方说明：
 <pre>
  aapt d[ump] [--values] WHAT file.{apk} [asset [asset ...]]
    badging          Print the label and icon for the app declared in APK.
