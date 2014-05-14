@@ -377,10 +377,6 @@ tags: vim 常用工具
       <td>将vim的默认缓冲挂到Windows的剪贴版上。这样按y和p键就可以直接实现“复制”和“粘贴”的功能。</td>
    </tr>
    <tr>
-      <td>au FileType php setlocal dict+=$VIMRUNTIME/php_funclist.txt</td>
-      <td>为php文件加入php_funclist.txt的字典，用于自动补全代码</td>
-   </tr>
-   <tr>
       <td>:inoremap ( ()&#60;ESC&#62;i</td>
       <td>输入左括号"("时自动补上右括号，"()&#60;ESC&#62;i"表示在输入"("时改成"()"并按ESC键，再按i键进行插入，这时光标会在括号里面</td>
    </tr>
@@ -390,6 +386,12 @@ tags: vim 常用工具
    </tr>
 </table>
 
+<table>
+   <tr>
+      <td>au FileType php setlocal dict+=$VIMRUNTIME/php_funclist.txt</td>
+      <td>为php文件加入php_funclist.txt的字典，用于自动补全代码</td>
+   </tr>
+</table>
 ClosePair的定义：  
 <pre>
 function ClosePair(char)
