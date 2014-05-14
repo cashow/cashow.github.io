@@ -173,3 +173,7 @@ body {
   background: #EEE;
   font-weight:normal;
 }
+
+tr td:first-child{
+  white-space: nowrap;
+}
