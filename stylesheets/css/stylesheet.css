@@ -186,3 +186,9 @@ body {
 tr td:first-child{
   white-space: nowrap;
 }
+
+tr td{
+  padding-top:4px;
+  padding-bottom:4px;
+  vertical-align:top;
+}
