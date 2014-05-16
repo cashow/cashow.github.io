@@ -192,3 +192,14 @@ tr td{
   padding-bottom:4px;
   vertical-align:top;
 }
+
+.homepage{
+  float: left;
+}
+
+.search{
+ float:right;
+ height:30px;
+ width:170px;
+ margin:10px 50px 10px 10px;
+}

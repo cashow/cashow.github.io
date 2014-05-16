@@ -17,7 +17,10 @@
   <div class="navbar navbar-default navbar-static-top shadowbox">
     <div class="navbar-inner">
       <div class="container">
-        <a class="navbar-brand" href="{{site.baseurl}}">cashow的博客</a>
+        <span class="homepage">
+          <a class="navbar-brand" href="{{site.baseurl}}">cashow的博客</a>
+        </span>
+        <input class="form-control search" placeholder="Search">
       </div>
     </div>
   </div>
@@ -28,6 +31,12 @@
         <section id="main_content">
           {{ content }}
         </section>
+
+        <section id="search_content" style="display:none;">
+          <h4>搜索结果</h4>
+          <hr/>
+          <div id="searchResult">搜索中...</div>
+        </section>
       </div>
     </div>
   </div>
@@ -36,8 +45,50 @@
   <script type="text/javascript">
     $("pre").addClass("prettyprint");
     prettyPrint();
-  </script>
-  <script>
+
+    var t = '';
+    $(".search").keyup(function(){
+      var search_text = $(".search").attr("value");
+      if(search_text === "Search" || search_text.length == 0){
+        $("#main_content").show();
+        $("#search_content").hide();
+      }
+      else{
+        $("#main_content").hide();
+        $("#search_content").show();
+        clearTimeout(t);
+        t = setTimeout("doSearch()",300);
+      }
+    });
+
+    function doSearch(){
+      $.ajax({
+        url: "/search.xml",
+        dataType: "xml",
+        success: function( xmlResponse ) {
+          var data = $( "article", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              url: $("url", this).text(),
+              tags: $("tags", this).text()
+            };
+          }).get();
+          search_text = $(".search").attr("value");
+          searchHtml = "<ul class='posts'>";
+          $.each(data,function(index, post) {
+            if(findIgnoreCase(post.title,search_text) || findIgnoreCase(post.tags,search_text))
+              searchHtml += "<li><h4><a href='" + post.url + "'>" + post.title + "</a></h4></li>";
+          });
+          searchHtml += "</ul>";
+          $("#searchResult").html(searchHtml);
+        }
+      });
+    }
+
+    function findIgnoreCase(text1,text2){
+      return text1.toLowerCase().indexOf(text2.toLowerCase()) >= 0;
+    }
+
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
