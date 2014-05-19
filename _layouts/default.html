@@ -52,6 +52,7 @@
       if(search_text === "Search" || search_text.length == 0){
         $("#main_content").show();
         $("#search_content").hide();
+        $("#searchResult").html("<div style='text-align:center;padding-bottom:20px'>搜索中...</div>");
       }
       else{
         $("#main_content").hide();
@@ -59,6 +60,10 @@
         clearTimeout(t);
         t = setTimeout("doSearch()",300);
       }
+    });
+
+    $(".search").blur(function(){
+      $("#searchResult").html("<div style='text-align:center;padding-bottom:20px'>搜索中...</div>");
     });
 
     function doSearch(){
