@@ -62,10 +62,6 @@
       }
     });
 
-    $(".search").blur(function(){
-      $("#searchResult").html("<div style='text-align:center;padding-bottom:20px'>搜索中...</div>");
-    });
-
     function doSearch(){
       $.ajax({
         url: "/search.xml",

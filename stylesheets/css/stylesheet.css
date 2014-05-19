@@ -211,3 +211,8 @@ tr td{
  width:170px;
  margin:10px 50px 10px 10px;
 }
+
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
