@@ -121,6 +121,14 @@ pre{
   font-size: 14px;
 }
 
+pre { 
+  display: block;
+  background-color: #444 ;
+  color: #fff;
+  padding: 20px;
+  border: 1px solid #888 ;
+}
+
 code{
   font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
   font-size: 14px;

@@ -28,23 +28,23 @@ tags: Android Android开发工具 aapt
 ******
 ####aapt的应用
 获取123.apk的packagename：
-<pre>
+<pre class="prettyprint">
 aapt d badging 123.apk |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'
 </pre>
 获取123.apk的versionCode：
-<pre>
+<pre class="prettyprint">
 aapt d badging 123.apk |grep versionCode |awk '{print $3}' | awk -F[\'] '{print $2}'
 </pre>
 获取123.apk的versionName：
-<pre>
+<pre class="prettyprint">
 aapt d badging 123.apk |grep versionName |awk '{print $4}' | awk -F[\'] '{print $2}'
 </pre>
 获取123.apk的launchable-activity：
-<pre>
+<pre class="prettyprint">
 aapt d badging 123.apk | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'
 </pre>
 通过以上脚本可实现安装并运行apk的功能：
-<pre>
+<pre class="prettyprint">
 filename='123.apk'
 packageName=`aapt d badging $filename |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'`
 launchActivity=`aapt d badging $filename | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'`

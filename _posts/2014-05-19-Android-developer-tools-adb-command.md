@@ -62,7 +62,7 @@ List of devices attached
 16.adb shell am kill com.example.test  
 杀死和包名为com.example.test的应用进程  
 
-17.adb shell am kill-all
+17.adb shell am kill-all  
 杀死所有的后台进程
 
 18.adb shell pm list packages  
