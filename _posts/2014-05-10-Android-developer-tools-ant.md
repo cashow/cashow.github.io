@@ -42,11 +42,11 @@ key.store是密钥库文件的地址，key.store.password是密钥库文件的�
    </tr>
    <tr>
       <td>ant debug install</td>
-      <td>生成debug包并安装</td>
+      <td>生成debug包并安装在手机上</td>
    </tr>
    <tr>
       <td>ant release install</td>
-      <td>生成release包并安装</td>
+      <td>生成release包并安装在手机上</td>
    </tr>
    <tr>
       <td>ant clean</td>

@@ -10,8 +10,8 @@ tags: Android Android开发工具 apktool
 下载好apktool后，将apktool的路径加到环境变量里，即可对apk包进行反编译和重新编译  
 <table>
    <tr>
-      <td>apktool d 123.apk aaa</td>
-      <td>把123.apk进行反编译并把反编译后的文件放在aaa文件夹里</td>
+      <td>apktool d helloWorld.apk aaa</td>
+      <td>把helloWorld.apk进行反编译并把反编译后的文件放在aaa文件夹里</td>
    </tr>
    <tr>
       <td>apktool b aaa</td>

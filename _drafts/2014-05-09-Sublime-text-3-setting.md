@@ -13,19 +13,25 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 <pre>
 Preferences.sublime-settings文件（Preferences -> Settings - User）：
 {
-   "color_scheme": "Packages/Theme - Flatland/Flatland Monokai.tmTheme",      //设置配色方案为Flatland Monokai
-   "font_face": "YaHei Consolas Hybrid",                                      //设置字体为YaHei Consolas Hybrid
-   "font_size": 13,                                                           //设置字体大小为13
-   "ignored_packages":[],                                                     //开启vi模式，在插入状态下按ESC即可进入
-   "theme": "Flatland Dark.sublime-theme",                                    //设置主题为Flatland Dark
-   "word_wrap": true                                                          //开启自动换行
+   //设置配色方案为Flatland Monokai
+   "color_scheme": "Packages/Theme - Flatland/Flatland Monokai.tmTheme",
+   //设置字体为YaHei Consolas Hybrid
+   "font_face": "YaHei Consolas Hybrid",
+   //设置字体大小为13
+   "font_size": 13,
+   //开启vi模式，在插入状态下按ESC即可进入
+   "ignored_packages":[],
+   //设置主题为Flatland Dark
+   "theme": "Flatland Dark.sublime-theme",
+   //开启自动换行
+   "word_wrap": true
 }
 
 Default(windows).sublime-keymap文件（Preferences -> Key Bindings - User）：
 [
-    { "keys": ["ctrl+alt+f"], "command": "reindent"}                          //将reindent的快捷键设置成ctrl+alt+f
+	//将reindent的快捷键设置成ctrl+alt+f
+	{ "keys": ["ctrl+alt+f"], "command": "reindent"}
 ]
-
 </pre>
 
 <h4>插件：</h4>
