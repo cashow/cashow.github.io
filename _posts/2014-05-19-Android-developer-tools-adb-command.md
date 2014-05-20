@@ -51,16 +51,16 @@ List of devices attached
 进入shell模式，可在手机里执行shell命令  
 
 13.adb shell shellCommand  
-在手机里执行shellCommand指令，如adb shell ls  
+不进入shell模式，在手机里执行shellCommand指令，如adb shell ls  
 
 14.adb shell am start -n com.example.test/.Helloworld  
-启动包名为com.example.test的应用的入口activity即com.example.test.Helloworld  
+启动包名为com.example.test的应用入口activity即com.example.test.Helloworld  
 
 15.adb shell am force-stop com.example.test  
 强制关闭包名为com.example.test的应用
 
 16.adb shell am kill com.example.test  
-杀死和包名为com.example.test的应用进程  
+杀死包名为com.example.test的应用进程  
 
 17.adb shell am kill-all  
 杀死所有的后台进程
@@ -69,7 +69,7 @@ List of devices attached
 列出设备上安装的所有应用的包名  
 -f 可显示应用对应的文件  
 -d 只显示被禁用的应用  
--e 只显示可用的应用  
+-e 只显示启用的应用  
 -s 只显示系统应用  
 -3 只显示第三方应用  
 -i 显示应用安装的方式
@@ -90,9 +90,9 @@ List of devices attached
 禁用应用com.example.test  
 
 24.adb shell pm get-install-location  
-查看系统默认的安装方式，0 [auto]是系统自动决定安装位置，1 [internal]是安装在系统内部存储空间，2 [external]是安装在外置存储卡  
+查看系统默认的安装方式，0 [auto]是系统自动决定安装位置，1 [internal]是安装在系统内部存储空间，2 [external]是安装在外置存储卡上  
 
-25.adb shell screenrecord /sdcard/demo.mp4
+25.adb shell screenrecord /sdcard/demo.mp4  
 录制屏幕并保存为demo.mp4。该功能只能在Android 4.4(API level 19)或更高的版本运行。按Ctrl-C停止录制，否则在3分钟后自动停止录制。可通过--time-limit 30设置录制时间为30秒。  
 <hr/>
 有时手机已经连上电脑，但adb显示"failed to start daemon"，可通过下面的方法解决：  
