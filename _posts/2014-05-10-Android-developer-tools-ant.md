@@ -8,7 +8,7 @@ tags: Android Android开发工具 ant
 ####ant的安装和使用
 ant下载地址：<http://ant.apache.org/bindownload.cgi>  
 安装好后在系统变量里添加变量ANT_HOME，值为ant的安装路径，再将%ANT_HOME%\bin添加到path变量里面  
-输入android list并回车，得到电脑上已经安装的sdk版本号，如下所示：  
+输入android list并回车，得到电脑上已经安装的sdk版本号和AVD设备，如下所示：  
 <pre>
 id: 3 or "android-17"
 	Name: Android 4.2.2
@@ -18,9 +18,9 @@ id: 3 or "android-17"
 </pre>
 切换到需要编译的项目目录里，输入以下代码即可添加build.xml等ant的配置文件
 <pre>
-android update project --path . --target 3
+android update project -p . -t 3
 </pre>
---path指定的是所要处理的路径，--target指定的是项目所依赖的sdk版本，填入android list里获取到的id即可  
+-p指定的是所要处理的路径，-t指定的是项目所依赖的sdk版本，填入android list里获取到的id即可  
 如果要生成签名包，需要在项目的根目录下加入ant.properties文件，文件内容如下：
 <pre>
 key.store=../keystore/ReleaseKey
