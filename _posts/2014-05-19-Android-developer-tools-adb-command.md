@@ -30,7 +30,7 @@ List of devices attached
 安装helloWorld.apk到手机上，如果手机里已经安装该应用，可加 -r 重新安装并保留应用的数据  
 
 6.adb uninstall com.example.test  
-卸载包名为com.example.test的应用  
+卸载包名为com.example.test的应用，可加 -k 在卸载时保留配置和缓存文件  
 
 7.adb logcat  
 显示logcat，可使用grep过滤log，如adb logcat | grep debug  
@@ -51,7 +51,7 @@ List of devices attached
 进入shell模式，可在手机里执行shell命令  
 
 13.adb shell shellCommand  
-不进入shell模式，在手机里执行shellCommand指令，如adb shell ls  
+不进入shell模式，直接执行shellCommand指令，如adb shell ls  
 
 14.adb shell am start -n com.example.test/.Helloworld  
 启动包名为com.example.test的应用入口activity即com.example.test.Helloworld  
