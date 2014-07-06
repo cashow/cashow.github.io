@@ -38,7 +38,7 @@ android指令的全局选项：
 -n 指定项目名称为helloworld，-t 指定SDK版本id为3，-k 指定生成项目的包名，-a 指定入口activity的名称为Helloworld，-p 指定生成项目的路径  
 
 10.android update project -p path  
-更新项目配置，可加 -l path指定项目依赖的库，加 -s 更新所有子文件夹的项目，加 -t 指定SDK版本  
+更新项目配置，可加 -l path指定项目依赖的库，加 -t 指定SDK版本  
 
 11.android create lib-project -n helloworld -t 3 -k com.example.test -p .  
 创建lib工程  
