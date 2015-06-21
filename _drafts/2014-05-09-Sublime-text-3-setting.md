@@ -15,8 +15,6 @@ Preferences.sublime-settings文件（Preferences -> Settings - User）：
 {
    //设置配色方案为Flatland Monokai
    "color_scheme": "Packages/Theme - Flatland/Flatland Monokai.tmTheme",
-   //设置字体为YaHei Consolas Hybrid
-   "font_face": "YaHei Consolas Hybrid",
    //设置字体大小为13
    "font_size": 13,
    //开启vi模式，在插入状态下按ESC即可进入

@@ -5,3 +5,5 @@ encoding: utf-8
 excerpt_separator: "\n"
 permalink: /:title.html
 baseurl: "http://cashow.github.io"
+paginate: 10
+paginate_path: "page:num"

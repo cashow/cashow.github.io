@@ -2,13 +2,6 @@ body {
   line-height: 1.5;
   background: #e7e7e7;
   color:#555;
-<<<<<<< HEAD
-  font-family:  "Microsoft YaHei", "Hiragino Sans GB",
-             "WenQuanYi Micro Hei", sans-serif;
-=======
-  font-family:  "Hiragino Sans GB", "Microsoft YaHei",
-  "WenQuanYi Micro Hei", sans-serif;
->>>>>>> 6b771b0743789f06c8ac98cae0de6a4007dce8a8
 }
 
 header {
