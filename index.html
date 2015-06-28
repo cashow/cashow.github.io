@@ -8,7 +8,7 @@ layout: default
 
     {% if post.banner_image %}
     <div class="banner-image">
-      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl |  }}" 
+      <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl |  }}" 
         title="{{ post.title }}">
       <img 
           src="{{ post.banner_image }}" 
@@ -18,7 +18,7 @@ layout: default
     {% endif %}
 
     <h2 class="post-title">
-      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl |  }}">
+      <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl |  }}">
         {{ post.title }}
       </a>
     </h2>
@@ -31,7 +31,7 @@ layout: default
 
     {{ post.excerpt }}
     </br>
-    <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl |  }}">
+    <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl |  }}">
       阅读全文 »
     </a>
   </article>
@@ -42,10 +42,10 @@ layout: default
 {% if paginator.total_pages > 1 %}
 <ul style="list-style: none;">
   {% if paginator.previous_page %}
-    <li><a class="mbtn" style="float:left;" href="{{ paginator.previous_page_path | prepend: site.baseurl | append: '/' | replace: '//', '/' }}">上一页</a></li>
+    <li><a class="mbtn" style="float:left;" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">上一页</a></li>
   {% endif %}
   {% if paginator.next_page %}
-    <li><a class="mbtn" style="float:right;" href="{{ paginator.next_page_path | prepend: site.baseurl | append: '/' | replace: '//', '/' }}">下一页</a></li>
+    <li><a class="mbtn" style="float:right;" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页</a></li>
   {% endif %}
 </ul>
 {% endif %}
@@ -54,7 +54,7 @@ layout: default
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "url": "{{ '' | prepend: site.baseurl | append: '/' }}"
+    "url": "{{ prepend: site.baseurl }}"
     }
 }
 </script>
