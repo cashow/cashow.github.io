@@ -1,11 +1,11 @@
 # Site settings
 title: cashow的博客
 email: wy89767@163.com
-baseurl: ""
+baseurl: "http://cashow.github.io"
 author_thumbnail: /assets/images/avatar.png
 encoding: utf-8
 excerpt_separator: "\n"
-url: "http://cashow.github.io" # the base hostname & protocol for your site
+url: "" # the base hostname & protocol for your site
 logourl: /assets/images/logo.png # Site logo
 theme:
   # Color for sidebar bar, links, etc
