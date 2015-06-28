@@ -42,10 +42,10 @@ layout: default
 {% if paginator.total_pages > 1 %}
 <ul style="list-style: none;">
   {% if paginator.previous_page %}
-    <li><a class="mbtn" style="float:left;" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">上一页</a></li>
+    <li><a class="mbtn" style="float:left;" href="{{ paginator.previous_page_path }}">上一页</a></li>
   {% endif %}
   {% if paginator.next_page %}
-    <li><a class="mbtn" style="float:right;" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页</a></li>
+    <li><a class="mbtn" style="float:right;" href="{{ paginator.next_page_path }}">下一页</a></li>
   {% endif %}
 </ul>
 {% endif %}
