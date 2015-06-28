@@ -20,12 +20,12 @@
     _config.yml given by Google web-master tools.
     {% endcomment %}
 
-    <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | prepend: site.baseurl }}">
+    <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}">
     <link rel="prefetch" href="{{ site.url }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
     <link rel="stylesheet" 
-    href="{{ '/assets/css/main.css' | prepend: site.baseurl | prepend: site.url }}">
+    href="{{ '/assets/css/main.css' | prepend: site.baseurl }}">
 
     <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/prettify.css" media="screen">
     <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/desert.css" media="screen">
@@ -47,7 +47,7 @@
         <div class="container">
           <div class="header-logo">{% include logo.html %}</div>
           <div class="header-title">
-            <a href="{{ '' | prepend: site.baseurl | prepend: site.url | append: '/' }}" 
+            <a href="{{ '' | prepend: site.baseurl | append: '/' }}" 
               title="{{ site.title }}"> 
               <h3>{{ site.title }}</h3>
             </a>
@@ -125,7 +125,7 @@
       ga('send', 'pageview');
 
       var config = {
-        "browser_warning_page": "{{ '/browser-warning/' | prepend: site.baseurl | prepend: site.url }}",
+        "browser_warning_page": "{{ '/browser-warning/' | prepend: site.baseurl }}",
         "disqus_shortname": "{{ site.theme.disqus_shortname }}"
       };
       /* Browser support detection */
@@ -140,7 +140,7 @@
       }());
 
       if (browserSupport){
-        window.location="{{ '/browser-warning/' | prepend: site.baseurl | prepend: site.url }}";
+        window.location="{{ '/browser-warning/' | prepend: site.baseurl }}";
       }
 
       /* To avoid render blocking css */
@@ -155,6 +155,6 @@
       else window.addEventListener('load', cb);
 
     </script>
-    <script async type="text/javascript" src="{{ '/assets/js/gaya.min.js' | prepend: site.baseurl | prepend: site.url }}"></script>
+    <script async type="text/javascript" src="{{ '/assets/js/gaya.min.js' | prepend: site.baseurl }}"></script>
   </body>
 </html>

@@ -1,9 +1,9 @@
 {% capture logo %}
 {% if site.logourl && site.logourl != '' %}
-<a href="{{ '' | prepend: site.baseurl | prepend: site.url | append: '/' }}" 
+<a href="{{ '' | prepend: site.baseurl | append: '/' }}" 
   title="{{ site.title }}">
   <img 
-    src="{{ site.logourl | prepend: site.baseurl | prepend: site.url }}"
+    src="{{ site.logourl | prepend: site.baseurl }}"
     alt="{{ site.title }}" />
 </a>
 {% endif %}

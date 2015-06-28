@@ -8,7 +8,7 @@ layout: default
 
     {% if post.banner_image %}
     <div class="banner-image">
-      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl | prepend: site.url |  }}" 
+      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl |  }}" 
         title="{{ post.title }}">
       <img 
           src="{{ post.banner_image }}" 
@@ -18,7 +18,7 @@ layout: default
     {% endif %}
 
     <h2 class="post-title">
-      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl | prepend: site.url |  }}">
+      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl |  }}">
         {{ post.title }}
       </a>
     </h2>
@@ -31,7 +31,7 @@ layout: default
 
     {{ post.excerpt }}
     </br>
-    <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl | prepend: site.url |  }}">
+    <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl |  }}">
       阅读全文 »
     </a>
   </article>
@@ -54,7 +54,7 @@ layout: default
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "url": "{{ '' | prepend: site.baseurl | prepend: site.url | append: '/' }}"
+    "url": "{{ '' | prepend: site.baseurl | append: '/' }}"
     }
 }
 </script>

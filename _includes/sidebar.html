@@ -5,7 +5,7 @@
 
   {% if site.author_thumbnail && site.author_thumbnail != '' %}
   <img 
-    src="{{ site.author_thumbnail | prepend: site.baseurl | prepend: site.url }}"
+    src="{{ site.author_thumbnail | prepend: site.baseurl }}"
     alt="{{ site.title }}" />
 
   {% endif %}
@@ -21,17 +21,17 @@
   <nav class="sidebar-nav">
 
     <a class="sidebar-nav-item" 
-      href="{{ '' | prepend: site.baseurl | prepend: site.url | append: '/' }}"> 
+      href="{{ '' | prepend: site.baseurl | append: '/' }}"> 
       主页
     </a>
 
     <a class="sidebar-nav-item" 
-      href="{{ '/about' | prepend: site.baseurl | prepend: site.url | append: '/' }}"> 
+      href="{{ '/about' | prepend: site.baseurl | append: '/' }}"> 
       关于
     </a>
 
     <a class="sidebar-nav-item" 
-      href="{{ '/copyright' | prepend: site.baseurl | prepend: site.url | append: '/' }}"> 
+      href="{{ '/copyright' | prepend: site.baseurl | append: '/' }}"> 
       版权声明
     </a>
 
@@ -42,7 +42,7 @@
     </a>
 
     <a title="Subscribe via RSS" 
-        href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}"
+        href="{{ '/feed.xml' | prepend: site.baseurl }}"
         class="sidebar-nav-item" target="_blank">
         RSS
     </a>

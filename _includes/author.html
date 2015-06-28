@@ -1,15 +1,15 @@
 {% capture author_info %}
 <div class="author">
  {% if site.author_thumbnail && site.author_thumbnail != '' %}
-  <a href="{{ '/about' | prepend: site.baseurl | prepend: site.url }}">
+  <a href="{{ '/about' | prepend: site.baseurl }}">
     <img 
-      src="{{ '/assets/images/avatar.jpg' | prepend: site.baseurl | prepend: site.url }}"
+      src="{{ '/assets/images/avatar.jpg' | prepend: site.baseurl }}"
       alt="{{ site.title }}" width="60" height="60" />
   </a>
   {% endif %}
   <h5>Author</h4>
   <h6>
-    <a href="{{ '/about' | prepend: site.baseurl | prepend: site.url }}">
+    <a href="{{ '/about' | prepend: site.baseurl }}">
       {{ site.author }}
     </a>
   </h5>
