@@ -5,6 +5,7 @@ date: 2014-05-09 16:32:08
 tags: git 常用工具
 ---
 
+以下是git常用的指令
 <table>
    <tr>
       <td>git init</td>
@@ -40,7 +41,7 @@ tags: git 常用工具
    </tr>
    <tr>
       <td>git checkout master</td>
-      <td>切换回主分支</td>
+      <td>切换到master分支</td>
    </tr>
    <tr>
       <td>git pull</td>

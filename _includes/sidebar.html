@@ -1,0 +1,61 @@
+{% capture sidebar %}
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<div class="sidebar" id="sidebar">
+
+  {% if site.author_thumbnail && site.author_thumbnail != '' %}
+  <img 
+    src="{{ site.author_thumbnail | prepend: site.baseurl | prepend: site.url }}"
+    alt="{{ site.title }}" />
+
+  {% endif %}
+
+  <div class="sidebar-info">
+      <p>
+        android工程师，ACMer
+        </br>
+        google 粉，电影迷
+      </p>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <a class="sidebar-nav-item" 
+      href="{{ '' | prepend: site.baseurl | prepend: site.url | append: '/' }}"> 
+      主页
+    </a>
+
+    <a class="sidebar-nav-item" 
+      href="{{ '/about' | prepend: site.baseurl | prepend: site.url | append: '/' }}"> 
+      关于
+    </a>
+
+    <a class="sidebar-nav-item" 
+      href="{{ '/copyright' | prepend: site.baseurl | prepend: site.url | append: '/' }}"> 
+      版权声明
+    </a>
+
+    <a class="sidebar-nav-item" 
+      href="http://github.com/{{ site.theme.social.github }}"
+      target="_blank">
+      GitHub
+    </a>
+
+    <a title="Subscribe via RSS" 
+        href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}"
+        class="sidebar-nav-item" target="_blank">
+        RSS
+    </a>
+
+  </nav>
+
+  <div class="sidebar-info small">
+     <p>
+       Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>
+     </p>
+     <p>
+       模板：<a href="https://github.com/gayanvirajith/gaya" target="_blank">gaya</a>
+     </p>
+  </div>
+</div>
+{% endcapture %}{{ sidebar | strip_newlines }}

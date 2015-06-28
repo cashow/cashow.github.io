@@ -5,6 +5,9 @@ date: 2014-05-13 11:42:02
 tags: Android Android开发工具 aapt
 ---
 
+aapt即Android Asset Packaging Tool , 可用来获取apk的基本信息如packagename、versionCode、versionName等  
+aapt一般在build-tools文件夹的android-xx文件夹里
+***
 ####aapt常用命令  
 
 <table>

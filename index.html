@@ -1,36 +1,60 @@
 ---
 layout: default
-title: cashow的博客
 ---
 
-<h4>博客列表</h4>
-<hr/>
-<ul class="posts">
-	{% for post in paginator.posts %}
-	<li>
-		<h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
-	</li>
-	{% endfor %}
-</ul>
-<ul class="pager">
+<div class="posts">
+  {% for post in paginator.posts %}
+  <article class="post">
+
+    {% if post.banner_image %}
+    <div class="banner-image">
+      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl | prepend: site.url |  }}" 
+        title="{{ post.title }}">
+      <img 
+          src="{{ "/assets/images/" | append: post.banner_image | prepend: site.baseurl | prepend: site.url }}" 
+          alt="{% if post.banner_image_alt %}{{ post.banner_image_alt }}{% else %}{{ post.title }} {% endif %}">
+      </a>
+    </div>
+    {% endif %}
+
+    <h2 class="post-title">
+      <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl | prepend: site.url |  }}">
+        {{ post.title }}
+      </a>
+    </h2>
+
+    <p class="post-meta">
+    <span class="post-date">
+    {{ post.date | date: "%Y年%m月%d日" }}
+    </span>
+    </p>
+
+    {{ post.excerpt }}
+    </br>
+    <a href="{{ post.url | append: '/' | replace: '//', '/' | prepend: site.baseurl | prepend: site.url |  }}">
+      阅读全文 »
+    </a>
+  </article>
+  {% endfor %}
+  <!-- </br> -->
+</div>
+
 {% if paginator.total_pages > 1 %}
-	{% if paginator.previous_page %}
-	  	<li class="previous"><a href="{{paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">上一页</a></li>
-	{% endif %}
-
-	{% for page in (1..paginator.total_pages) %}
-	    {% if page == paginator.page %}
-	    	<span class="active">{{ page }}</span>
-	    {% elsif page == 1 %}
-	    	<a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
-	    {% else %}
-	    	<a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-	    {% endif %}
-	{% endfor %}
-
-	{% if paginator.next_page %}
-  		<li class="next"><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页</a></li>
-	{% endif %}
-
-{% endif %}
+<ul style="list-style: none;">
+  {% if paginator.previous_page %}
+    <li><a class="mbtn" style="float:left;" href="{{ paginator.previous_page_path | prepend: site.baseurl | append: '/' | replace: '//', '/' }}">上一页</a></li>
+  {% endif %}
+  {% if paginator.next_page %}
+    <li><a class="mbtn" style="float:right;" href="{{ paginator.next_page_path | prepend: site.baseurl | append: '/' | replace: '//', '/' }}">下一页</a></li>
+  {% endif %}
 </ul>
+{% endif %}
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "{{ '' | prepend: site.baseurl | prepend: site.url | append: '/' }}"
+    }
+}
+</script>

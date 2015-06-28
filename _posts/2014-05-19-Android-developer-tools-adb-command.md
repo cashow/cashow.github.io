@@ -5,7 +5,7 @@ date: 2014-05-19 17:37:14
 tags: Android Android开发工具 adb
 ---
 
-官方文档：<http://developer.android.com/tools/help/adb.html>
+adb指令可以用来与手机设备或者虚拟机进行通信，获取手机信息，安装和卸载apk，传送文件，在手机里调用shell指令，启动和关闭应用等
 
 1.adb devices  
 显示已连接的设备，如下所示：  
@@ -15,7 +15,8 @@ List of devices attached
 </pre>
 其中6e070d91是设备的id，device是设备的状态。  
 设备状态有3种：offline表示设备离线，device表示设备连接正常，no device表示没有设备连接  
-如果有多台手机连接到电脑，则需要用 -s 指定adb调用的手机，如adb -s 6e070d91 install helloWorld.apk  
+如果有多台手机连接到电脑，则需要用 -s 指定adb调用的手机，如  
+adb -s 6e070d91 install helloWorld.apk  
 
 2.adb get-serialno  
 获取手机序列号  
@@ -96,9 +97,14 @@ List of devices attached
 录制屏幕并保存为demo.mp4。该功能只能在Android 4.4(API level 19)或更高的版本运行。按Ctrl-C停止录制，否则在3分钟后自动停止录制。可通过--time-limit 30设置录制时间为30秒。  
 <hr/>
 有时手机已经连上电脑，但adb显示"failed to start daemon"，可通过下面的方法解决：  
-1.执行命令adb nodaemon server，出现提示cannot bind 'tcp:5037'，表示端口绑定失败  
+1.执行命令adb nodaemon server，出现提示cannot bind 'tcp:5037'，表示端口5037绑定失败  
 2.执行netstat -ano | findstr "5037"，查出正在使用5037端口的应用，结果如下：  
 <pre>
   TCP    127.0.0.1:5037         0.0.0.0:0              LISTENING       6676
 </pre>
 3.在任务管理器里杀死PID为6676的进程。如果任务管理器没有显示PID可在"查看 - 选择列"里选中PID。
+
+
+***
+官方文档：
+<http://developer.android.com/tools/help/adb.html>

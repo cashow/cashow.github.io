@@ -5,6 +5,7 @@ date: 2014-05-09 17:41:20
 tags: svn 常用工具
 ---
 
+以下是svn在linux下常用的指令：  
 1.将文件checkout到本地  
 svn checkout svn://192.168.1.1/pro/domain  
 2.添加文件进svn  

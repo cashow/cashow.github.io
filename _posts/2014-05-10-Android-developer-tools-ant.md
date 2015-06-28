@@ -5,7 +5,7 @@ date: 2014-05-13 15:05:18
 tags: Android Android开发工具 ant
 ---
 
-####ant的安装和使用
+ant可以用来在命令行里自动编译、打包android项目  
 ant下载地址：<http://ant.apache.org/bindownload.cgi>  
 安装好后在系统变量里添加变量ANT_HOME，值为ant的安装路径，再将%ANT_HOME%\bin添加到path变量里面  
 输入android list并回车，得到电脑上已经安装的sdk版本号和AVD设备，如下所示：  

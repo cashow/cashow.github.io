@@ -1,0 +1,79 @@
+
+.mbtn {
+  background: #fff;
+  padding: 20px 25px;
+  line-height: 5px;
+  position: relative;
+  margin: 0 0px 40px 0;
+  text-decoration: none;
+  letter-spacing: 1px;
+  display: inline-block;
+  border-bottom-width: 0px;
+
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+		   -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+		    -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+		     -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+		        box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+
+	-webkit-border-radius: .2em;
+ 	   -moz-border-radius: .2em;
+ 	    -ms-border-radius: .2em;
+ 	     -o-border-radius: .2em;
+ 	        border-radius: .2em;
+}
+
+.mbtn:hover, .mbtn:focus {
+  border-bottom-color: #fff;
+
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+       -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+        -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+         -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+}
+
+tr th{
+  text-align: left;
+  vertical-align:top;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+tr td:first-child{
+  white-space: nowrap;
+}
+
+tr th:first-child{
+  white-space: nowrap;
+}
+
+td{
+  vertical-align:top;
+  font-size: 18px;
+  line-height: 1.6;
+}
+a {
+  word-wrap: break-word;
+}
+
+pre{
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  font-size: 14px;
+}
+
+pre { 
+  display: block;
+  background-color: #444 ;
+  color: #fff;
+  padding: 20px;
+  border: 1px solid #888 ;
+  line-height: 1.5;
+  margin-bottom: 11px;
+  word-wrap: break-word;
+}
+
+code{
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  font-size: 14px;
+}
