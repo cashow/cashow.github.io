@@ -17,6 +17,10 @@ layout: default
       <span class="post-date">
       {{ page.date | date: "%Y年%m月%d日" }}
       </span>
+      <span style="margin-left:20px"></span>
+      {% for tag in page.tags %}
+        <a class="post-tags" href="{{site.baseurl}}/tags/?tag={{tag | cgi}}">{{ tag }}</a>
+      {% endfor %}
     </p>
   </header>
   <hr>
