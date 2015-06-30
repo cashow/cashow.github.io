@@ -9,27 +9,27 @@
   display: inline-block;
   border-bottom-width: 0px;
 
-	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
-		   -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
-		    -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
-		     -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
-		        box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+  -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+  -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
 
-	-webkit-border-radius: .2em;
- 	   -moz-border-radius: .2em;
- 	    -ms-border-radius: .2em;
- 	     -o-border-radius: .2em;
- 	        border-radius: .2em;
+  -webkit-border-radius: .2em;
+  -moz-border-radius: .2em;
+  -ms-border-radius: .2em;
+  -o-border-radius: .2em;
+  border-radius: .2em;
 }
 
 .mbtn:hover, .mbtn:focus {
   border-bottom-color: #fff;
 
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-       -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-        -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-         -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+  -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+  -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
 }
 
 tr th{
@@ -108,4 +108,30 @@ a.post-tags:focus, a.post-tags:hover {
 
 #tag_cloud{
   margin-top: 1.5rem;
+}
+
+.search{
+ float:right;
+ display: block;
+ vertical-align: middle;
+ margin-top: 10px;
+ margin-bottom: 12px;
+ padding: 6px 12px;
+ font-size: 14px;
+ line-height: 1.42857143;
+ color: rgb(85, 85, 85);
+ background-color: rgb(255, 255, 255);
+ background-image: none;
+ border: 1px solid rgb(204, 204, 204);
+ border-radius: 6px;
+
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+}
+.search:focus{
+  box-shadow: 0 0 8px #9ecaed;
+  border: 1px solid #9ecaed;
 }

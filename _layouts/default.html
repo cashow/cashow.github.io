@@ -46,21 +46,38 @@
     <div class="main-wrapper">
       <div class="header">
         <div class="container">
-          <div class="header-logo">{% include logo.html %}</div>
-          <div class="header-title">
-            <a href="{{ site.baseurl }}" 
-              title="{{ site.title }}"> 
-              <h3>{{ site.title }}</h3>
-            </a>
-          </div>        
+          <div style="float:left">
+            <div class="header-logo">{% include logo.html %}</div>
+            <div class="header-title">
+              <a href="{{ site.baseurl }}" 
+                title="{{ site.title }}"> 
+                <h3>{{ site.title }}</h3>
+              </a>
+            </div>
+          </div>
+          <input class="search" placeholder="Search">        
         </div>  
       </div>
       
-      <div class="container content">
-          {{ content }}
-      </div>
+        <section id="main_content">
+          <div class="container content">
+              {{ content }}
+          </div>
+        </section>
+
+        <section id="search_content" style="display:none;">
+          <div class="container content">
+            <div class="post">
+              <header class="post-header">
+                <h2 class="post-title">搜索结果</h2>
+              </header>
+              <hr/>
+              <div id="searchResult"><div style="text-align:center;padding-bottom:20px">搜索中...</div></div>
+            </div>
+          </div>
+        </section>
+
       <a href="#0" class="wc-top">Top</a>
-      
     </div>
 
     <label for="sidebar-checkbox" class="sidebar-toggle">
@@ -101,12 +118,18 @@
               };
             }).get();
             search_text = $(".search").attr("value");
+            var isSearchNull = true;
             searchHtml = "<ul class='posts'>";
             $.each(data,function(index, post) {
-              if(findIgnoreCase(post.title,search_text) || findIgnoreCase(post.tags,search_text))
+              if(findIgnoreCase(post.title,search_text) || findIgnoreCase(post.tags,search_text)){
                 searchHtml += "<li><h4><a href='" + post.url + "'>" + post.title + "</a></h4></li>";
+                isSearchNull = false;
+              }
             });
             searchHtml += "</ul>";
+            if(isSearchNull === true){
+              searchHtml = "<p>没有找到标题或标签包含 \"" + search_text + "\" 的文章</p>";
+            }
             $("#searchResult").html(searchHtml);
           }
         });
