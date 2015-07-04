@@ -1,7 +1,7 @@
 .mbtn {
   background: #fff;
   padding: 20px 25px;
-  line-height: 5px;
+  line-height: 1.5em;
   position: relative;
   margin: 0 0px 40px 0;
   text-decoration: none;
@@ -145,4 +145,11 @@ a.post-tags:focus, a.post-tags:hover {
   color: #5e5e5e;
   background-color: #fff;
   border-color: #bababa;
+}
+
+.previous-page{
+  max-width: 49%;
+}
+.next-page{
+  max-width: 49%;
 }

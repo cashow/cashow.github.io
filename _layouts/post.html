@@ -31,9 +31,9 @@ layout: default
 
 <ul style="list-style: none;">
   {% if page.previous %}
-    <li><a class="mbtn" style="float:left;" href="{{page.previous.url }}">&lt; {{page.previous.title}}</a></li>
+    <li><a class="mbtn previous-page" style="float:left;" href="{{page.previous.url }}">&lt; {{page.previous.title}}</a></li>
   {% endif %}
   {% if page.next %}
-    <li><a class="mbtn" style="float:right;" href="{{page.next.url }}">{{page.next.title}} &gt;</a></li>
+    <li><a class="mbtn next-page" style="float:right;" href="{{page.next.url }}">{{page.next.title}} &gt;</a></li>
   {% endif %}
 </ul>
