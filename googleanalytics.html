@@ -36,7 +36,7 @@ title: "GoogleAnalytics设置"
     return ""
   }
   function checkCookie(){
-    if(getCookie("google-analytics") === "true"){
+    if(getCookie("google-analytics") !== "false"){
       $("#google-analytics-div").html("<button class='google-analytics-button google-analytics-button-off'>关闭GoogleAnalytics</button>");
     }else{
       $("#google-analytics-div").html("<button class='google-analytics-button google-analytics-button-on'>打开GoogleAnalytics</button>");
