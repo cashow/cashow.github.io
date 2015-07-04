@@ -135,3 +135,14 @@ a.post-tags:focus, a.post-tags:hover {
   box-shadow: 0 0 8px #9ecaed;
   border: 1px solid #9ecaed;
 }
+
+.google-analytics-button{
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 20px;
+  color: #5e5e5e;
+  background-color: #fff;
+  border-color: #bababa;
+}
