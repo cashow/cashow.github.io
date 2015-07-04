@@ -187,7 +187,7 @@ img {
  */
 
 .container {
-  width: 90%;
+  width: 75%;
   max-width: $M; // See breakpoints in css/_sass/helpers/_layout.scss
   margin: 0 auto;
 
@@ -217,21 +217,11 @@ img {
   margin-bottom: 3rem;
   border-bottom: 1px solid $gray-lighter;
   width: 100%;
-  padding: 1em 0;  
+  padding: 1em 2rem 1em 2rem;  
   @include MQ(M){
     margin-bottom: 4rem;
     display: table;
     height: 50px;
-  }
-  
-  /* 
-   * Special media query hack for small tablet screen.
-   * Due to overlap of menu toggle and the logo.
-   */
-  @media (min-width: 768px) and (max-width: 991px) {
-    .container {
-      width: 75%;
-    }
   }
 }
 
@@ -245,6 +235,8 @@ img {
 .header .header-logo img {
   text-align: center;
   margin: 0 auto; 
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .header .header-logo a {
