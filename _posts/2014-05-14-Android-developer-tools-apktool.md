@@ -10,8 +10,8 @@ apktool是反编译apk的工具，通过apktool可以查看和修改apk里的文
 下载好apktool后，将apktool的路径加到环境变量里，即可对apk包进行反编译和重新编译  
 <table>
    <tr>
-      <td>apktool d helloWorld.apk aaa</td>
-      <td>把helloWorld.apk进行反编译并把反编译后的文件放在aaa文件夹里</td>
+      <td>apktool d helloWorld.apk</td>
+      <td>对helloWorld.apk进行反编译</td>
    </tr>
    <tr>
       <td>apktool b aaa</td>
