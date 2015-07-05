@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Git指令"
-date: 2014-05-09 16:32:08
+date: 2014-05-09 16:32:08 +0800
 tags: git 常用工具
 ---
 

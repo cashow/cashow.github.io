@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Vim笔记"
-date: 2014-05-09 10:41:05
+date: 2014-05-09 10:41:05 +0800
 tags: vim 常用工具
 ---
 

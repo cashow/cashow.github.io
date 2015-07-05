@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android开发工具 - ant实现自动化编译"
-date: 2014-05-13 15:05:18
+date: 2014-05-13 15:05:18 +0800
 tags: Android Android开发工具 ant
 ---
 

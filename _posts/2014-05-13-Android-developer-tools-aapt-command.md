@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android开发工具 - aapt获取apk信息"
-date: 2014-05-13 11:42:02
+date: 2014-05-13 11:42:02 +0800
 tags: Android Android开发工具 aapt
 ---
 

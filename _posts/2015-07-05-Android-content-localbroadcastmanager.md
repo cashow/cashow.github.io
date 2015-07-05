@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android组件 - 利用LocalBroadcastManager在应用内发送广播"
-date: 2015-07-05 19:45:14
+date: 2015-07-05 19:45:14 +0800
 tags: Android Android组件 Broadcast
 ---
 

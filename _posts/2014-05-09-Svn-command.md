@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Svn在linux下的指令"
-date: 2014-05-09 17:41:20
+date: 2014-05-09 17:41:20 +0800
 tags: svn 常用工具
 ---
 

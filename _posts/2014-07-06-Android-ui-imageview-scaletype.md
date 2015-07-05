@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android基础控件 - ImageView的ScaleType属性"
-date: 2014-07-06 22:21:41
+date: 2014-07-06 22:21:41 +0800
 tags: Android Android基础控件 ImageView
 ---
 
