@@ -31,23 +31,23 @@ aapt一般在build-tools文件夹的android-xx文件夹里
 ******
 ####aapt的应用
 获取123.apk的packagename：
-<pre class="prettyprint">
+<pre class="mCode">
 aapt d badging 123.apk |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'
 </pre>
 获取123.apk的versionCode：
-<pre class="prettyprint">
+<pre class="mCode">
 aapt d badging 123.apk |grep versionCode |awk '{print $3}' | awk -F[\'] '{print $2}'
 </pre>
 获取123.apk的versionName：
-<pre class="prettyprint">
+<pre class="mCode">
 aapt d badging 123.apk |grep versionName |awk '{print $4}' | awk -F[\'] '{print $2}'
 </pre>
 获取123.apk的launchable-activity：
-<pre class="prettyprint">
+<pre class="mCode">
 aapt d badging 123.apk | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'
 </pre>
 通过以上脚本可实现安装并运行apk的功能：
-<pre class="prettyprint">
+<pre class="mCode">
 filename='123.apk'
 packageName=`aapt d badging $filename |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'`
 launchActivity=`aapt d badging $filename | grep launchable-activity |awk '{print $2}' | awk -F[\'] '{print $2}'`
