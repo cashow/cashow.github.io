@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android动画效果 - 实现Listview下拉时图片缩放的功能"
-date: 2015-10-25 23:49:14 +0800
+date: 2015-10-26 23:05:23 +0800
 tags: Android Android动画效果 Listview
 ---
 
@@ -22,7 +22,7 @@ ListView顶部的用户信息栏分为两部分，一个是显示背景图片的
 ####缩放过程的处理：  
 1.如果不在缩放状态，并且listview已经滑动到顶部，这时进入缩放状态，记录下手指触摸的位置，作为初始点的位置；  
 2.在移动过程中，假如触摸点的高度大于初始点的高度，表示图片需要拉伸，这时进行拉伸操作并拦截触摸事件，否则不拦截触摸事件。通过对触摸事件的拦截，可以实现listview上滑的过程中，背景图片缩放状态先复位，然后listview再继续上移的效果；  
-3.手指抬起或者触摸点离开listview时，将缩放状态重置。  
+3.手指抬起或者触摸点离开listview时，如果处在缩放状态，拦截触摸事件并将背景图片重置到初始大小，否则不拦截触摸事件。  
 ***
 ###具体实现代码如下：  
 ####Activity的代码：  
@@ -47,18 +47,17 @@ public class MainActivity extends ActionBarActivity {
         adapter = new ListviewAdapter(this);
         listview.setAdapter(adapter);
 
+        // 加载背景图片
         init();
     }
 
     private void init() {
         Drawable drawable = getResources().getDrawable(R.drawable.listview_header_background);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-
         // 将图片缩放到宽度为640像素，避免占用太多内存
         int newWidth = 640;
         int newHeight = (int) (640 * bitmap.getHeight() * 1.0 / bitmap.getWidth());
         Bitmap avatarBitmap = getResizedBitmap(bitmap, newWidth, newHeight);
-
         adapter.setAvatarBitmap(avatarBitmap);
     }
 
@@ -156,33 +155,6 @@ public class ListviewAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        return 50;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0)
-            return 0;
-        return 1;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (getItemViewType(position) == 0) {
             if (headerView == null) {
@@ -224,7 +196,7 @@ public class ListviewAdapter extends BaseAdapter {
     private void updateImageBackground(final LinearLayout layout_info,
         final View view_placeholder, final ImageView image_background){
         isInit = true;
-        // image_background的宽度和高度要和layout_info的一样，
+        // image_background的宽度和高度要和layout_info保持一致，
         // 所以需要在获取到layout_info高度后设置image_background的高度
         final ViewTreeObserver viewTreeObserver =
                 layout_info.getViewTreeObserver();
@@ -277,15 +249,9 @@ public class ListviewAdapter extends BaseAdapter {
         this.nextRatio = 1.0 + zoomDiff / avatarOriHeight / ratio;
         this.nextRatio = Math.min(this.nextRatio, 2.0);
 
-        ImageView image_background = (ImageView)
-                headerView.findViewById(R.id.image_background);
-        View view_placeholder =
-                headerView.findViewById(R.id.view_placeholder);
-
         // currentRatio不等于zoomRatio表示需要修改图片的高度
         if (Math.abs(currentRatio - nextRatio) > 1e-6) {
-            zoomImage(image_background, view_placeholder, currentRatio,
-                    nextRatio, 10);
+            zoomImage(currentRatio, nextRatio, 10);
             currentRatio = nextRatio;
         }
     }
@@ -295,13 +261,7 @@ public class ListviewAdapter extends BaseAdapter {
     // 返回值是true表示需要拦截触摸事件，false表示不需要拦截
     public boolean resetZoom() {
         if (this.currentRatio != 1.0) {
-            ImageView image_background = (ImageView)
-                    headerView.findViewById(R.id.image_background);
-            View view_placeholder =
-                    headerView.findViewById(R.id.view_placeholder);
-
-            zoomImage(image_background, view_placeholder, currentRatio,
-                    1.0, 200);
+            zoomImage(currentRatio, 1.0, 200);
             currentRatio = 1.0;
             return true;
         }
@@ -309,40 +269,42 @@ public class ListviewAdapter extends BaseAdapter {
     }
 
     // 缩放图片，将图片的缩放比例从startRatio渐变到endRatio
-    private void zoomImage(final ImageView image_background,
-                           final View view_placeholder,
-                           final double startRatio,
+    private void zoomImage(final double startRatio,
                            final double endRatio,
                            long time) {
+        final ImageView image_background = (ImageView)
+                headerView.findViewById(R.id.image_background);
+        final View view_placeholder =
+                headerView.findViewById(R.id.view_placeholder);
+
         ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 100);
         valueAnimator.addUpdateListener(
             new ValueAnimator.AnimatorUpdateListener() {
+                private IntEvaluator mEvaluator = new IntEvaluator();
 
-            private IntEvaluator mEvaluator = new IntEvaluator();
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+                    //获得当前动画的进度值，整型，1-100之间
+                    int currentValue = (Integer) animator.getAnimatedValue();
 
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                //获得当前动画的进度值，整型，1-100之间
-                int currentValue = (Integer) animator.getAnimatedValue();
+                    //计算当前进度占整个动画过程的比例，浮点型，0-1之间
+                    float fraction = currentValue / 100f;
 
-                //计算当前进度占整个动画过程的比例，浮点型，0-1之间
-                float fraction = currentValue / 100f;
+                    int imageHeight = mEvaluator.evaluate(
+                            fraction,
+                            (int) (avatarOriHeight * startRatio),
+                            (int) (avatarOriHeight * endRatio));
+                    image_background.getLayoutParams().height = imageHeight;
+                    image_background.requestLayout();
 
-                int imageHeight = mEvaluator.evaluate(
-                        fraction,
-                        (int) (avatarOriHeight * startRatio),
-                        (int) (avatarOriHeight * endRatio));
-                image_background.getLayoutParams().height = imageHeight;
-                image_background.requestLayout();
-                
-                int viewHeight =  mEvaluator.evaluate(
-                        fraction,
-                        (int) (avatarOriHeight * (startRatio - 1.0)),
-                        (int) (avatarOriHeight * (endRatio - 1.0))); 
+                    int viewHeight =  mEvaluator.evaluate(
+                            fraction,
+                            (int) (avatarOriHeight * (startRatio - 1.0)),
+                            (int) (avatarOriHeight * (endRatio - 1.0)));
 
-                view_placeholder.getLayoutParams().height = viewHeight;
-                view_placeholder.requestLayout();
-            }
+                    view_placeholder.getLayoutParams().height = viewHeight;
+                    view_placeholder.requestLayout();
+                }
         });
         valueAnimator.setDuration(time).start();
     }
@@ -369,6 +331,33 @@ public class ListviewAdapter extends BaseAdapter {
                 newWidth,
                 newHeight);
         return newBitmap;
+    }
+
+    @Override
+    public int getCount() {
+        return 50;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0)
+            return 0;
+        return 1;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
     class ViewHolder {
