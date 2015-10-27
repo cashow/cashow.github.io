@@ -200,3 +200,7 @@ a.post-tags:focus, a.post-tags:hover {
 .next-page{
   max-width: 49%;
 }
+
+::selection {
+    background:#dddddd; 
+}
