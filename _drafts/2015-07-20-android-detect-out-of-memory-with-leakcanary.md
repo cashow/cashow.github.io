@@ -111,31 +111,60 @@ protected RefWatcher installLeakCanary() {
 </pre>
 ***
 ###不监听特定的activity  
-ActivityRefWatcher默认是监听所有的activity。通过以下代码可以自定义需要监听的activity。
+ActivityRefWatcher默认是监听所有的activity。重新实现LeakCanary的[install](https://github.com/square/leakcanary/blob/master/leakcanary-android/src/main/java/com/squareup/leakcanary/LeakCanary.java)方法可以自定义需要监听的activity。
 <pre class='mcode'>
 protected RefWatcher installLeakCanary() {
-    if (isInAnalyzerProcess(this)) {
-      return RefWatcher.DISABLED;
+    if (LeakCanary.isInAnalyzerProcess(this)) {
+        return RefWatcher.DISABLED;
     } else {
-      ExcludedRefs excludedRefs = 
-        AndroidExcludedRefs.createAppDefaults().build();
-      enableDisplayLeakActivity(application);
-      ServiceHeapDumpListener heapDumpListener = 
-        new ServiceHeapDumpListener(application, DisplayLeakService.class);
-      final RefWatcher refWatcher = 
-        androidWatcher(application, heapDumpListener, excludedRefs);
-      registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-        public void onActivityDestroyed(Activity activity) {
-          if (activity instanceof ThirdPartyActivity) {
-              return;
-          }
-          refWatcher.watch(activity);
-        }
-        // ...
-      });
-      return refWatcher;
+        ExcludedRefs excludedRefs =
+                AndroidExcludedRefs.createAppDefaults().build();
+        LeakCanary.enableDisplayLeakActivity(this);
+        ServiceHeapDumpListener heapDumpListener =
+                new ServiceHeapDumpListener(this, DisplayLeakService.class);
+        final RefWatcher refWatcher =
+              LeakCanary.androidWatcher(this, heapDumpListener, excludedRefs);
+        registerActivityLifecycleCallbacks(
+          new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                // 在这里处理不需要监听的activity
+                if (activity instanceof MainActivity) {
+                    return;
+                }
+                refWatcher.watch(activity);
+            }
+
+            @Override
+            public void onActivityCreated(Activity activity, 
+                Bundle savedInstanceState) {
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, 
+                Bundle outState) {
+            }
+
+        });
+        return refWatcher;
     }
-  }
+}
 </pre>
 ***
 ###混淆  
