@@ -99,14 +99,6 @@
  * Setting up font family
  */
 
-html * {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  //change the default tap highlight color, when you tap on mobile device
-  -webkit-tap-highlight-color: transparent;
-}
-
 *, *:after, *:before {
   @include box-sizing(border-box);
 }
