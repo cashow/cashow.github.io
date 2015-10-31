@@ -204,3 +204,8 @@ a.post-tags:focus, a.post-tags:hover {
 ::selection {
     background:#dddddd; 
 }
+
+img {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
