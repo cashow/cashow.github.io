@@ -79,7 +79,7 @@ rm temp.hprof
 </pre>
 执行上面的脚本后，可以在hprof文件夹里找到dumpheap.hprof文件，这个文件就是我们要分析的文件。  
 ***
-###分析hprof文件
+###打开hprof文件
 打开MAT，通过菜单栏的 File - Open File.. 打开刚刚生成的dumpheap.hprof，弹出如下对话框：  
 ![mat_getting_started](http://7xjvhq.com1.z0.glb.clouddn.com/mat_getting_started.png)
 第一个选项是自动分析可能存在内存泄露的对象。  
@@ -90,3 +90,14 @@ rm temp.hprof
 ![mat_restore](http://7xjvhq.com1.z0.glb.clouddn.com/mat_restore.png)
 可以看到Overview界面，如下图所示：  
 ![mat_overview](http://7xjvhq.com1.z0.glb.clouddn.com/mat_overview.png)
+这个界面包括了MAT对hprof文件的简要分析，鼠标移动到饼状图上可以在MAT的左侧看到详细的信息。  
+分析饼状图后可以得出结论：我们的app总共使用了16.6MB的内存，其中8.3MB的内存被 android.content.res.Resources 占用，6.3MB的内存被 android.graphics.Bitmap 占用。
+***
+###查看activity泄露情况
+点击“Actions”下方的“Histogram”，可以查看内存里各个对象的数目以及占用的内存大小。
+![mat_histogram](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram.png)
+第一列是类名，第二列是对象的数目，第三列是占用的内存大小。  
+这里的数据并没有完全显示，点击列表下方的“Total: 36 of 2,473 ...”可以加载下一页的数据。  
+可以在列表顶部的输入框里输入正则表达式过滤不需要的结果，比如输入包名可以查看我们自定义的类的内存占用情况。
+![mat_histogram_filtered](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram_filtered.png)
+可以很明显地看到，MainActivity在内存里有5个示例，可我们并没有通过intent开启新的activity，只是翻转了几次手机，正常情况下MainActivity在内存里只应有1个实例，因此可以推断出MainActivity发生了内存泄露。
