@@ -8,13 +8,13 @@ tags: Android OutOfMemory 内存泄露 EclipseMemoryAnalyzer
 Out of memory是android开发过程中常见的问题。在应用出现内存泄露问题时，任何一段需要占用内存的代码都有可能导致应用崩溃，这个时候友盟后台错误分析里给出的stacktrace并没有什么卵用。通过LeakCanary或者Eclipse Memory Analyzer（简称MAT），可以较方便地定位内存泄露的源头。  
 ***
 ###Eclipse Memory Analyzer
-Eclipse Memory Analyzer是一个用来分析Java内存的工具。通过Eclipse Memory Analyzer，可以很方便地看出哪些资源占用了app较大的内存，也可以检测出哪里发生了内存泄露。  
+Eclipse Memory Analyzer是一款用来分析Java内存的工具。通过Eclipse Memory Analyzer，可以很方便地看出哪些资源占用了app较大的内存，也可以推断出哪里发生了内存泄露。  
 Eclipse Memory Analyzer官网：<https://eclipse.org/mat/>  
 下载链接：<https://eclipse.org/mat/downloads.php>  
 安装MAT的时候可以选择在eclipse里安装插件，或者直接下载安装不基于eclipse的独立版本，即下载链接里的Stand-alone Eclipse RCP Applications。  
 ***
 ###测试代码
-以下是android测试代码，在开启AsyncTask后立即旋转屏幕，可以造成内存泄露。
+以下是android测试代码，在开启AsyncTask后旋转屏幕，可以造成内存泄露。
 <pre class="mcode">
 public class MainActivity extends ActionBarActivity {
     private Button button;
@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
 ***
 ###获取app的内存占用情况
 安装好MAT后，接下来需要去获取app的内存占用情况。通过DDMS可以导出内存快照（heap dump），导出后的文件后缀是hprof，这个文件里记录了java对象和类在heap中的占用情况。  
-然而，导出的hprof文件并不能直接使用MAT读取，还需要通过Android SDK提供的转换工具hprof-conv进行格式转换。hprof-conv工具在sdk的platform-tools文件夹里。转换后的文件就可以使用MAT打开了。  
+然而，导出的hprof文件并不能直接使用MAT读取，还需要通过Android SDK提供的转换工具进行格式转换。这个转换工具叫hprof-conv，在sdk的platform-tools文件夹里。转换后的文件就可以使用MAT打开了。  
 为了简化导出dump heap的步骤，可以考虑使用shell脚本自动导出hprof文件。代码如下。记得要把adb和hprof-conv（这两个工具都在sdk的platform-tools文件夹里）加进系统环境变量里。  
 <pre class="mcode">
 #!/bin/bash
@@ -96,8 +96,8 @@ rm temp.hprof
 ###查看activity泄露情况
 点击“Actions”下方的“Histogram”，可以查看内存里各个对象的数目以及占用的内存大小。
 ![mat_histogram](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram.png)
-第一列是类名，第二列是对象的数目，第三列是占用的内存大小。  
+第一列是类名，第二列是类的实例的数目，第三列是占用的内存大小。  
 这里的数据并没有完全显示，点击列表下方的“Total: 36 of 2,473 ...”可以加载下一页的数据。  
 可以在列表顶部的输入框里输入正则表达式过滤不需要的结果，比如输入包名可以查看我们自定义的类的内存占用情况。
 ![mat_histogram_filtered](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram_filtered.png)
-可以很明显地看到，MainActivity在内存里有5个示例，可我们并没有通过intent开启新的activity，只是翻转了几次手机，正常情况下MainActivity在内存里只应有1个实例，因此可以推断出MainActivity发生了内存泄露。
+可以很明显地看到，MainActivity在内存里有5个实例，可我们在测试过程中没有开启新的activity，只是旋转了几次屏幕。由此可推断，旋转屏幕的过程中MainActivity没有被回收，即MainActivity发生了内存泄露。  
