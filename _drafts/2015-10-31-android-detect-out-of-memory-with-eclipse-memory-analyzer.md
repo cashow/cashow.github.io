@@ -100,4 +100,10 @@ rm temp.hprof
 这里的数据并没有完全显示，点击列表下方的“Total: 36 of 2,473 ...”可以加载下一页的数据。  
 可以在列表顶部的输入框里输入正则表达式过滤不需要的结果，比如输入包名可以查看我们自定义的类的内存占用情况。
 ![mat_histogram_filtered](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram_filtered.png)
-可以很明显地看到，MainActivity在内存里有5个实例，可我们在测试过程中没有开启新的activity，只是旋转了几次屏幕。由此可推断，旋转屏幕的过程中MainActivity没有被回收，即MainActivity发生了内存泄露。  
+可以很明显地看到，MainActivity在内存里有5个实例，可我们在测试过程中没有开启新的activity，只是旋转了几次屏幕。由此可推断，旋转屏幕的过程中MainActivity没有被回收，即MainActivity发生了内存泄露。
+***
+###定位内存泄露原因
+在Histogram页面可以看到有3个MainActivity相关的信息，选中一条后右键，选择“Merge Shortest Paths to GC Roots” - “exclude weak references”，可看到MainActivity被引用的路径。  
+以下是MainActivity$1对应的引用路径：
+![mat_shortest_path](http://7xjvhq.com1.z0.glb.clouddn.com/mat_shortest_path.png)
+可以看到，MainActivity里面的OnClickListener导致了MainActivity不能被系统回收。
