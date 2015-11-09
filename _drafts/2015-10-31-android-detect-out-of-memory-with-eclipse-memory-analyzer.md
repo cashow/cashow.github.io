@@ -59,8 +59,20 @@ public class MainActivity extends ActionBarActivity {
 ***
 ###获取app的内存占用情况
 安装好MAT后，接下来需要去获取app的内存占用情况。通过DDMS可以导出内存快照（heap dump），导出后的文件后缀是hprof，这个文件里记录了java对象和类在heap中的占用情况。  
-然而，导出的hprof文件并不能直接使用MAT读取，还需要通过Android SDK提供的转换工具进行格式转换。这个转换工具叫hprof-conv，在sdk的platform-tools文件夹里。转换后的文件就可以使用MAT打开了。  
-为了简化导出dump heap的步骤，可以考虑使用shell脚本自动导出hprof文件。代码如下。记得要把adb和hprof-conv（这两个工具都在sdk的platform-tools文件夹里）加进系统环境变量里。  
+导出的步骤如下：  
+1.点击工具栏上的“Android Device Monitor”图标，打开DDMS。  
+![mat_android_device_monitor](http://7xjvhq.com1.z0.glb.clouddn.com/mat_android_device_monitor.png)
+2.在DDMS左侧选中应用包名，点击上方垃圾桶样式的“Cause GC”按钮，强制触发垃圾回收。  
+![mat_ddms_cause_gc](http://7xjvhq.com1.z0.glb.clouddn.com/mat_ddms_cause_gc.png)
+3.点击“Cause GC”按钮左边的“Dump HPROF file”按钮，弹出保存文件的对话框。
+![mat_ddms_dump_hprof_file](http://7xjvhq.com1.z0.glb.clouddn.com/mat_ddms_dump_hprof_file.png)
+![mat_ddms_save_hprof_file](http://7xjvhq.com1.z0.glb.clouddn.com/mat_ddms_save_hprof_file.png)
+4.导出的hprof文件并不能直接使用MAT读取，还需要通过Android SDK提供的转换工具进行格式转换。这个转换工具叫hprof-conv，在sdk的platform-tools文件夹里。使用方法：  
+<pre>
+hprof-conv from.hprof to.hprof
+</pre>
+转换后的文件就可以使用MAT打开了。  
+为了简化导出dump heap的步骤，可以考虑使用shell脚本简化第3、4步。记得要把adb和hprof-conv（这两个工具都在sdk的platform-tools文件夹里）加进系统环境变量里。  
 <pre class="mcode">
 #!/bin/bash
 # 获取包名为com.example.outofmemorydetect的进程id
@@ -104,6 +116,6 @@ rm temp.hprof
 ***
 ###定位内存泄露原因
 在Histogram页面可以看到有3个MainActivity相关的信息，选中一条后右键，选择“Merge Shortest Paths to GC Roots” - “exclude weak references”，可看到MainActivity被引用的路径。  
-以下是MainActivity$1对应的引用路径：
+以下是MainActivity$2对应的引用路径：
 ![mat_shortest_path](http://7xjvhq.com1.z0.glb.clouddn.com/mat_shortest_path.png)
-可以看到，MainActivity里面的OnClickListener导致了MainActivity不能被系统回收。
+可以看到，MainActivity里面还有3个不能被系统回收的AsyncTask，这也就导致了MainActivity不能被系统回收。  
