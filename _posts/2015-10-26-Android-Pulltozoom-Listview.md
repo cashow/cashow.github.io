@@ -18,11 +18,11 @@ ListView顶部的用户信息栏分为两部分，一个是显示背景图片的
 想象一下，在手指往下拉的过程中，不断修改image_background的高度，控件大小从100x200，拉伸到100x300，100x400，而对应的bitmap也要等比例拉伸到高度为200、300、400像素，并截取中间部分。于是在拉伸过程中，显示背景的bitmap被拉大，两边多余的内容被裁剪，最后的效果就如上图所示。  
 ####用户信息栏的处理：
 图片缩放功能实现好了，现在还需要实现下拉过程中，用户信息一直在layout_userinfo的底部。  
-我们可以把layout_userinfo放入LinearLayout里面，在其上方放一个初始高度为0的view，下拉过程中通过修改这个view的高度，使得用户信息栏一直处在父控件LinearLayout的底部。通过获取占位的view的高度，还可以判断现在是否在缩放状态。  
+我们可以把layout_userinfo放入LinearLayout里面，在其上方放一个初始高度为0的view，下拉过程中通过修改这个view的高度，使得用户信息栏一直处在父控件LinearLayout的底部。通过获取这个view的高度，还可以判断现在是否在缩放状态。  
 ####缩放过程的处理：  
 1.如果不在缩放状态，并且listview已经滑动到顶部，这时进入缩放状态，记录下手指触摸的位置，作为初始点的位置；  
-2.在移动过程中，假如触摸点的高度大于初始点的高度，表示图片需要拉伸，这时进行拉伸操作并拦截触摸事件，否则不拦截触摸事件。通过对触摸事件的拦截，可以实现listview上滑的过程中，背景图片缩放状态先复位，然后listview再继续上移的效果；  
-3.手指抬起或者触摸点离开listview时，如果处在缩放状态，拦截触摸事件并将背景图片重置到初始大小，否则不拦截触摸事件。  
+2.在移动过程中，假如触摸点的高度大于初始点的高度，表示图片需要拉伸，这时进行拉伸操作并拦截触摸事件，否则不拦截触摸事件，让系统去处理listview的上下滑动；  
+3.手指抬起或者触摸点离开listview时，如果处在缩放状态，拦截触摸事件并将背景图片重置到初始大小。否则不拦截触摸事件。  
 ***
 ###具体实现代码如下：  
 ####Activity的代码：  
@@ -47,18 +47,9 @@ public class MainActivity extends ActionBarActivity {
         adapter = new ListviewAdapter(this);
         listview.setAdapter(adapter);
 
-        // 加载背景图片
-        init();
-    }
-
-    private void init() {
         Drawable drawable = getResources().getDrawable(R.drawable.listview_header_background);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        // 将图片缩放到宽度为640像素，避免占用太多内存
-        int newWidth = 640;
-        int newHeight = (int) (640 * bitmap.getHeight() * 1.0 / bitmap.getWidth());
-        Bitmap avatarBitmap = getResizedBitmap(bitmap, newWidth, newHeight);
-        adapter.setAvatarBitmap(avatarBitmap);
+        adapter.setAvatarBitmap(bitmap);
     }
 
     @Override
@@ -101,7 +92,7 @@ public class MainActivity extends ActionBarActivity {
         return super.dispatchTouchEvent(event);
     }
 
-    // 用来判断坐标(rawX, rawY)是否在view上
+    // 用来判断触摸点的坐标(rawX, rawY)是否在view上
     private boolean isInView(View view, float rawX, float rawY) {
         int scrcoords[] = new int[2];
         view.getLocationOnScreen(scrcoords);
@@ -110,18 +101,6 @@ public class MainActivity extends ActionBarActivity {
         if (x >= view.getLeft() && x <= view.getRight() && y >= view.getTop() && y <= view.getBottom())
             return true;
         return false;
-    }
-
-    // 将初始的bitmap缩放成宽度为newWidth，高度为newHeight的bitmap
-    private Bitmap getResizedBitmap(Bitmap bitmap, int newWidth, int newHeight) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        return resizedBitmap;
     }
 }
 </pre>
@@ -198,43 +177,42 @@ public class ListviewAdapter extends BaseAdapter {
         isInit = true;
         // image_background的宽度和高度要和layout_info保持一致，
         // 所以需要在获取到layout_info高度后设置image_background的高度
-        final ViewTreeObserver viewTreeObserver =
-                layout_info.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(
-            new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    // view_placeholder的高度大于0时表示正处于缩放状态，
-                    // 不能使用这个时候layout_info的高度
-                    if (view_placeholder.getHeight() > 0) {
-                        return;
+        layout_info.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // view_placeholder的高度大于0时表示正处于缩放状态，
+                        // 不能使用这个时候layout_info的高度
+                        if (view_placeholder.getHeight() > 0) {
+                            return;
+                        }
+                        int layoutWidth = layout_info.getWidth();
+                        int layoutHeight = layout_info.getHeight();
+
+                        // 记录背景图片初始的高度
+                        avatarOriHeight = layoutHeight;
+
+                        // 设置image_background的宽度和高度
+                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) image_background.getLayoutParams();
+                        params.width = layoutWidth;
+                        params.height = layoutHeight;
+                        image_background.setLayoutParams(params);
+
+                        // 生成宽高比和image_background一样的图片
+                        Bitmap cropAvatarBitmap = getCropAvatarBitmap(
+                            avatarBitmap,
+                            layoutWidth * 1.0 / layoutHeight);
+                        image_background.setImageBitmap(cropAvatarBitmap);
+
+                        avatarBitmap = null;
+
+                        if (android.os.Build.VERSION.SDK_INT >=
+                                android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            layout_info.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        } else {
+                            layout_info.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        }
                     }
-                    int layoutWidth = layout_info.getWidth();
-                    int layoutHeight = layout_info.getHeight();
-
-                    // 记录背景图片初始的高度
-                    avatarOriHeight = layoutHeight;
-
-                    // 设置image_background的宽度和高度
-                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) image_background.getLayoutParams();
-                    params.width = layoutWidth;
-                    params.height = layoutHeight;
-                    image_background.setLayoutParams(params);
-
-                    // 生成宽高比和image_background一样的图片
-                    Bitmap cropAvatarBitmap = getCropAvatarBitmap(avatarBitmap
-                            , layoutWidth * 1.0 / layoutHeight);
-                    image_background.setImageBitmap(cropAvatarBitmap);
-
-                    avatarBitmap = null;
-
-                    if (android.os.Build.VERSION.SDK_INT >=
-                            android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        viewTreeObserver.removeOnGlobalLayoutListener(this);
-                    } else {
-                        viewTreeObserver.removeGlobalOnLayoutListener(this);
-                    }
-                }
             });
     }
 
@@ -364,4 +342,90 @@ public class ListviewAdapter extends BaseAdapter {
         TextView text;
     }
 }
+</pre>
+####布局文件：  
+<pre class="mcode">
+&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:background=&quot;#5d5d5d&quot;&gt;
+
+    &lt;ImageView
+        android:id=&quot;@+id/image_background&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:background=&quot;#5d5d5d&quot;
+        android:scaleType=&quot;centerCrop&quot; /&gt;
+
+    &lt;LinearLayout
+        android:id=&quot;@+id/layout_info&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+        &lt;View
+            android:id=&quot;@+id/view_placeholder&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;0dp&quot; /&gt;
+
+        &lt;RelativeLayout
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;&gt;
+
+            &lt;ImageView
+                android:id=&quot;@+id/image_avatar&quot;
+                android:layout_width=&quot;60dp&quot;
+                android:layout_height=&quot;60dp&quot;
+                android:layout_alignParentTop=&quot;true&quot;
+                android:layout_centerHorizontal=&quot;true&quot;
+                android:layout_marginTop=&quot;35dp&quot;
+                android:src=&quot;@drawable/avatar&quot; /&gt;
+
+            &lt;TextView
+                android:id=&quot;@+id/text_name&quot;
+                android:layout_width=&quot;wrap_content&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:layout_below=&quot;@id/image_avatar&quot;
+                android:layout_centerHorizontal=&quot;true&quot;
+                android:layout_marginTop=&quot;9dp&quot;
+                android:text=&quot;cashow&quot;
+                android:textColor=&quot;#ffffff&quot;
+                android:textSize=&quot;16sp&quot;
+                android:textStyle=&quot;bold&quot; /&gt;
+
+            &lt;LinearLayout
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;45dp&quot;
+                android:layout_below=&quot;@id/text_name&quot;
+                android:layout_marginTop=&quot;9dp&quot;
+                android:orientation=&quot;horizontal&quot;&gt;
+
+                &lt;TextView
+                    android:layout_width=&quot;0dp&quot;
+                    android:layout_height=&quot;45dp&quot;
+                    android:layout_weight=&quot;1&quot;
+                    android:gravity=&quot;center&quot;
+                    android:text=&quot;&#20851;&#27880; 125&quot;
+                    android:textColor=&quot;#ffffff&quot;
+                    android:textSize=&quot;16sp&quot; /&gt;
+
+                &lt;ImageView
+                    android:layout_width=&quot;1dp&quot;
+                    android:layout_height=&quot;match_parent&quot;
+                    android:paddingBottom=&quot;6dp&quot;
+                    android:paddingTop=&quot;6dp&quot;
+                    android:src=&quot;#ffffff&quot; /&gt;
+
+                &lt;TextView
+                    android:layout_width=&quot;0dp&quot;
+                    android:layout_height=&quot;45dp&quot;
+                    android:layout_weight=&quot;1&quot;
+                    android:gravity=&quot;center&quot;
+                    android:text=&quot;&#31881;&#19997; 20&quot;
+                    android:textColor=&quot;#ffffff&quot;
+                    android:textSize=&quot;16sp&quot; /&gt;
+            &lt;/LinearLayout&gt;
+        &lt;/RelativeLayout&gt;
+    &lt;/LinearLayout&gt;
+&lt;/FrameLayout&gt;
 </pre>
