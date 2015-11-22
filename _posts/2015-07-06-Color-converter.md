@@ -2,6 +2,7 @@
 layout: post
 title: "颜色工具 - RGB颜色与十六进制转换"
 date: 2015-07-06 22:10:23 +0800
+tags: 常用工具
 ---
 
 RGB颜色与十六进制转换  
@@ -39,21 +40,21 @@ Material design推荐的颜色：
 
 <script type="text/javascript">
 	function updateFromRGB(){
-		rString = new Number($("#color-r").attr("value")).toString(16);
+		rString = new Number($("#color-r").val()).toString(16);
 		if(rString.length == 0){
 			rString = "00";
 		}
 		if(rString.length == 1){
 			rString = "0" + rString;
 		}
-		gString = new Number($("#color-g").attr("value")).toString(16);
+		gString = new Number($("#color-g").val()).toString(16);
 		if(gString.length == 0){
 			gString = "00";
 		}
 		if(gString.length == 1){
 			gString = "0" + gString;
 		}
-		bString = new Number($("#color-b").attr("value")).toString(16);
+		bString = new Number($("#color-b").val()).toString(16);
 		if(bString.length == 0){
 			bString = "00";
 		}
@@ -65,7 +66,7 @@ Material design推荐的颜色：
 		$(".color-block").css("background-color","#" + dexString);
 	}
 	function updateFromDEX(){
-		dex = $("#color-dex").attr("value");
+		dex = $("#color-dex").val();
 		if(dex.length == 6){
 			r = dex.substring(0, 2);
 			g = dex.substring(2, 4);
@@ -87,7 +88,7 @@ Material design推荐的颜色：
 		$(".color-block").css("background-color","#" + dex);
 	}
 	$("#color-r").keyup(function(){
-		var value = $("#color-r").attr("value");
+		var value = $("#color-r").val();
 		if(value.length == 0){
 			value = "0";
 		}
@@ -100,7 +101,7 @@ Material design推荐的颜色：
 		}
 	});
 	$("#color-g").keyup(function(){
-		var value = $("#color-g").attr("value");
+		var value = $("#color-g").val();
 		if(value.length == 0){
 			value = "0";
 		}
@@ -113,7 +114,7 @@ Material design推荐的颜色：
 		}
 	});
 	$("#color-b").keyup(function(){
-		var value = $("#color-b").attr("value");
+		var value = $("#color-b").val();
 		if(value.length == 0){
 			value = "0";
 		}
@@ -126,7 +127,7 @@ Material design推荐的颜色：
 		}
 	});
 	$("#color-dex").keyup(function(){
-		var dex = $("#color-dex").attr("value");
+		var dex = $("#color-dex").val();
 		if(dex.length ==6){
 			var isValid = true;
 			for (var i = dex.length - 1; i >= 0; i--) {
@@ -161,6 +162,4 @@ Material design推荐的颜色：
 			$("#color-dex").addClass("incorrect");
 		}
 	});
-	// $(".color-block").click(function(){
-	// });
 </script>

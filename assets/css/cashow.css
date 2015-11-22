@@ -209,3 +209,15 @@ img {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.container{
+  padding: 0px;
+}
+
+.header{
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none !important
+}
