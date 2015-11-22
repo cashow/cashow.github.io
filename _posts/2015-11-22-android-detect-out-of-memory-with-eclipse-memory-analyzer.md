@@ -153,3 +153,7 @@ GIMP是一个开源的图像处理软件，包含大部分图象处理所需的�
 这张图片就是 R.drawable.test 。  
 现在找到了占用内存较大的图片，接下来就是考虑怎么减少图片占用的内存。一个常见的方法是将bitmap缩放后再放入ImageView里面。具体优化方法可以查看android官方文档的教程 "Displaying Bitmaps Efficiently" ：  
 <https://developer.android.com/training/displaying-bitmaps/index.html>  
+***
+###相关链接  
+Android - 利用LeakCanary检测内存泄露：  
+<http://cashow.github.io/android-detect-out-of-memory-with-leakcanary.html>

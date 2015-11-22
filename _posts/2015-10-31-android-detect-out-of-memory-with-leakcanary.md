@@ -176,3 +176,7 @@ protected RefWatcher installLeakCanary() {
 -keep class org.eclipse.mat.** { *; }
 -keep class com.squareup.leakcanary.** { *; }
 </pre>
+***
+###相关链接
+Android - 利用Eclipse Memory Analyzer(MAT)检测内存泄露问题：  
+<http://cashow.github.io/android-detect-out-of-memory-with-eclipse-memory-analyzer.html>
