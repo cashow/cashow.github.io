@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android - 利用Eclipse Memory Analyzer(MAT)检测内存泄露问题"
-date: 2015-10-31 22:42:48 +0800
+date: 2015-11-22 14:37:59 +0800
 tags: Android OutOfMemory 内存泄露 EclipseMemoryAnalyzer
 ---
 
@@ -127,7 +127,7 @@ rm temp.hprof
 点击“Histogram”下面的“Domanitor Tree”按钮，进入到如下界面：  
 ![mat_domanitor_tree](http://7xjvhq.com1.z0.glb.clouddn.com/mat_domanitor_tree.png)
 这个页面列出了占用内存较大的对象。  
-注意第二行的 android.graphics.Bitmap，总共占用了37.50%的内存。  
+注意第二行的 android.graphics.Bitmap，总共占用了37.50%的内存（总内存是16.6MB）。  
 现在问题来了：这个bitmap是在什么地方出现的？占用这么多的内存是正常现象吗？  
 为了解答以上问题，我们需要把这个bitmap导出成图片文件。  
 ####第一步：获取bitmap的宽度和高度
@@ -138,8 +138,7 @@ rm temp.hprof
 选中“android.graphics.Bitmap”下方的 “byte[6553600]” 栏，右键 - Copy - Save Value To File，将bitmap文件保存成后缀名为data的文件。  
 ![mat_bitmap_byte](http://7xjvhq.com1.z0.glb.clouddn.com/mat_bitmap_byte.png)
 ![mat_save_bitmap](http://7xjvhq.com1.z0.glb.clouddn.com/mat_save_bitmap.png)
-####第三步：使用GIMP或者Photoshop打开data文件  
-在GIMP里打开：  
+####第三步：使用GIMP打开data文件  
 GIMP是一个开源的图像处理软件，包含大部分图象处理所需的功能，可以算是Linux下的PhotoShop。  
 官网：<https://www.gimp.org/>  
 下载链接：<https://www.gimp.org/downloads/>  
@@ -147,3 +146,10 @@ GIMP是一个开源的图像处理软件，包含大部分图象处理所需的�
 ![gimp_gnu](http://7xjvhq.com1.z0.glb.clouddn.com/gimp_gnu.png)
 出现以下对话框：  
 ![gimp_preview](http://7xjvhq.com1.z0.glb.clouddn.com/gimp_preview.png)
+图像类型选择RGB Alpha，宽度和高度填上第一步获取到的图片宽度和高度，预览图会显示图片的一小部分
+![gimp_preview_2](http://7xjvhq.com1.z0.glb.clouddn.com/gimp_preview_2.png)
+点击open后可看到原图
+![gimp_ori](http://7xjvhq.com1.z0.glb.clouddn.com/gimp_ori.png)
+这张图片就是 R.drawable.test 。  
+现在找到了占用内存较大的图片，接下来就是考虑怎么减少图片占用的内存。一个常见的方法是将bitmap缩放后再放入ImageView里面。具体优化方法可以查看android官方文档的教程 "Displaying Bitmaps Efficiently" ：  
+<https://developer.android.com/training/displaying-bitmaps/index.html>  
