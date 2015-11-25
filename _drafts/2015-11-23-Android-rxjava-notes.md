@@ -84,7 +84,7 @@ Observable.just("Hello, world!")
     .subscribe(s -> System.out.println(s));
 </pre>
 ###map操作符
-map操作符用来把一个事件转换为另一个事件。map操作符返回一个Observable对象，这样就可以实现链式调用。
+map操作符用来把Observable传来的数据转换成另一个数据。map操作符返回一个Observable对象，这样就可以实现链式调用。
 <pre class="mcode">
 Observable.just("Hello, world!")
 	.map(new Func1&lt;String, String&gt;() {
@@ -107,9 +107,7 @@ Observable.from("url1", "url2", "url3")
     .subscribe(url -> System.out.println(url));
 </pre>
 ###flatMap操作符
-flatMap接收一个Observable的输出作为输入，同时输出另外一个Observable。  
-map和flatMap的区别是，map将一个事件转换成另一个事件，flatMap将一个事件转换成零个或多个事件。  
-[stackoverflow链接 : When do you use map vs flatMap in RxJava?](http://stackoverflow.com/questions/22847105/when-do-you-use-map-vs-flatmap-in-rxjava)
+flatMap将Observable的数据转换成一个或多个Observable。  
 <pre class="mcode">
 // 假设有个函数根据输入的字符串返回一个url列表：
 Observable&lt;List&lt;String&gt;&gt; query(String text){
@@ -162,6 +160,58 @@ query("Hello, world!")
     .doOnNext(title -&gt; saveTitle(title))
     .subscribe(title -&gt; System.out.println(title));
 </pre>
+###buffer操作符
+周期性地把Observable的数据合并成列表，并在一定时间后将列表传给Observer
+<pre class="mcode">
+// 以下是统计2秒内view的点击次数
+
+RxView.clickEvents(_tapBtn)
+      .map(new Func1&lt;ViewClickEvent, Integer&gt;() {
+          @Override
+          public Integer call(ViewClickEvent onClickEvent) {
+              Timber.d("--------- GOT A TAP");
+              _log("GOT A TAP");
+              return 1;
+          }
+      })
+      .buffer(2, TimeUnit.SECONDS)
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(new Observer&lt;List&lt;Integer&gt;&gt;() {
+
+          @Override
+          public void onCompleted() {
+              // fyi: you'll never reach here
+              Timber.d("----- onCompleted");
+          }
+
+          @Override
+          public void onError(Throwable e) {
+              Timber.e(e, "--------- Woops on error!");
+              _log("Dang error! check your logs");
+          }
+
+          @Override
+          public void onNext(List&lt;Integer&gt; integers) {
+              Timber.d("--------- onNext");
+              if (integers.size() &gt; 0) {
+                  _log(String.format("%d taps", integers.size()));
+              } else {
+                  Timber.d("--------- No taps received ");
+              }
+          }
+      });
+</pre>
+###debounce操作符
+在Observable输出一个元素后，忽略一段时间之内的所有数据。
+<pre class="mcode">
+// 在textChangeEvents发生后，忽略400ms内的所有textChangeEvents
+
+RxTextView.textChangeEvents(_inputSearchText)
+          .debounce(400, TimeUnit.MILLISECONDS)// default Scheduler is Computation
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(_getSearchObserver());
+</pre>
+
 ###错误处理
 代码中的potentialException() 和 anotherPotentialException()有可能会抛出异常。每一个Observerable对象在终结的时候都会调用onCompleted()或者onError()方法，所以以下代码会打印出”Completed!”或者”Ouch!”。
 <pre class="mcode">
