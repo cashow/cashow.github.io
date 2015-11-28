@@ -1,18 +1,20 @@
 ---
 layout: post
 title: "Android - RxJava学习笔记"
-date: 2015-11-23 23:36:13 +0800
-tags: Android 学习笔记
+date: 2015-11-28 15:44:37 +0800
+tags: Android 学习笔记 RxJava
 ---
 
+本文是学习RxJava过程中做的一些笔记，内容是从以下几个博客和项目整理而来，主要是为了在开发过程中快速找到想要的内容，因此没有太多的讲解。  
 以下是学习RxJava过程中所接触到的博客以及项目：  
+[ReactiveX官网](http://reactivex.io/)  
 [深入浅出RxJava(一：基础篇)](http://blog.csdn.net/lzyzsd/article/details/41833541>)  
 [深入浅出RxJava(二：操作符)](http://blog.csdn.net/lzyzsd/article/details/44094895)  
 [深入浅出RxJava三--响应式的好处](http://blog.csdn.net/lzyzsd/article/details/44891933)  
 [深入浅出RxJava四-在Android中使用响应式编程](http://blog.csdn.net/lzyzsd/article/details/45033611)  
 [给 Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)  
-[ReactiveX官网](http://reactivex.io/)  
-[Github项目 : RxJava-Android-Samples](https://github.com/kaushikgopal/RxJava-Android-Samples)  
+[Github项目：RxJava-Android-Samples](https://github.com/kaushikgopal/RxJava-Android-Samples)  
+[知乎：谁来讲讲Rxjava、rxandroid中的操作符的作用?](https://www.zhihu.com/question/32209660)  
 ***
 RxJava最核心的是Observables（被观察者，事件源）和Subscribers（观察者）。Observables发出一系列事件，Subscribers处理这些事件。  
 ###创建一个Observable
@@ -28,6 +30,27 @@ Observable&lt;String&gt; myObservable = Observable.create(
 );
 </pre>
 这里定义的myObservable是给所有的Subscriber发出一个Hello World字符串。  
+###just操作符
+just将传入的数据依次发出。  
+<pre class="mcode">
+Observable observable = Observable.just("Hello", "Hi", "Aloha");
+// 将会依次调用：
+// onNext("Hello");
+// onNext("Hi");
+// onNext("Aloha");
+// onCompleted();
+</pre>
+###from操作符
+from操作符接收一个集合作为输入，每次输出一个元素给subscriber
+<pre class="mcode">
+String[] words = {"Hello", "Hi", "Aloha"};
+Observable observable = Observable.from(words);
+// 将会依次调用：
+// onNext("Hello");
+// onNext("Hi");
+// onNext("Aloha");
+// onCompleted();
+</pre>
 ###创建一个Subscriber
 <pre class="mcode">
 Subscriber&lt;String&gt; mySubscriber = new Subscriber&lt;String&gt;() {
@@ -43,8 +66,8 @@ Subscriber&lt;String&gt; mySubscriber = new Subscriber&lt;String&gt;() {
 </pre>
 这里的mySubscriber仅仅就是打印observable发出的字符串。  
 如果只需要在onNext，onError或者onCompleted的时候做一些处理，可以使用Action0和Action1类。  
-Action0 是 RxJava 的一个接口，它只有一个方法 call()，这个方法是无参无返回值的。  
-Action1 也是一个接口，它同样只有一个方法 call(T param)，这个方法也无返回值，但有一个参数。  
+Action0是RxJava的一个接口，它只有一个方法call()，这个方法是无参无返回值的。  
+Action1也是一个接口，它同样只有一个方法call(T param)，这个方法也无返回值，但有一个参数。  
 <pre class="mcode">
 Action1&lt;String&gt; onNextAction = new Action1&lt;String&gt;() {
     // onNext()
@@ -71,28 +94,18 @@ Action0 onCompletedAction = new Action0() {
 </pre>
 ###mySubscriber订阅myObservable
 mySubscriber订阅myObservable后，Observable每发出一个事件，就会调用它的Subscriber的onNext()。如果出错，会调用Subscriber的onError()。当不会再有新的onNext()发出时，会调用onCompleted()方法。  
-subscribe方法有一个重载版本，接受三个Action1类型的参数，分别对应OnNext，OnComplete， OnError函数。  
+subscribe方法有一个重载版本，接受Action0和Action1类型的参数，分别对应OnNext，OnComplete， OnError函数。  
 <pre class="mcode">
+// mySubscriber订阅myObservable
 myObservable.subscribe(mySubscriber);
-
-// 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()
+// 自动创建Subscriber，并使用onNextAction来定义onNext()
 observable.subscribe(onNextAction);
-// 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
+// 自动创建Subscriber，并使用onNextAction和onErrorAction来定义onNext()和onError()
 observable.subscribe(onNextAction, onErrorAction);
-// 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
+// 自动创建Subscriber，并使用onNextAction、onErrorAction和onCompletedAction来定义onNext()、onError()和onCompleted()
 observable.subscribe(onNextAction, onErrorAction, onCompletedAction);
 </pre>
 ***
-###just操作符
-just将传入的数据依次发出。  
-<pre class="mcode">
-Observable observable = Observable.just("Hello", "Hi", "Aloha");
-// 将会依次调用：
-// onNext("Hello");
-// onNext("Hi");
-// onNext("Aloha");
-// onCompleted();
-</pre>
 ###map操作符
 map操作符用来把Observable传来的数据转换成另一个数据。
 <pre class="mcode">
@@ -110,17 +123,6 @@ Observable.just("Hello, world!")
     .map(s -> s + " -Dan")
     .subscribe(s -> System.out.println(s));
 </pre>
-###from操作符
-from操作符接收一个集合作为输入，每次输出一个元素给subscriber
-<pre class="mcode">
-String[] words = {"Hello", "Hi", "Aloha"};
-Observable observable = Observable.from(words);
-// 将会依次调用：
-// onNext("Hello");
-// onNext("Hi");
-// onNext("Aloha");
-// onCompleted();
-</pre>
 ###flatMap操作符
 flatMap将Observable的数据转换成一个或多个Observable。  
 <pre class="mcode">
@@ -128,8 +130,8 @@ flatMap将Observable的数据转换成一个或多个Observable。
 Observable&lt;List&lt;String&gt;&gt; query(String text){
 	// ...
 } 
-// 现在需要查询"Hello, world!"字符串并且显示结果
 
+// 现在需要查询"Hello, world!"字符串并且显示结果
 query("Hello, world!")
     .flatMap(new Func1&lt;List&lt;String&gt;, Observable&lt;String&gt;&gt;() {
         @Override
@@ -285,8 +287,8 @@ protected void onDestroy() {
 }
 </pre>
 ***
-###利用compose进行链式调用
-假设在程序中有多个 Observable ，并且他们都需要应用一组相同的 lift() 变换：
+###利用compose实现链式调用的复用
+假设在程序中有多个 Observable ，并且他们都需要应用一组相同的变换：
 <pre class="mcode">
 observable1
     .lift1()
@@ -381,4 +383,4 @@ Observable.just(1, 2, 3, 4) // IO 线程，由 subscribeOn() 指定
     .observeOn(AndroidSchedulers.mainThread) 
     .subscribe(subscriber);  // Android 主线程，由 observeOn() 指定
 </pre>
-不过，不同于 observeOn() ， subscribeOn() 的位置放在哪里都可以，但它是只能调用一次的。
+不同于observeOn()，subscribeOn()的位置放在哪里都可以，但它是只能调用一次的。
