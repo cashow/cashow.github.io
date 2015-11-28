@@ -11,7 +11,8 @@ tags: Android 学习笔记
 [深入浅出RxJava三--响应式的好处](http://blog.csdn.net/lzyzsd/article/details/44891933)  
 [深入浅出RxJava四-在Android中使用响应式编程](http://blog.csdn.net/lzyzsd/article/details/45033611)  
 [给 Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)  
-[Github项目 : RxJava-Android-Samples](https://github.com/kaushikgopal/RxJava-Android-Samples)
+[ReactiveX官网](http://reactivex.io/)  
+[Github项目 : RxJava-Android-Samples](https://github.com/kaushikgopal/RxJava-Android-Samples)  
 ***
 RxJava最核心的是Observables（被观察者，事件源）和Subscribers（观察者）。Observables发出一系列事件，Subscribers处理这些事件。  
 ###创建一个Observable
@@ -41,13 +42,9 @@ Subscriber&lt;String&gt; mySubscriber = new Subscriber&lt;String&gt;() {
 };
 </pre>
 这里的mySubscriber仅仅就是打印observable发出的字符串。  
-###mySubscriber订阅myObservable
-<pre class="mcode">
-myObservable.subscribe(mySubscriber);
-</pre>
-mySubscriber订阅myObservable后，Observable每发出一个事件，就会调用它的Subscriber的onNext()。如果出错，会调用Subscriber的onError()。当不会再有新的onNext()发出时，会调用onCompleted()方法。 
-###简化Subscriber的创建
-如果只需要在onNext，onError或者onCompleted的时候做一些处理，可以使用Action1类。  
+如果只需要在onNext，onError或者onCompleted的时候做一些处理，可以使用Action0和Action1类。  
+Action0 是 RxJava 的一个接口，它只有一个方法 call()，这个方法是无参无返回值的。  
+Action1 也是一个接口，它同样只有一个方法 call(T param)，这个方法也无返回值，但有一个参数。  
 <pre class="mcode">
 Action1&lt;String&gt; onNextAction = new Action1&lt;String&gt;() {
     // onNext()
@@ -71,21 +68,19 @@ Action0 onCompletedAction = new Action0() {
     }
 };
 
+</pre>
+###mySubscriber订阅myObservable
+mySubscriber订阅myObservable后，Observable每发出一个事件，就会调用它的Subscriber的onNext()。如果出错，会调用Subscriber的onError()。当不会再有新的onNext()发出时，会调用onCompleted()方法。  
+subscribe方法有一个重载版本，接受三个Action1类型的参数，分别对应OnNext，OnComplete， OnError函数。  
+<pre class="mcode">
+myObservable.subscribe(mySubscriber);
+
 // 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()
 observable.subscribe(onNextAction);
 // 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
 observable.subscribe(onNextAction, onErrorAction);
 // 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
 observable.subscribe(onNextAction, onErrorAction, onCompletedAction);
-</pre>
-###简化mySubscriber订阅myObservable
-subscribe方法有一个重载版本，接受三个Action1类型的参数，分别对应OnNext，OnComplete， OnError函数。  
-<pre class="mcode">
-myObservable.subscribe(onNextAction, onErrorAction, onCompleteAction);
-</pre>
-这里我们并不关心onError和onComplete，所以只需要第一个参数就可以。  
-<pre class="mcode">
-myObservable.subscribe(onNextAction);
 </pre>
 ***
 ###just操作符
@@ -216,13 +211,20 @@ RxView.clickEvents(_tapBtn)
       });
 </pre>
 ###debounce操作符
-在Observable输出一个元素后，忽略一段时间之内的所有数据。假如设定的间隔是400ms，那么在Observable发出一个数据后，400ms内的其他数据都会被忽略掉。
+在一次事件发生后的一段时间内没有其他的操作，则发出这次事件
 <pre class="mcode">
-// 在textChangeEvents发生后，忽略400ms内的所有textChangeEvents
+// 在textChangeEvents发生后的400ms内的没有收到其他的textChangeEvents事件，则发出这次事件
 RxTextView.textChangeEvents(_inputSearchText)
           .debounce(400, TimeUnit.MILLISECONDS)
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(_getSearchObserver());
+</pre>
+###throttleFirst操作符
+在每次事件触发后的一定时间间隔内丢弃新的事件。常用作去抖动过滤，例如按钮的点击监听器：  
+<pre class="mcode">
+RxView.clickEvents(button)
+    .throttleFirst(500, TimeUnit.MILLISECONDS) // 设置防抖间隔为 500ms
+    .subscribe(subscriber);
 </pre>
 ***
 ###错误处理
@@ -283,19 +285,100 @@ protected void onDestroy() {
 }
 </pre>
 ***
+###利用compose进行链式调用
+假设在程序中有多个 Observable ，并且他们都需要应用一组相同的 lift() 变换：
+<pre class="mcode">
+observable1
+    .lift1()
+    .lift2()
+    .lift3()
+    .lift4()
+    .subscribe(subscriber1);
+observable2
+    .lift1()
+    .lift2()
+    .lift3()
+    .lift4()
+    .subscribe(subscriber2);
+observable3
+    .lift1()
+    .lift2()
+    .lift3()
+    .lift4()
+    .subscribe(subscriber3);
+observable4
+    .lift1()
+    .lift2()
+    .lift3()
+    .lift4()
+    .subscribe(subscriber1);
+</pre>
+使用 compose() 方法，Observable 可以利用传入的 Transformer 对象的 call 方法直接对自身进行处理。
+<pre class="mcode">
+public class LiftAllTransformer implements Observable.Transformer<Integer, String> {
+    @Override
+    public Observable<String> call(Observable<Integer> observable) {
+        return observable
+            .lift1()
+            .lift2()
+            .lift3()
+            .lift4();
+    }
+}
+...
+Transformer liftAll = new LiftAllTransformer();
+observable1.compose(liftAll).subscribe(subscriber1);
+observable2.compose(liftAll).subscribe(subscriber2);
+observable3.compose(liftAll).subscribe(subscriber3);
+observable4.compose(liftAll).subscribe(subscriber4);
+</pre>
+***
 ###Scheduler调度器
 在不指定线程的情况下， RxJava 遵循的是线程不变的原则，即：在哪个线程调用 subscribe()，就在哪个线程生产事件；在哪个线程生产事件，就在哪个线程消费事件。如果需要切换线程，就需要用到 Scheduler （调度器）。  
-RxJava通过Scheduler来指定每一段代码应该运行在什么样的线程。RxJava 已经内置了几个 Scheduler ，它们已经适合大多数的使用场景：  
-Schedulers.immediate(): 直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。  
-Schedulers.newThread(): 总是启用新线程，并在新线程执行操作。  
-Schedulers.io(): I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程。  
-Schedulers.computation(): 计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。  
-另外， Android 还有一个专用的 AndroidSchedulers.mainThread()，它指定的操作将在 Android 主线程运行。  
+RxJava通过Scheduler来指定每一段代码应该运行在什么样的线程。RxJava 已经内置了几个 Scheduler：  
+<pre class="mcode">
+// 直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。
+Schedulers.immediate()
+
+// 总是启用新线程，并在新线程执行操作。
+Schedulers.newThread()
+
+// I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程。  
+Schedulers.io()
+
+// 计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。  
+Schedulers.computation()
+
+// Android专用，指定操作在Android主线程运行。
+AndroidSchedulers.mainThread()
+</pre>
+
 有了这几个 Scheduler ，就可以使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制了。  
-  
-subscribeOn(): 指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。  
-observeOn(): 指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。  
-有了这几个 Scheduler ，就可以使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制了。  
-  
-subscribeOn(): 指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。  
-observeOn(): 指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。  
+####subscribeOn(): 
+指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。  
+####observeOn(): 
+指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。  
+代码示例：  
+<pre class="mcode">
+Observable.just(1, 2, 3, 4)
+    .subscribeOn(Schedulers.io()) // 指定subscribe()发生在IO线程
+    .observeOn(AndroidSchedulers.mainThread()) // 指定Subscriber的回调发生在主线程
+    .subscribe(new Action1<Integer>() {
+        @Override
+        public void call(Integer number) {
+            Log.d(tag, "number:" + number);
+        }
+    });
+</pre>
+observeOn() 指定的是它之后的操作所在的线程。因此如果有多次切换线程的需求，只要在每个想要切换线程的位置调用一次 observeOn() 即可。  
+<pre class="mcode">
+Observable.just(1, 2, 3, 4) // IO 线程，由 subscribeOn() 指定
+    .subscribeOn(Schedulers.io())
+    .observeOn(Schedulers.newThread())
+    .map(mapOperator) // 新线程，由 observeOn() 指定
+    .observeOn(Schedulers.io())
+    .map(mapOperator2) // IO 线程，由 observeOn() 指定
+    .observeOn(AndroidSchedulers.mainThread) 
+    .subscribe(subscriber);  // Android 主线程，由 observeOn() 指定
+</pre>
+不过，不同于 observeOn() ， subscribeOn() 的位置放在哪里都可以，但它是只能调用一次的。
