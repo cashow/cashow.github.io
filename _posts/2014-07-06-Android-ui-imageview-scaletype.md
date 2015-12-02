@@ -10,12 +10,12 @@ ImageView的ScaleType属性是用来设置图片的缩放方式
 
 center 			| 图片居中显示，不对图片进行任何处理。如果图片高度或宽度大于控件的高度或宽度，则只显示图片中间部分
 ---------------	| ------------------------------------------------------------------------------
-centerCrop 		| 图片居中显示。等比例缩放图片使得图片填充满整个控件，并显示图片中间部分。比如在100x200的imageview里显示400x400的图片，会将图片缩放成200x200并显示图片中间部分
-centerInside 	| 图片居中显示。如果图片高度大于控件高度或图片宽度大于控件宽度，则等比例缩放图片使得图片能在控件中完整显示。比如在100x200的imageview里显示400x400的图片，会将图片缩放成100x100
-fitCenter 		| 图片居中显示，等比例缩放图片，使得图片在控件内完整显示并尽可能填充满控件
-fitStart 		| 图片在左上角显示，等比例缩放图片，使得图片在控件内完整显示并尽可能填充满控件
-fitEnd 			| 图片在右下角显示，等比例缩放图片，使得图片在控件内完整显示并尽可能填充满控件
-fitXY 			| 不按图片比例进行缩放，使图片完全填充满整个控件
+centerCrop 		| 图片居中显示。等比例缩放图片使得图片填充满整个控件，并显示图片中间部分。可以想象成图片正好包裹住了控件。比如在100x200的imageview里显示400x400的图片，会将图片缩放成200x200并显示图片中间部分
+centerInside 	| 图片居中显示。如果图片高度大于控件高度或图片宽度大于控件宽度，则等比例缩放图片使得图片所有内容都能在控件中显示。比如在100x200的imageview里显示400x400的图片，会将图片缩放成100x100
+fitCenter 		| 图片居中显示，等比例缩放图片，使得图片所有内容都能在控件内显示并尽可能填充满控件。可以想象成控件正好包裹住了图片
+fitStart 		| 图片在左上角显示，等比例缩放图片，使得图片所有内容都能在控件内显示并尽可能填充满控件
+fitEnd 			| 图片在右下角显示，等比例缩放图片，使得图片所有内容都能在控件内显示并尽可能填充满控件
+fitXY 			| 不按图片比例进行缩放，将图片缩放成图片高度等于控件高度，图片宽度等于控件宽度
 matrix 			| 绘制图片时使用自定义的matrix
 
 其中，centerInside和fitCenter的区别在于，当图片比控件小时，centerInside不会对图片进行拉伸，而fitCenter会将图片等比例拉伸到高度或宽度大于控件的高度或宽度。  
@@ -37,7 +37,7 @@ fitCenter | fitStart | fitEnd | fitXY
 ---------------	| -------------	| ---------- | ------------
 ![origin](http://7xjvhq.com1.z0.glb.clouddn.com/origin_105x70.jpg) | ![center](http://7xjvhq.com1.z0.glb.clouddn.com/center_105x70.png) | ![centerCrop](http://7xjvhq.com1.z0.glb.clouddn.com/centerCrop_105x70.png) | ![centerInside](http://7xjvhq.com1.z0.glb.clouddn.com/centerInside_105x70.png)
 fitCenter | fitStart | fitEnd | fitXY
-![fitCenter](http://7xjvhq.com1.z0.glb.clouddn.com/fitCenter_105x70.png) | ![fitStart](http://7xjvhq.com1.z0.glb.clouddn.com/fitStart_105x70.png) | ![fitEnd](http://7xjvhq.com1.z0.glb.clouddn.com/fitEnd_105x70.png) | ![fitXY](http://7xjvhq.com1.z0.glb.clouddn.com/fitXY_105x70.png)
+![fitCenter](http://7xjvhq.com1.z0.glb.clouddn.com/fitCenter_105x70.png) | ![fitStart](http://7xjvhq.com1.z0.glb.clouddn.com/fitEnd_105x70.png) | ![fitEnd](http://7xjvhq.com1.z0.glb.clouddn.com/fitStart_105x70.png) | ![fitXY](http://7xjvhq.com1.z0.glb.clouddn.com/fitXY_105x70.png)
 
 3.图片比控件大
 
