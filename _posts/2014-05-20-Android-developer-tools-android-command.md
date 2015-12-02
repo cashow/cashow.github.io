@@ -12,41 +12,42 @@ android指令的全局选项：
 -s 静默模式，只打印错误信息  
 -v 普通模式，打印所有的信息  
 
-1.android sdk  
-打开Android SDK Manager窗口  
+<pre class="mcode">
+# 打开Android SDK Manager窗口  
+android sdk  
 
-2.android avd  
-打开Android AVD Manager窗口  
+# 打开Android AVD Manager窗口  
+android avd  
 
-3.android list   
-列出已安装的Android SDK版本和AVD设备  
+# 列出已安装的Android SDK版本和AVD设备  
+android list   
 
-4.android list avd   
-列出已安装的AVD设备  
+# 列出已安装的AVD设备  
+android list avd   
 
-5.android list target   
-列出已安装的Android SDK版本  
+# 列出已安装的Android SDK版本  
+android list target   
 
-6.android create avd -n myavd -t 1   
-创建名为myavd的AVD设备，SDK版本id为1，其中id是输入android list后得到的id。加上 -p path 可指定AVD生成的路径  
+# 创建名为myavd的AVD设备，SDK版本id为1，其中id是输入android list后得到的id。加上 -p path 可指定AVD生成的路径  
+android create avd -n myavd -t 1   
 
-7.android delete avd -n myavd   
-删除名为myavd的AVD设备  
+# 删除名为myavd的AVD设备  
+android delete avd -n myavd   
 
-8.android move avd -n myavd   
-移动名为myavd的AVD设备，加上 -p path 可指定AVD移动的路径，加上-r newname指定移动后的重命名为newname  
+# 移动名为myavd的AVD设备，加上 -p path 可指定AVD移动的路径，加上-r newname指定移动后的重命名为newname  
+android move avd -n myavd   
 
-9.android create project -n helloworld -t 1 -k com.example.test -a Helloworld -p .  
--n 指定项目名称为helloworld，-t 指定SDK版本id为1，-k 指定生成项目的包名，-a 指定入口activity的名称为Helloworld，-p 指定生成项目的路径  
+# 创建android项目，-n 指定项目名称为helloworld，-t 指定SDK版本id为1，-k 指定生成项目的包名，-a 指定入口activity的名称为Helloworld，-p 指定生成项目的路径  
+android create project -n helloworld -t 1 -k com.example.test -a Helloworld -p .  
 
-10.android update project -p path  
-更新项目配置，可加 -l path指定项目依赖的库，加 -t 指定SDK版本  
+# 更新项目配置文件，可加 -l path指定项目依赖的库，加 -t 指定SDK版本  
+android update project -p path  
 
-11.android create lib-project -n helloworld -t 1 -k com.example.test -p .  
-创建lib工程  
+# 创建lib工程  
+android create lib-project -n helloworld -t 1 -k com.example.test -p .  
 
-12.android update lib-project -p path  
-更新lib工程
-***
+# 更新lib工程配置文件
+android update lib-project -p path  
+</pre>
 官方文档：
 <http://developer.android.com/tools/help/android.html>
