@@ -30,27 +30,6 @@ Observable&lt;String&gt; myObservable = Observable.create(
 );
 </pre>
 这里定义的myObservable是给所有的Subscriber发出一个Hello World字符串。  
-###just操作符
-just将传入的数据依次发出。  
-<pre class="mcode">
-Observable observable = Observable.just("Hello", "Hi", "Aloha");
-// 将会依次调用：
-// onNext("Hello");
-// onNext("Hi");
-// onNext("Aloha");
-// onCompleted();
-</pre>
-###from操作符
-from操作符接收一个集合作为输入，每次输出一个元素给subscriber
-<pre class="mcode">
-String[] words = {"Hello", "Hi", "Aloha"};
-Observable observable = Observable.from(words);
-// 将会依次调用：
-// onNext("Hello");
-// onNext("Hi");
-// onNext("Aloha");
-// onCompleted();
-</pre>
 ###创建一个Subscriber
 <pre class="mcode">
 Subscriber&lt;String&gt; mySubscriber = new Subscriber&lt;String&gt;() {
@@ -104,6 +83,82 @@ observable.subscribe(onNextAction);
 observable.subscribe(onNextAction, onErrorAction);
 // 自动创建Subscriber，并使用onNextAction、onErrorAction和onCompletedAction来定义onNext()、onError()和onCompleted()
 observable.subscribe(onNextAction, onErrorAction, onCompletedAction);
+</pre>
+***
+##创建Observable的操作符：
+###create操作符
+创建一个自定义的Observable
+<pre class="mcode">
+Observable&lt;String&gt; myObservable = Observable.create(
+    new Observable.OnSubscribe&lt;String&gt;() {
+        @Override
+        public void call(Subscriber&lt;? super String&gt; sub) {
+            sub.onNext("Hello, world!");
+            sub.onCompleted();
+        }
+    }
+);
+</pre>
+###defer操作符
+和其他创建Observable的操作符不同，Defer操作符在有observer订阅时才会创建Observable，并且为每一个observer创建一个全新的Observable。  
+<pre class="mcode">
+public class SomeType {  
+    private String value;
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Observable&lt;String&gt; valueObservable() {
+        return Observable.just(value);
+    }
+}
+
+// 执行以下代码，会打印出null，而不是"Some Value"
+// 原因就是在用just创建Observable时，Observable已经将value的值保存下来了
+// 因此在subscribe时value的值是null
+SomeType instance = new SomeType();  
+Observable<String> value = instance.valueObservable();  
+instance.setValue("Some Value");  
+value.subscribe(System.out::println);  
+
+// 使用defer，可在每次被订阅时再创建Observable
+Observable.defer(() -> Observable.just(value));
+</pre>
+详细说明可查看：[Deferring Observable code until subscription in RxJava](http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/)
+###just操作符
+just将传入的数据依次发出。  
+<pre class="mcode">
+Observable observable = Observable.just("Hello", "Hi", "Aloha");
+// 将会依次调用：
+// onNext("Hello");
+// onNext("Hi");
+// onNext("Aloha");
+// onCompleted();
+</pre>
+###from操作符
+from操作符接收一个集合作为输入，每次输出一个元素给subscriber
+<pre class="mcode">
+String[] words = {"Hello", "Hi", "Aloha"};
+Observable observable = Observable.from(words);
+// 将会依次调用：
+// onNext("Hello");
+// onNext("Hi");
+// onNext("Aloha");
+// onCompleted();
+</pre>
+###interval操作符
+每隔一段时间发送一个从0开始递增的数字。  
+<pre class='mcode'>
+// 每隔500ms发送一个数字，依次是0，1，2，3，4...
+// 这个操作会无限进行下去，所以需要手动取消掉这个subscription
+Observable.interval(500, TimeUnit.MILLISECONDS);
+</pre>
+###range操作符
+range(n, m)会依次发出m个数据，数据从n开始递增，如n, n+1, n+2 ... n+m-1 
+<pre class="mcode">
+// 依次发出10到24
+Observable.range(10, 15);
 </pre>
 ***
 ###map操作符
@@ -253,6 +308,7 @@ Observable.just("Hello, world!")
 将异常处理交给订阅者来做，Observerable的操作符调用链中一旦有一个抛出了异常，就会直接执行onError()方法。  
 3.你能够知道什么时候订阅者已经接收了全部的数据。  
 知道什么时候任务结束能够帮助简化代码的流程。（虽然有可能Observable对象永远不会结束） 
+***
 ###订阅关系Subscription
 调用Observable.subscribe()会返回一个Subscription对象，这个对象代表了被观察者和订阅者之间的联系。  
 <pre class="mcode">
