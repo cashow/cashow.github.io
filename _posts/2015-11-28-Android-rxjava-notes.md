@@ -14,6 +14,8 @@ tags: Android 学习笔记 RxJava
 [深入浅出RxJava四-在Android中使用响应式编程](http://blog.csdn.net/lzyzsd/article/details/45033611)  
 [给 Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)  
 [Github项目：RxJava-Android-Samples](https://github.com/kaushikgopal/RxJava-Android-Samples)  
+[101 Rx Samples](http://rxwiki.wikidot.com/101samples)  
+[RxJava操作符（一）Creating Observables ](http://blog.chinaunix.net/uid-20771867-id-5187376.html)  
 [知乎：谁来讲讲Rxjava、rxandroid中的操作符的作用?](https://www.zhihu.com/question/32209660)  
 ***
 RxJava最核心的是Observables（被观察者，事件源）和Subscribers（观察者）。Observables发出一系列事件，Subscribers处理这些事件。  
@@ -159,6 +161,13 @@ range(n, m)会依次发出m个数据，数据从n开始递增，如n, n+1, n+2 .
 <pre class="mcode">
 // 依次发出10到24
 Observable.range(10, 15);
+</pre>
+###repeat操作符
+将数据重复发送几次
+<pre class="mcode">
+// 发出的数据是：0, 1, 2, 0, 1, 2, 0, 1, 2
+Observable.range(0, 3)
+    .repeat(3);
 </pre>
 ***
 ###map操作符
