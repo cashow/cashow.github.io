@@ -3,10 +3,10 @@ layout: post
 title: "《Head first设计模式》学习笔记 - 工厂模式"
 date: 2015-12-14 22:49:43 +0800
 tags: 设计模式 学习笔记 工厂模式
-excerpt: <p></p>
+excerpt: <p>工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到了子类。</p>
 ---
 
-<div class="alert alert-success" role="alert"></div>
+<div class="alert alert-success" role="alert">工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到了子类。</div>
 ###预定披萨
 假设你有一个披萨店，预定披萨的代码可能是这么写的：  
 <pre class="mcode">
@@ -133,3 +133,140 @@ public class PizzaStore {
 ###加盟披萨店
 你的披萨店经营有成，击败了竞争者，现在大家都希望能在自家附近有加盟店。身为加盟公司经营者，你希望确保加盟店运营的质量，所以希望这些店都使用你那些经过时间考验的代码。  
 但是区域的差异呢？每家加盟店都可能想要提供不同风味的披萨（比方说纽约、芝加哥、加州），这受到了开店地点及该地区披萨美食家口味的影响。  
+在推广SimplePizzaFactory时，你发现加盟店的确是采用你的工厂创建披萨，但是其他部分，却开始采用他们自创的流程：烘烤的做法有差异、不要切片、使用其他厂商的盒子。  
+能不能建立一个框架，把加盟店和创建披萨捆绑在一起的同时又保持一定的弹性？  
+###给披萨店使用的框架
+有个做法可让披萨制作活动局限于PizzaStore类，而同时又能让这些加盟店依然可以自由地制作该区域的风味。  
+所要做的事情，就是把createPizza()方法放回到PizzaStore中，不过要把它设置成“抽象方法”，然后为每个区域风味创建一个PizzaStore的子类。  
+首先，看PizzaStore所做的改变：  
+<pre class="mcode">
+public abstract class PizzaStore {
+
+    public Pizza orderPizza(String type) {
+        Pizza pizza;
+
+        // 现在createPizza()方法从工厂对象中移回PizzaStore
+        pizza = createPizza(type);
+
+        // 这些都没变
+        pizza.prepare();
+        pizza.bake();
+        pizza.cut();
+        pizza.box();
+
+        return pizza;
+    }
+    
+    // 现在把工厂对象移到这个方法中
+    // 在PizzaStore里，“工厂方法”现在是抽象的
+    abstract Pizza createPizza(String type);
+}
+</pre>
+现在已经有一个PizzaStore作为超类；让每个域类型（NYPizzaStore、ChicagoPizzaStore、CaliforniaPizzaStore）都继承这个PizzaStore，每个子类各自决定如何制作披萨。  
+###允许子类做决定
+PizzaStore已经有一个不错的订单系统，由orderPizza()方法负责处理订单，而你希望所有加盟店对于订单的处理都能一致。  
+各个区域披萨店之间的差异在于他们制作披萨的风味（纽约披萨的薄脆、芝加哥披萨的饼厚等），我们现在要让现在createPizza()能够应对这些变化来负责创建正确种类的披萨。做法是让PizzaStore的各个子类负责定义自己的createPizza()方法。所以我们会得到一些PizzaStore具体的子类，每个子类都有自己的披萨变体，而仍然适合PizzaStore框架，并使用调试好的orderPizza()方法。  
+<pre class="mcode">
+public abstract class PizzaStore {
+
+    public Pizza orderPizza(String type) {
+        Pizza pizza;
+
+        pizza = createPizza(type);
+
+        pizza.prepare();
+        pizza.bake();
+        pizza.cut();
+        pizza.box();
+
+        return pizza;
+    }
+
+    // 每个子类都会覆盖createPizza()方法
+    abstract Pizza createPizza(String type);
+}
+
+// 如果加盟店为顾客提供纽约风味的披萨，就使用NyStylePizzaStore，
+// 因为此类的createPizza()方法会建立纽约风味的披萨
+public class NyStylePizzaStore extends PizzaStore{
+
+    @Override
+    Pizza createPizza(String type) {
+        Pizza pizza = null;
+
+        if (type.equals("cheese")) {
+            pizza = new NyStyleCheesePizza();
+        } else if (type.equals("pepperoni")) {
+            pizza = new NyStylePepperoniPizza();
+        } else if (type.equals("clam")) {
+            pizza = new NyStyleClamPizza();
+        } else if (type.equals("veggie")) {
+            pizza = new NyStyleVeggiePizza();
+        }
+        return pizza;
+    }
+}
+
+// 类似的，利用芝加哥子类，我们得到了带芝加哥原料的createPizza()实现
+public class ChicagoStylePizzaStore extends PizzaStore{
+
+    @Override
+    Pizza createPizza(String type) {
+        Pizza pizza = null;
+
+        if (type.equals("cheese")) {
+            pizza = new ChicagoCheesePizza();
+        } else if (type.equals("pepperoni")) {
+            pizza = new ChicagoPepperoniPizza();
+        } else if (type.equals("clam")) {
+            pizza = new ChicagoClamPizza();
+        } else if (type.equals("veggie")) {
+            pizza = new ChicagoVeggiePizza();
+        }
+        return pizza;
+    }
+}
+</pre>
+现在问题来了，PizzaStore的子类终究只是子类，如何能够做决定？在NyStylePizzaStore类中，并没有看到任何做决定逻辑的代码。  
+关于这个方面，要从PizzaStore的orderPizza()方法观点来看，此方法在抽象的PizzaStore内定义，但是只在子类中实现具体类型。  
+orderPizza()方法对对象做了许多事情（例如：准备、烘烤、切片、装盒），但由于Pizza对象是抽象的，orderPizza()并不知道哪些实际的具体类参与进来了。换句话说，这就是解耦（decouple）！  
+当orderPizza()调用createPizza()时，某个披萨店子类将负责创建披萨。做哪一种披萨呢？当然是由具体的披萨店决定。  
+那么，子类是实时做出这样的决定吗？不是，但从orderPizza()的角度看，如果选择在NyStylePizzaStore订购披萨，就是由这个子类（NyStylePizzaStore）决定。严格来说，并非由这个子类实际做“决定”，而是由“顾客”决定哪一家风味的披萨店才决定了披萨的风味。  
+###工厂模式
+工厂方法模式（Factory Method Pattern）通过让子类决定该创建的对象是什么，来达到将对象创建的过程封装的目的。  
+PizzaStore就是创建者（Creator）类。它定义了一个抽象的工厂方法，让子类实现此方法制造产品。  
+创建者通常会包含依赖于抽象产品的代码，而这些抽象产品由子类制造。创建者不需要真的知道在制造哪种具体产品。  
+能够产生产品的类称为具体创建者。NYPizzaStore和ChicagoPizzaStore就是具体创建者。  
+Pizza是产品类。工厂生产产品，对PizzaStore来说，产品就是Pizza。  
+抽象的Creator提供了一个创建对象的方法的接口，也称为“工厂方法”。在抽象的Creator中，任何其他实现的方法，都可能使用到这个工厂方法所制造出来的产品，但只有子类真正实现这个工厂方法并创建产品。  
+<pre class="mcode">
+// Creator是一个类，它实现了所有操纵产品的方法，但不实现工厂方法
+public abstract class Creator{
+    void anOperation(){
+        // ...
+    }
+    // Creator的所有子类都必须实现这个抽象的factoryMethod()方法
+    abstract void factoryMethod();
+}
+
+// 具体的创建者
+public class ConcreteCreator extends Creator{
+    // ConcreteCreator实现了factoryMethod()，以实际制造出产品。
+    @Override
+    void factoryMethod() {
+        // ...
+    }
+}
+
+// 所有产品必须实现这个接口，这样一来，
+// 使用这些产品的类就可以引用这个接口，而不是具体的类
+public abstract class Product{
+    void operation(){
+        // ...
+    }
+}
+
+// 具体的产品
+public class ConcreteProduct extends Product{
+}
+</pre>
