@@ -16,7 +16,7 @@ theme:
 
 # Permalinks
 permalink: /:title.html
-markdown: kramdown
+markdown: rdiscount
 # Pagination config
 paginate: 5
 paginate_path: "page:num"
