@@ -14,12 +14,9 @@ theme:
   social: 
     github: cashow
 
-# Build settings
-markdown: rdiscount
-
 # Permalinks
 permalink: /:title.html
-
+markdown: kramdown
 # Pagination config
 paginate: 5
 paginate_path: "page:num"
@@ -39,3 +36,5 @@ exclude:
 sass:
   sass_dir: assets/css/_sass
   style: :compressed
+
+gems: [jekyll-paginate]
