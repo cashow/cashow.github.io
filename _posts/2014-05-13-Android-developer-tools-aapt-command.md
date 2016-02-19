@@ -7,7 +7,9 @@ tags: Android Android开发工具 aapt
 
 aapt即Android Asset Packaging Tool , 可用来获取apk的基本信息如packagename、versionCode、versionName等  
 aapt一般在build-tools文件夹的android-xx文件夹里
+
 ***
+
 ####aapt常用命令  
 
 <table>
@@ -28,7 +30,9 @@ aapt一般在build-tools文件夹的android-xx文件夹里
       <td>列出123.apk里的资源文件并将输出的信息存到apkinfo.txt文件</td>
    </tr>
 </table>
+
 ******
+
 ####aapt的应用
 获取123.apk的packagename：
 <pre class="mcode">
@@ -54,7 +58,9 @@ launchActivity=`aapt d badging $filename | grep launchable-activity |awk '{print
 adb install -r $filename
 adb shell am start -n $packageName/$launchActivity
 </pre>
+
 ******
+
 ####aapt的部分官方说明：
 <pre>
  aapt d[ump] [--values] WHAT file.{apk} [asset [asset ...]]

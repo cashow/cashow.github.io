@@ -16,10 +16,9 @@ theme:
 
 # Permalinks
 permalink: /:title.html
-markdown: rdiscount
 # Pagination config
 paginate: 5
-paginate_path: "page:num"
+paginate_path: "page/:num"
 timezone: Asia/Shanghai
 
 # Files/Folders to be excluded from generated _site folder

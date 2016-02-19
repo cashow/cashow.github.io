@@ -6,12 +6,15 @@ tags: 常用工具
 ---
 
 要在markdown里显示html代码，需要把小于号 < 和大于号 > 进行转义
+
 ###转义前
 <textarea id="text_before" class="minput" style="width:100%" rows="20"></textarea>
 <button class="btn btn-primary btn-lg pagebtn" id="copy_before" data-container="body" data-toggle="manual" data-placement="right" data-content="已复制">复制到剪贴板</button>
+
 ###转义后
+
 <textarea id="text_after" class="minput" style="width:100%" rows="20"></textarea>
-<button class="btn btn-primary btn-lg pagebtn" id="copy_after" data-container="body"data-toggle="manual" data-placement="right" data-content="已复制">复制到剪贴板</button>
+<button class="btn btn-primary btn-lg pagebtn" id="copy_after" data-container="body" data-toggle="manual" data-placement="right" data-content="已复制">复制到剪贴板</button>
 
 <script type="text/javascript" src="{{ '/assets/js/clipboard.min.js' | prepend: site.baseurl }}"></script>
 <script type="text/javascript">

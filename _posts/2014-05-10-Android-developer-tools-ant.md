@@ -29,7 +29,9 @@ key.alias=release
 key.alias.password=123456
 </pre>
 key.store是密钥库文件的地址，key.store.password是密钥库文件的密码，key.alias是签名所使用的私钥，key.alias.password是私钥的密码  
+
 ******
+
 ####ant的常用命令：
 <table>
    <tr>

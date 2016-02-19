@@ -6,13 +6,18 @@ tags: Android OutOfMemory 内存泄露 EclipseMemoryAnalyzer
 ---
 
 Out of memory是android开发过程中常见的问题。在应用出现内存泄露问题时，任何一段需要占用内存的代码都有可能导致应用崩溃，这个时候友盟后台错误分析里给出的stacktrace并没有什么卵用。通过LeakCanary或者Eclipse Memory Analyzer（简称MAT），可以较方便地定位内存泄露的源头。  
+
+
 ***
+
 ###Eclipse Memory Analyzer
 Eclipse Memory Analyzer是一款用来分析Java内存的工具。通过Eclipse Memory Analyzer，可以很方便地看出哪些资源占用了app较大的内存，也可以推断出哪里发生了内存泄露。  
 Eclipse Memory Analyzer官网：<https://eclipse.org/mat/>  
 下载链接：<https://eclipse.org/mat/downloads.php>  
 安装MAT的时候可以选择在eclipse里安装插件，或者直接下载安装不基于eclipse的独立版本，即下载链接里的Stand-alone Eclipse RCP Applications。  
+
 ***
+
 ###测试代码
 以下是android测试代码，在开启AsyncTask后旋转屏幕，可以造成内存泄露。
 <pre class="mcode">
@@ -56,7 +61,9 @@ public class MainActivity extends ActionBarActivity {
     }
 }
 </pre>
+
 ***
+
 ###获取app的内存占用情况
 安装好MAT后，接下来需要去获取app的内存占用情况。通过DDMS可以导出内存快照（heap dump），导出后的文件后缀是hprof，这个文件里记录了java对象和类在heap中的占用情况。  
 导出的步骤如下：  
@@ -90,7 +97,9 @@ hprof-conv temp.hprof hprof/dumpheap.hprof
 rm temp.hprof
 </pre>
 执行上面的脚本后，可以在hprof文件夹里找到dumpheap.hprof文件，这个文件就是我们要分析的文件。  
+
 ***
+
 ###打开hprof文件
 打开MAT，通过菜单栏的 File - Open File.. 打开刚刚生成的dumpheap.hprof，弹出如下对话框：  
 ![mat_getting_started](http://7xjvhq.com1.z0.glb.clouddn.com/mat_getting_started.png)
@@ -104,7 +113,9 @@ rm temp.hprof
 ![mat_overview](http://7xjvhq.com1.z0.glb.clouddn.com/mat_overview.png)
 这个界面包括了MAT对hprof文件的简要分析，鼠标移动到饼状图上可以在MAT的左侧看到详细的信息。  
 分析饼状图后可以得出结论：我们的app总共使用了16.6MB的内存，其中8.3MB的内存被 android.content.res.Resources 占用，6.3MB的内存被 android.graphics.Bitmap 占用。
+
 ***
+
 ###查看activity泄露情况
 点击“Actions”下方的“Histogram”，可以查看内存里各个对象的数目以及占用的内存大小。
 ![mat_histogram](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram.png)
@@ -113,7 +124,9 @@ rm temp.hprof
 可以在列表顶部的输入框里输入正则表达式过滤不需要的结果，比如输入包名可以查看我们自定义的类的内存占用情况。
 ![mat_histogram_filtered](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram_filtered.png)
 可以很明显地看到，MainActivity在内存里有5个实例，可我们在测试过程中没有开启新的activity，只是旋转了几次屏幕。由此可推断，旋转屏幕的过程中MainActivity没有被回收，即MainActivity发生了内存泄露。
+
 ***
+
 ###定位内存泄露原因
 在Histogram页面可以看到有3个MainActivity相关的信息，选中一条后右键，选择“Merge Shortest Paths to GC Roots” - “exclude weak references”，可看到MainActivity被引用的路径。  
 以下是MainActivity$2对应的引用路径：
@@ -122,7 +135,9 @@ rm temp.hprof
 为了确认AsyncTask就是导致内存泄露的罪魁祸首，可以把 startAsyncTask() 注释掉后再生成一次hprof文件。  
 ![mat_histogram_filtered_2](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram_filtered_2.png)
 现在MainActivity在内存里只有一个实例，整个世界清净了。
+
 ***
+
 ###找到占用内存较大的bitmap
 点击“Histogram”下面的“Domanitor Tree”按钮，进入到如下界面：  
 ![mat_domanitor_tree](http://7xjvhq.com1.z0.glb.clouddn.com/mat_domanitor_tree.png)
@@ -130,14 +145,17 @@ rm temp.hprof
 注意第二行的 android.graphics.Bitmap，总共占用了37.50%的内存（总内存是16.6MB）。  
 现在问题来了：这个bitmap是在什么地方出现的？占用这么多的内存是正常现象吗？  
 为了解答以上问题，我们需要把这个bitmap导出成图片文件。  
+
 ####第一步：获取bitmap的宽度和高度
 选中“android.graphics.Bitmap”栏，可以在左侧看到bitmap的相关信息：  
 ![mat_bitmap_info](http://7xjvhq.com1.z0.glb.clouddn.com/mat_bitmap_info.png)
 记录下mWidth和mHeight的值。这两个值表示了bitmap的宽度和长度，比如现在要分析的这个bitmap是 1280 x 1280 的图片。  
+
 ####第二步：导出成data文件  
 选中“android.graphics.Bitmap”下方的 “byte[6553600]” 栏，右键 - Copy - Save Value To File，将bitmap文件保存成后缀名为data的文件。  
 ![mat_bitmap_byte](http://7xjvhq.com1.z0.glb.clouddn.com/mat_bitmap_byte.png)
 ![mat_save_bitmap](http://7xjvhq.com1.z0.glb.clouddn.com/mat_save_bitmap.png)
+
 ####第三步：使用GIMP打开data文件  
 GIMP是一个开源的图像处理软件，包含大部分图象处理所需的功能，可以算是Linux下的PhotoShop。  
 官网：<https://www.gimp.org/>  
@@ -152,8 +170,13 @@ GIMP是一个开源的图像处理软件，包含大部分图象处理所需的�
 ![gimp_ori](http://7xjvhq.com1.z0.glb.clouddn.com/gimp_ori.png)
 这张图片就是 R.drawable.test 。  
 现在找到了占用内存较大的图片，接下来就是考虑怎么减少图片占用的内存。一个常见的方法是将bitmap缩放后再放入ImageView里面。具体优化方法可以查看android官方文档的教程 "Displaying Bitmaps Efficiently" ：  
+
 <https://developer.android.com/training/displaying-bitmaps/index.html>  
+
 ***
+
+
 ###相关链接  
 Android - 利用LeakCanary检测内存泄露：  
+
 <http://cashow.github.io/android-detect-out-of-memory-with-leakcanary.html>

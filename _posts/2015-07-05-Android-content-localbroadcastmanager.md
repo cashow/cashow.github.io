@@ -7,18 +7,22 @@ tags: Android Android组件 Broadcast
 
 LocalBroadcastManager是android support v4包里提供的一个组件，用来在应用内发送广播。与普通的Broadcast相比，LocalBroadcast不需要发送全局广播，效率更高，而且发送的数据不能被其他应用接受，其他应用也不能发送这些广播到我们的app，因此不需要担心数据的安全性问题。  
 LocalBroadcast的用法和Broadcast基本一致，只需要在Broadcast相关的代码前加上LocalBroadcastManager.getInstance(context)就行了。  
+
 ####发送广播：  
 <pre class="mcode">
 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);  
 </pre>
+
 ####注册广播监听器：  
 <pre class="mcode">
 LocalBroadcastManager.getInstance(context).registerReceiver(receiver, filter);
 </pre>
+
 ####注销广播监听器：
 <pre class="mcode">
 LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
 </pre>
+
 ***
 具体实现代码如下：  
 <pre class="mcode">
@@ -94,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
     }
 }
 </pre>
+
 ***
 官方文档：  
 <https://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html>

@@ -6,7 +6,10 @@ tags: Android OutOfMemory 内存泄露 LeakCanary
 ---
 
 Out of memory是android开发过程中常见的问题。在应用出现内存泄露问题时，任何一段需要占用内存的代码都有可能导致应用崩溃，这个时候友盟后台错误分析里给出的stacktrace并没有什么卵用。通过LeakCanary或者Eclipse Memory Analyzer（简称MAT），可以较方便地定位内存泄露的源头。  
+
+
 ***
+
 ###LeakCanary
 LeakCanary是[Square](https://github.com/square)公司开发的一个用于检测OOM(out of memory的缩写)问题的开源库。  
 Github地址：<https://github.com/square/leakcanary>  
@@ -22,7 +25,9 @@ dependencies {
 LeakCanary.install(this);
 </pre>
 是的，只需要这么简单的两步，你就可以开始检测自己app的out of memory问题了！  
+
 ***
+
 ###LeakCanary使用示例：  
 以下是LeakCanary官方的demo，主要是在activity里开启一个会导致内存泄露的AsyncTask，在application里进行LeakCanary的初始化并打开[严格模式](http://developer.android.com/reference/android/os/StrictMode.html)。  
 Activity的代码：  
@@ -86,7 +91,9 @@ public class MyApplication extends Application {
 在Logcat里也会有相应的信息：  
 ![leakcanary_leak_detail_info](http://7xjvhq.com1.z0.glb.clouddn.com/leakcanary_logcat.png)
 由此可看出，MainActivity里面的AsyncTask导致了泄露。  
+
 ***
+
 ###监测自定义的对象
 在调用LeakCanary.install()时，LeakCanary会自动安装ActivityRefWatcher，在每个activity调用onDestroy()后通过判断activity的引用是否还在，确认activity是否已经泄露。  
 另外，LeakCanary.install()还会返回一个已经配置好的RefWatcher。通过RefWatcher可以监测理应被系统回收的对象的状态。比如可以通过RefWatcher检测fragment是否泄露：  
@@ -101,6 +108,7 @@ public abstract class BaseFragment extends Fragment {
 }
 </pre>
 ***
+
 ###不监听特定的对象  
 如果有些对象你希望LeakCanary忽略掉，可以创建自己的ExcludedRefs：  
 <pre class='mcode'>
@@ -112,6 +120,7 @@ protected RefWatcher installLeakCanary() {
 }
 </pre>
 ***
+
 ###不监听特定的activity  
 ActivityRefWatcher默认是监听所有的activity。重新实现LeakCanary的[install](https://github.com/square/leakcanary/blob/master/leakcanary-android/src/main/java/com/squareup/leakcanary/LeakCanary.java)方法可以自定义需要监听的activity。
 <pre class='mcode'>
@@ -169,6 +178,7 @@ protected RefWatcher installLeakCanary() {
 }
 </pre>
 ***
+
 ###混淆  
 如果在debug版本使用了混淆，需要在混淆文件加上以下的混淆配置：
 <pre class="mcode">
@@ -177,6 +187,7 @@ protected RefWatcher installLeakCanary() {
 -keep class com.squareup.leakcanary.** { *; }
 </pre>
 ***
+
 ###相关链接
 Android - 利用Eclipse Memory Analyzer(MAT)检测内存泄露问题：  
 <http://cashow.github.io/android-detect-out-of-memory-with-eclipse-memory-analyzer.html>

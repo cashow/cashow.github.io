@@ -23,6 +23,7 @@ public abstract class Beverage {
 }
 </pre>
 购买咖啡时，也可以要求在其中加入各种调料，例如蒸奶、豆浆、摩卡或覆盖奶泡。星巴兹会根据所加入的调料收取不同的费用。所以订单系统必须考虑到这些调料部分。  
+
 ###订单系统的第一次尝试  
 <pre class="mcode">
 public class HouseBlend extends Beverage{
@@ -49,6 +50,7 @@ public class HouseBlendWithSteamedMilkandMocha extends Beverage{
 ...
 </pre>
 很明显，星巴兹为自己制造了一个维护恶梦。如果牛奶的价格上涨，怎么办？新增一种焦糖调料风味时，怎么办？  
+
 ###利用实例变量和继承追踪这些调料
 先从基类下手，加上实例变量代表是否加上调料（牛奶、豆浆、摩卡、奶泡...）
 <pre class="mcode">
@@ -132,12 +134,14 @@ public class HouseBlend extends Beverage{
     }
 }
 </pre>
+
 ###以上设计的潜在问题
 当哪些需求或因素改变时会影响这个设计？  
 1. 调料价格的改变会使我们更改现有代码；  
 2. 一旦出现新的调料，我们就需要加上新的方法，并改变超类中的cost()方法；  
 3. 以后可能会开发出新饮料。对这些饮料而言（例如：冰茶），某些调料可能并不适合，但是在这个设计方式中，Tea（茶）子类仍将继承那些不适合的方法，例如：hasWhip()（加奶泡）；  
 4. 万一顾客想要双倍摩卡咖啡，怎么办？  
+
 ###继承与复用
 尽管继承威力强大，但它并不总是能够实现最有弹性和最好维护的设计。  
 利用组合（composition）和委托（delegation）可以在运行时具有继承行为的效果。  
@@ -145,6 +149,7 @@ public class HouseBlend extends Beverage{
 通过动态地组合对象，可以写新的代码添加新功能，而无须修改现有代码。既然没有改变现有的代码，那么引进bug或产生意外副作用的机会将大幅度减少。  
 <p class="text-danger">设计原则：类应该对扩展开放，对修改关闭。</p>
 我们的目标是允许类容易扩展，在不修改现有代码的情况下，就可搭配新的行为。如能实现这样的目标，有什么好处呢？这样的设计具有弹性可以应对改变，可以接受新的功能来应对改变的需求。  
+
 ###认识装饰者模式
 我们已经了解利用继承无法完全解决问题，在星巴兹遇到的问题有：类数量爆炸、设计死板，以及基类加入的新功能并不适用于所有的子类。  
 所以，在这里要采用不一样的做法：我们要以饮料为主体，然后在运行时以调料来“装饰”（decorate）饮料。比方说，如果顾客想要摩卡和奶泡深焙咖啡，那么，要做的是：  
@@ -152,6 +157,7 @@ public class HouseBlend extends Beverage{
 2. 以摩卡（Mocha）对象装饰它；  
 3. 以奶泡（Whip）对象装饰它；  
 4. 调用cost()方法，并依赖委托（delegate）将调料的价格加上去。  
+
 ###以装饰者模式构造饮料订单
 1.以DarkRoast对象开始。  
 DarkRoast继承自Beverage，且有一个用来计算饮料价钱的cost()方法。    
@@ -166,6 +172,7 @@ Whip是一个装饰者，所以它也反映了DarkRoast类型，并包括一个c
 所以，被Mocha和Whip包起来的DarkRoast对象仍然是一个Beverage，仍然可以具有DarkRoast的一切行为，包括调用它的cost()方法。  
 4.现在，该是为顾客算钱的时候了。通过调用最外圈装饰者（Whip）的cost()就可以办得到。Whip的cost()会先委托它装饰的对象（也就是Mocha）计算出价钱，然后再加上奶泡的价钱。  
 ![decorator_pattern_cost](http://7xjvhq.com1.z0.glb.clouddn.com/decorator_pattern_cost.jpg)
+
 ###定义装饰者模式
 我们目前所知道的一切：  
 1.装饰者和被装饰者有相同的超类型；  
@@ -202,6 +209,7 @@ public class ConcreteDecoratorA extends Decorator {
     }
 }
 </pre>
+
 ###装饰我们的饮料
 <pre class="mcode">
 // Beverage相当于抽象的Component类
