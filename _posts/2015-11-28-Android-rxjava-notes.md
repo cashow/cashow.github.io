@@ -21,7 +21,7 @@ tags: Android 学习笔记 RxJava
 ***
 RxJava最核心的是Observables（被观察者，事件源）和Subscribers（观察者）。Observables发出一系列事件，Subscribers处理这些事件。  
 
-###创建一个Observable
+### 创建一个Observable
 <pre class="mcode">
 Observable&lt;String&gt; myObservable = Observable.create(
     new Observable.OnSubscribe&lt;String&gt;() {
@@ -35,7 +35,7 @@ Observable&lt;String&gt; myObservable = Observable.create(
 </pre>
 这里定义的myObservable是给所有的Subscriber发出一个Hello World字符串。  
 
-###创建一个Subscriber
+### 创建一个Subscriber
 <pre class="mcode">
 Subscriber&lt;String&gt; mySubscriber = new Subscriber&lt;String&gt;() {
     @Override
@@ -77,7 +77,7 @@ Action0 onCompletedAction = new Action0() {
 
 </pre>
 
-###mySubscriber订阅myObservable
+### mySubscriber订阅myObservable
 mySubscriber订阅myObservable后，Observable每发出一个事件，就会调用它的Subscriber的onNext()。如果出错，会调用Subscriber的onError()。当不会再有新的onNext()发出时，会调用onCompleted()方法。  
 subscribe方法有一个重载版本，接受Action0和Action1类型的参数，分别对应OnNext，OnComplete， OnError函数。  
 <pre class="mcode">
@@ -94,7 +94,7 @@ observable.subscribe(onNextAction, onErrorAction, onCompletedAction);
 
 ##创建Observable的操作符：
 
-###create操作符
+### create操作符
 创建一个自定义的Observable
 <pre class="mcode">
 Observable&lt;String&gt; myObservable = Observable.create(
@@ -108,7 +108,7 @@ Observable&lt;String&gt; myObservable = Observable.create(
 );
 </pre>
 
-###defer操作符
+### defer操作符
 和其他创建Observable的操作符不同，Defer操作符在有observer订阅时才会创建Observable，并且为每一个observer创建一个全新的Observable。  
 <pre class="mcode">
 public class SomeType {  
@@ -137,7 +137,7 @@ Observable.defer(() -&gt; Observable.just(value));
 详细说明可查看：[Deferring Observable code until subscription in RxJava](http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/)
 
 
-###just操作符
+### just操作符
 just将传入的数据依次发出。  
 <pre class="mcode">
 Observable observable = Observable.just("Hello", "Hi", "Aloha");
@@ -148,7 +148,7 @@ Observable observable = Observable.just("Hello", "Hi", "Aloha");
 // onCompleted();
 </pre>
 
-###from操作符
+### from操作符
 from操作符接收一个集合作为输入，每次输出一个元素给subscriber
 <pre class="mcode">
 String[] words = {"Hello", "Hi", "Aloha"};
@@ -160,7 +160,7 @@ Observable observable = Observable.from(words);
 // onCompleted();
 </pre>
 
-###interval操作符
+### interval操作符
 每隔一段时间发送一个从0开始递增的数字。  
 <pre class='mcode'>
 // 每隔500ms发送一个数字，依次是0，1，2，3，4...
@@ -168,14 +168,14 @@ Observable observable = Observable.from(words);
 Observable.interval(500, TimeUnit.MILLISECONDS);
 </pre>
 
-###range操作符
+### range操作符
 range(n, m)会依次发出m个数据，数据从n开始递增，如n, n+1, n+2 ... n+m-1 
 <pre class="mcode">
 // 依次发出10到24
 Observable.range(10, 15);
 </pre>
 
-###repeat操作符
+### repeat操作符
 将数据重复发送几次
 <pre class="mcode">
 // 发出的数据是：0, 1, 2, 0, 1, 2, 0, 1, 2
@@ -184,7 +184,7 @@ Observable.range(0, 3)
 </pre>
 ***
 
-###map操作符
+### map操作符
 map操作符用来把Observable传来的数据转换成另一个数据。
 <pre class="mcode">
 Observable.just("Hello, world!")
@@ -202,7 +202,7 @@ Observable.just("Hello, world!")
     .subscribe(s -> System.out.println(s));
 </pre>
 
-###flatMap操作符
+### flatMap操作符
 flatMap将Observable的数据转换成一个或多个Observable。  
 <pre class="mcode">
 // 假设有个函数根据输入的字符串返回一个url列表：
@@ -226,7 +226,7 @@ query("Hello, world!")
     .subscribe(url -> System.out.println(url));
 </pre>
 
-###filter操作符
+### filter操作符
 filter把输入的数据进行过滤，然后输出符合条件的数据。  
 <pre class="mcode">
 //过滤title为null的数据
@@ -237,7 +237,7 @@ query("Hello, world!")
 	.subscribe(title -&gt; System.out.println(title));
 </pre>
 
-###take操作符
+### take操作符
 take指定最多输出多少个结果。
 <pre class="mcode">
 query("Hello, world!")
@@ -248,7 +248,7 @@ query("Hello, world!")
     .subscribe(title -&gt; System.out.println(title));
 </pre>
 
-###doOnNext操作符
+### doOnNext操作符
 doOnNext允许我们在每次输出一个元素之前做一些额外的事情，比如这里的保存标题。
 <pre class="mcode">
 query("Hello, world!")
@@ -260,7 +260,7 @@ query("Hello, world!")
     .subscribe(title -&gt; System.out.println(title));
 </pre>
 
-###buffer操作符
+### buffer操作符
 周期性地把Observable的数据合并成列表，并在一定时间后将列表传给Observer
 <pre class="mcode">
 // 每2秒更新一次在这期间view的点击次数
@@ -296,7 +296,7 @@ RxView.clickEvents(_tapBtn)
       });
 </pre>
 
-###debounce操作符
+### debounce操作符
 在一次事件发生后的一段时间内没有其他的操作，则发出这次事件
 <pre class="mcode">
 // 在textChangeEvents发生后的400ms内的没有收到其他的textChangeEvents事件，则发出这次事件
@@ -306,7 +306,7 @@ RxTextView.textChangeEvents(_inputSearchText)
           .subscribe(_getSearchObserver());
 </pre>
 
-###throttleFirst操作符
+### throttleFirst操作符
 在每次事件触发后的一定时间间隔内丢弃新的事件。常用作去抖动过滤，例如按钮的点击监听器：  
 <pre class="mcode">
 RxView.clickEvents(button)
@@ -315,7 +315,7 @@ RxView.clickEvents(button)
 </pre>
 ***
 
-###错误处理
+### 错误处理
 代码中的potentialException() 和 anotherPotentialException()有可能会抛出异常。每一个Observerable对象在终结的时候都会调用onCompleted()或者onError()方法，所以以下代码会打印出”Completed!”或者”Ouch!”。
 <pre class="mcode">
 Observable.just("Hello, world!")
@@ -342,7 +342,7 @@ Observable.just("Hello, world!")
 
 ***
 
-###订阅关系Subscription
+### 订阅关系Subscription
 调用Observable.subscribe()会返回一个Subscription对象，这个对象代表了被观察者和订阅者之间的联系。  
 <pre class="mcode">
 Subscription subscription = Observable.just("Hello, World!")
@@ -357,7 +357,7 @@ System.out.println("Unsubscribed=" + subscription.isUnsubscribed());
 RxJava在处理unsubscribing的时候，会停止整个调用链。如果你使用了一串很复杂的操作符，调用unsubscribe将会在他当前执行的地方终止，不需要做任何额外的工作！  
 一般在unsubscribe()调用前，可以使用isUnsubscribed()先判断一下状态。
 
-###取消所有的订阅
+### 取消所有的订阅
 使用CompositeSubscription来持有所有的Subscriptions，然后在onDestroy()或者onDestroyView()里取消所有的订阅。
 <pre class="mcode">
 private CompositeSubscription mCompositeSubscription
@@ -378,7 +378,7 @@ protected void onDestroy() {
 </pre>
 ***
 
-###利用compose实现链式调用的复用
+### 利用compose实现链式调用的复用
 假设在程序中有多个 Observable ，并且他们都需要应用一组相同的变换：
 <pre class="mcode">
 observable1
@@ -427,7 +427,7 @@ observable4.compose(liftAll).subscribe(subscriber4);
 </pre>
 ***
 
-###Scheduler调度器
+### Scheduler调度器
 在不指定线程的情况下， RxJava 遵循的是线程不变的原则，即：在哪个线程调用 subscribe()，就在哪个线程生产事件；在哪个线程生产事件，就在哪个线程消费事件。如果需要切换线程，就需要用到 Scheduler （调度器）。  
 RxJava通过Scheduler来指定每一段代码应该运行在什么样的线程。RxJava 已经内置了几个 Scheduler：  
 <pre class="mcode">
@@ -449,10 +449,10 @@ AndroidSchedulers.mainThread()
 
 有了这几个 Scheduler ，就可以使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制了。  
 
-####subscribeOn(): 
+#### subscribeOn(): 
 指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。  
 
-####observeOn(): 
+#### observeOn(): 
 指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。  
 代码示例：  
 <pre class="mcode">

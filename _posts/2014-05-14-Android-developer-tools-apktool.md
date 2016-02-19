@@ -21,7 +21,7 @@ apktool是反编译apk的工具，通过apktool可以查看和修改apk里的文
 
 ******
 
-####修改反编译后的文件
+#### 修改反编译后的文件
 将apk反编译后，可以任意修改AndroidManifest.xml文件和资源文件  
 1.通过修改AndroidManifest.xml里的广告activity和service，可删去应用里的广告，如给activity添加属性
 <pre class="mcode">
@@ -33,7 +33,7 @@ android:layout_height="0dp"
 
 ******
 
-####重新签名
+#### 重新签名
 在对反编译后的文件进行修改后，可通过[Auto-sign](http://7xjvhq.com1.z0.glb.clouddn.com/Auto-sign.rar)重新签名  
 将dist文件夹里的apk放到Auto-sign的文件夹里，重命名为1.zip，双击Sign.bat，会生成update_signed.zip，重命名成update_signed.apk即可  
 也可以执行以下命令，其中1.zip是未签名的包，update_signed.zip是签名后的文件名字

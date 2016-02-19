@@ -10,7 +10,7 @@ Out of memory是android开发过程中常见的问题。在应用出现内存泄
 
 ***
 
-###LeakCanary
+### LeakCanary
 LeakCanary是[Square](https://github.com/square)公司开发的一个用于检测OOM(out of memory的缩写)问题的开源库。  
 Github地址：<https://github.com/square/leakcanary>  
 要在项目中使用LeakCanary，需要在build.gradle文件里加上  
@@ -28,7 +28,7 @@ LeakCanary.install(this);
 
 ***
 
-###LeakCanary使用示例：  
+### LeakCanary使用示例：  
 以下是LeakCanary官方的demo，主要是在activity里开启一个会导致内存泄露的AsyncTask，在application里进行LeakCanary的初始化并打开[严格模式](http://developer.android.com/reference/android/os/StrictMode.html)。  
 Activity的代码：  
 <pre class="mcode">
@@ -94,7 +94,7 @@ public class MyApplication extends Application {
 
 ***
 
-###监测自定义的对象
+### 监测自定义的对象
 在调用LeakCanary.install()时，LeakCanary会自动安装ActivityRefWatcher，在每个activity调用onDestroy()后通过判断activity的引用是否还在，确认activity是否已经泄露。  
 另外，LeakCanary.install()还会返回一个已经配置好的RefWatcher。通过RefWatcher可以监测理应被系统回收的对象的状态。比如可以通过RefWatcher检测fragment是否泄露：  
 <pre class='mcode'>
@@ -109,7 +109,7 @@ public abstract class BaseFragment extends Fragment {
 </pre>
 ***
 
-###不监听特定的对象  
+### 不监听特定的对象  
 如果有些对象你希望LeakCanary忽略掉，可以创建自己的ExcludedRefs：  
 <pre class='mcode'>
 protected RefWatcher installLeakCanary() {
@@ -121,7 +121,7 @@ protected RefWatcher installLeakCanary() {
 </pre>
 ***
 
-###不监听特定的activity  
+### 不监听特定的activity  
 ActivityRefWatcher默认是监听所有的activity。重新实现LeakCanary的[install](https://github.com/square/leakcanary/blob/master/leakcanary-android/src/main/java/com/squareup/leakcanary/LeakCanary.java)方法可以自定义需要监听的activity。
 <pre class='mcode'>
 protected RefWatcher installLeakCanary() {
@@ -179,7 +179,7 @@ protected RefWatcher installLeakCanary() {
 </pre>
 ***
 
-###混淆  
+### 混淆  
 如果在debug版本使用了混淆，需要在混淆文件加上以下的混淆配置：
 <pre class="mcode">
 # LeakCanary
@@ -188,6 +188,6 @@ protected RefWatcher installLeakCanary() {
 </pre>
 ***
 
-###相关链接
+### 相关链接
 Android - 利用Eclipse Memory Analyzer(MAT)检测内存泄露问题：  
 <http://cashow.github.io/android-detect-out-of-memory-with-eclipse-memory-analyzer.html>

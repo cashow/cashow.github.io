@@ -18,7 +18,7 @@ Eclipse Memory Analyzer官网：<https://eclipse.org/mat/>
 
 ***
 
-###测试代码
+### 测试代码
 以下是android测试代码，在开启AsyncTask后旋转屏幕，可以造成内存泄露。
 <pre class="mcode">
 public class MainActivity extends ActionBarActivity {
@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
 
 ***
 
-###获取app的内存占用情况
+### 获取app的内存占用情况
 安装好MAT后，接下来需要去获取app的内存占用情况。通过DDMS可以导出内存快照（heap dump），导出后的文件后缀是hprof，这个文件里记录了java对象和类在heap中的占用情况。  
 导出的步骤如下：  
 1.点击工具栏上的“Android Device Monitor”图标，打开DDMS。  
@@ -100,7 +100,7 @@ rm temp.hprof
 
 ***
 
-###打开hprof文件
+### 打开hprof文件
 打开MAT，通过菜单栏的 File - Open File.. 打开刚刚生成的dumpheap.hprof，弹出如下对话框：  
 ![mat_getting_started](http://7xjvhq.com1.z0.glb.clouddn.com/mat_getting_started.png)
 第一个选项是自动分析可能存在内存泄露的对象。  
@@ -116,7 +116,7 @@ rm temp.hprof
 
 ***
 
-###查看activity泄露情况
+### 查看activity泄露情况
 点击“Actions”下方的“Histogram”，可以查看内存里各个对象的数目以及占用的内存大小。
 ![mat_histogram](http://7xjvhq.com1.z0.glb.clouddn.com/mat_histogram.png)
 第一列是类名，第二列是类的实例的数目，第三列是占用的内存大小。  
@@ -127,7 +127,7 @@ rm temp.hprof
 
 ***
 
-###定位内存泄露原因
+### 定位内存泄露原因
 在Histogram页面可以看到有3个MainActivity相关的信息，选中一条后右键，选择“Merge Shortest Paths to GC Roots” - “exclude weak references”，可看到MainActivity被引用的路径。  
 以下是MainActivity$2对应的引用路径：
 ![mat_shortest_path](http://7xjvhq.com1.z0.glb.clouddn.com/mat_shortest_path.png)
@@ -138,7 +138,7 @@ rm temp.hprof
 
 ***
 
-###找到占用内存较大的bitmap
+### 找到占用内存较大的bitmap
 点击“Histogram”下面的“Domanitor Tree”按钮，进入到如下界面：  
 ![mat_domanitor_tree](http://7xjvhq.com1.z0.glb.clouddn.com/mat_domanitor_tree.png)
 这个页面列出了占用内存较大的对象。  
@@ -146,17 +146,17 @@ rm temp.hprof
 现在问题来了：这个bitmap是在什么地方出现的？占用这么多的内存是正常现象吗？  
 为了解答以上问题，我们需要把这个bitmap导出成图片文件。  
 
-####第一步：获取bitmap的宽度和高度
+#### 第一步：获取bitmap的宽度和高度
 选中“android.graphics.Bitmap”栏，可以在左侧看到bitmap的相关信息：  
 ![mat_bitmap_info](http://7xjvhq.com1.z0.glb.clouddn.com/mat_bitmap_info.png)
 记录下mWidth和mHeight的值。这两个值表示了bitmap的宽度和长度，比如现在要分析的这个bitmap是 1280 x 1280 的图片。  
 
-####第二步：导出成data文件  
+#### 第二步：导出成data文件  
 选中“android.graphics.Bitmap”下方的 “byte[6553600]” 栏，右键 - Copy - Save Value To File，将bitmap文件保存成后缀名为data的文件。  
 ![mat_bitmap_byte](http://7xjvhq.com1.z0.glb.clouddn.com/mat_bitmap_byte.png)
 ![mat_save_bitmap](http://7xjvhq.com1.z0.glb.clouddn.com/mat_save_bitmap.png)
 
-####第三步：使用GIMP打开data文件  
+#### 第三步：使用GIMP打开data文件  
 GIMP是一个开源的图像处理软件，包含大部分图象处理所需的功能，可以算是Linux下的PhotoShop。  
 官网：<https://www.gimp.org/>  
 下载链接：<https://www.gimp.org/downloads/>  
