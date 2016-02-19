@@ -10,6 +10,7 @@ excerpt: <p>工厂方法模式定义了一个创建对象的接口，但由子�
 
 
 ###预定披萨
+
 假设你有一个披萨店，预定披萨的代码可能是这么写的：  
 <pre class="mcode">
 Pizza orderPizza(){
