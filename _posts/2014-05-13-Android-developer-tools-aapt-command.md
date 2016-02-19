@@ -10,7 +10,7 @@ aapt一般在build-tools文件夹的android-xx文件夹里
 
 ***
 
-####aapt常用命令  
+#### aapt常用命令  
 
 <table>
    <tr>
@@ -33,7 +33,7 @@ aapt一般在build-tools文件夹的android-xx文件夹里
 
 ******
 
-####aapt的应用
+#### aapt的应用
 获取123.apk的packagename：
 <pre class="mcode">
 aapt d badging 123.apk |grep package |awk '{print $2}' | awk -F[\'] '{print $2}'
@@ -61,7 +61,7 @@ adb shell am start -n $packageName/$launchActivity
 
 ******
 
-####aapt的部分官方说明：
+#### aapt的部分官方说明：
 <pre>
  aapt d[ump] [--values] WHAT file.{apk} [asset [asset ...]]
    badging          Print the label and icon for the app declared in APK.

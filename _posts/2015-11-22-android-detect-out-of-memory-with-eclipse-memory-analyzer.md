@@ -10,7 +10,7 @@ Out of memory是android开发过程中常见的问题。在应用出现内存泄
 
 ***
 
-###Eclipse Memory Analyzer
+### Eclipse Memory Analyzer
 Eclipse Memory Analyzer是一款用来分析Java内存的工具。通过Eclipse Memory Analyzer，可以很方便地看出哪些资源占用了app较大的内存，也可以推断出哪里发生了内存泄露。  
 Eclipse Memory Analyzer官网：<https://eclipse.org/mat/>  
 下载链接：<https://eclipse.org/mat/downloads.php>  
@@ -176,7 +176,7 @@ GIMP是一个开源的图像处理软件，包含大部分图象处理所需的�
 ***
 
 
-###相关链接  
+### 相关链接  
 Android - 利用LeakCanary检测内存泄露：  
 
 <http://cashow.github.io/android-detect-out-of-memory-with-leakcanary.html>
