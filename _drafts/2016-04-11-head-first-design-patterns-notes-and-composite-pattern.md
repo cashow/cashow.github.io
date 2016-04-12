@@ -298,3 +298,44 @@ public class DinnerMenu {
     // ...
 }
 </pre>
+现在将迭代器代码整合进女招待中。
+<pre class="mcode">
+public class Waitress {
+    PancakeHouseMenu pancakeHouseMenu;
+    DinnerMenu dinnerMenu;
+    
+    // 在构造器中，女招待照顾两个菜单
+    public Waitress(PancakeHouseMenu pancakeHouseMenu, DinnerMenu dinnerMenu) {
+        this.pancakeHouseMenu = pancakeHouseMenu;
+        this.dinnerMenu = dinnerMenu;
+    }
+    
+    public void printMenu() {
+        // 这个printMenu()方法为每一个菜单各自创建一个迭代器
+        Iterator pancakeIterator = pancakeHouseMenu.createIterator();
+        Iterator dinnerIterator = dinnerMenu.createIterator();
+        // 然后调用重载的printMenu()，将迭代器传入
+        printMenu(pancakeIterator);
+        printMenu(dinnerIterator);
+    }
+    
+    // 这个重载的printMenu()方法，使用迭代器来遍历菜单项并打印出来
+    private void printMenu(Iterator iterator) {
+        while (iterator.hasNext()) {
+            MenuItem menuItem = (MenuItem) iterator.next();
+            System.out.println(menuItem.getName() + " " + 
+                    menuItem.getPrice() + " " + menuItem.getDescription());
+        }
+    }
+}
+</pre>
+
+### 到目前为止，我们做了些什么？
+首先，我们让对象村的厨师们非常快乐。他们可以保持他们自己的实现又可以摆平差别。只要我们给他们这两个迭代器（PancakeHouseMenuIterator和DinnerMenuIterator），他们只需要加入一个createIterator()方法，一切就大功告成了。  
+这个过程中，我们也帮了我们自己。女招待将会更容易维护和扩展。让我们来彻底检查一下到底我们做了哪些事，以及后果如何：  
+
+**难以维护的女招待实现** | **由迭代器支持的新女招待**
+菜单封装得不好，餐厅使用的是ArrayList，而煎饼屋使用的是数组。 | 菜单的实现已经被封装起来了。女招待不知道菜单是如何存储菜单项集合的。
+需要两个循环来遍历菜单项。 | 只要实现迭代器，我们只需要一个循环，就可以多态地处理任何项的集合。
+女招待捆绑于具体类（MenuItem[]和ArrayList）。 | 女招待现在只使用一个接口（迭代器）。
+女招待捆绑于两个不同的具体菜单类，尽管这两个类的接口大致上是一样的。 | 现在的菜单接口完全一样。但是，我们还是没有一个共同的接口，也就是说女招待仍然捆绑于两个具体的菜单类。这一点我们最好再修改一下。
