@@ -4,7 +4,14 @@ title: "Android开发工具 - aapt获取apk信息"
 date: 2014-05-13 11:42:02 +0800
 tags: Android Android开发工具 aapt
 ---
-
+<style type="text/css">
+tr td:first-child{
+  white-space: nowrap;
+}
+tr th:first-child{
+  white-space: nowrap;
+}
+</style>
 aapt即Android Asset Packaging Tool , 可用来获取apk的基本信息如packagename、versionCode、versionName等  
 aapt一般在build-tools文件夹的android-xx文件夹里
 
@@ -12,24 +19,10 @@ aapt一般在build-tools文件夹的android-xx文件夹里
 
 #### aapt常用命令  
 
-<table>
-   <tr>
-      <td>aapt d badging 123.apk</td>
-      <td>获取123.apk的基本信息如packagename，versionCode，versionName，uses-permission，sdkVersion，launchable-activity等</td>
-   </tr>
-   <tr>
-      <td>aapt d permissions 123.apk</td>
-      <td>列出123.apk申请的权限</td>
-   </tr>
-   <tr>
-      <td>aapt l 123.apk</td>
-      <td>列出123.apk里的资源文件</td>
-   </tr>
-   <tr>
-      <td>aapt l 123.apk >apkinfo.txt</td>
-      <td>列出123.apk里的资源文件并将输出的信息存到apkinfo.txt文件</td>
-   </tr>
-</table>
+aapt d badging 123.apk | 获取123.apk的基本信息如packagename，versionCode，versionName，uses-permission，sdkVersion，launchable-activity等
+aapt d permissions 123.apk | 列出123.apk申请的权限
+aapt l 123.apk | 列出123.apk里的资源文件
+aapt l 123.apk >apkinfo.txt | 列出123.apk里的资源文件并将输出的信息存到apkinfo.txt文件
 
 ******
 

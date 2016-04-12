@@ -4,7 +4,14 @@ title: "Android基础控件 - ImageView的ScaleType属性"
 date: 2014-07-06 22:21:41 +0800
 tags: Android Android基础控件 ImageView
 ---
-
+<style type="text/css">
+tr td:first-child{
+  white-space: nowrap;
+}
+tr th:first-child{
+  white-space: nowrap;
+}
+</style>
 ImageView的ScaleType属性是用来设置图片的缩放方式
 
 

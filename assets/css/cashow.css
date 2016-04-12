@@ -49,14 +49,6 @@ tr th{
   line-height: 1.6;
 }
 
-tr td:first-child{
-  white-space: nowrap;
-}
-
-tr th:first-child{
-  white-space: nowrap;
-}
-
 td{
   vertical-align:top;
   font-size: 18px;

@@ -221,32 +221,13 @@ public class Tea extends CaffeineBeverage {
 <div class="alert alert-success" role="alert">模板方法定义了一个算法的步骤，并允许子类为一个或多个步骤提供实现。</div>
 
 ### 模板方法带给我们什么？
-<table>
-   <tr>
-      <td style="white-space: normal"><strong>不好的茶和咖啡实现</strong></td>
-      <td><strong>模板方法提供的酷炫咖啡因饮料</strong></td>
-   </tr>
-   <tr>
-      <td style="white-space: normal">Coffee和Tea主导一切，它们控制了算法。</td>
-      <td>由CaffeineBeverage类主导一切，它拥有算法，并且保护这个算法。</td>
-   </tr>
-   <tr>
-      <td style="white-space: normal">Coffee和Tea之间存在着重复的代码。</td>
-      <td>对子类来说，CaffeineBeverage类的存在，可以将代码的复用最大化。</td>
-   </tr>
-   <tr>
-      <td style="white-space: normal">对于算法所做的代码改变，需要打开子类修改许多地方。</td>
-      <td>算法只存在一个地方，所以很容易修改。</td>
-   </tr>
-   <tr>
-      <td style="white-space: normal">由于类的组织方式不具有弹性，所以加入新种类的咖啡因饮料需要做许多工作。</td>
-      <td>这个模板方法提供了一个框架，可以让其他的咖啡因饮料插进来。新的咖啡因饮料只需要实现自己的方法就可以了。</td>
-   </tr>
-   <tr>
-      <td style="white-space: normal">算法的知识和它的实现会分散在许多类中。</td>
-      <td>CaffeineBeverage类专注在算法本身，而由子类提供完整的实现。</td>
-   </tr>
-</table>
+
+**不好的茶和咖啡实现** | **模板方法提供的酷炫咖啡因饮料**
+Coffee和Tea主导一切，它们控制了算法。 | 由CaffeineBeverage类主导一切，它拥有算法，并且保护这个算法。
+Coffee和Tea之间存在着重复的代码。 | 对子类来说，CaffeineBeverage类的存在，可以将代码的复用最大化。
+对于算法所做的代码改变，需要打开子类修改许多地方。 | 算法只存在一个地方，所以很容易修改。
+由于类的组织方式不具有弹性，所以加入新种类的咖啡因饮料需要做许多工作。 | 这个模板方法提供了一个框架，可以让其他的咖啡因饮料插进来。新的咖啡因饮料只需要实现自己的方法就可以了。
+算法的知识和它的实现会分散在许多类中。 | CaffeineBeverage类专注在算法本身，而由子类提供完整的实现。
 
 ### 定义模板方法模式
 你已经看到了茶和咖啡的例子中如何使用模板方法模式。现在，就让我们来看看这个模式的正式定义和所有的细节：  

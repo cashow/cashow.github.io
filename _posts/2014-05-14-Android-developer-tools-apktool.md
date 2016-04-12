@@ -4,20 +4,20 @@ title: "Android开发工具 - apktool反编译apk"
 date: 2014-05-14 14:55:33 +0800
 tags: Android Android开发工具 apktool
 ---
-
+<style type="text/css">
+tr td:first-child{
+  white-space: nowrap;
+}
+tr th:first-child{
+  white-space: nowrap;
+}
+</style>
 apktool是反编译apk的工具，通过apktool可以查看和修改apk里的文件。  
 官网链接：<https://ibotpeaches.github.io/Apktool/>  
 下载好apktool后，将apktool的路径加到环境变量里，即可对apk包进行反编译和重新编译  
-<table>
-   <tr>
-      <td>apktool d helloWorld.apk</td>
-      <td>对helloWorld.apk进行反编译</td>
-   </tr>
-   <tr>
-      <td>apktool b aaa</td>
-      <td>将aaa文件夹里的文件重新编译生成apk文件，生成的apk文件在dist文件夹里，需要注意的是这个apk未签名，不能直接安装在手机里</td>
-   </tr>
-</table>
+
+apktool d helloWorld.apk | 对helloWorld.apk进行反编译
+apktool b aaa | 将aaa文件夹里的文件重新编译生成apk文件，生成的apk文件在dist文件夹里，需要注意的是这个apk未签名，不能直接安装在手机里
 
 ******
 
