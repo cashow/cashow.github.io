@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "《Head first设计模式》学习笔记 - 迭代器模式"
-date: 2016-04-11 22:06:22 +0800
+date: 2016-07-02 22:50:59 +0800
 tags: 设计模式 学习笔记 迭代器模式
 excerpt: <p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
 ---
@@ -339,3 +339,139 @@ public class Waitress {
 需要两个循环来遍历菜单项。 | 只要实现迭代器，我们只需要一个循环，就可以多态地处理任何项的集合。
 女招待捆绑于具体类（MenuItem[]和ArrayList）。 | 女招待现在只使用一个接口（迭代器）。
 女招待捆绑于两个不同的具体菜单类，尽管这两个类的接口大致上是一样的。 | 现在的菜单接口完全一样。但是，我们还是没有一个共同的接口，也就是说女招待仍然捆绑于两个具体的菜单类。这一点我们最好再修改一下。
+
+### 做一些改良
+好了，我们已经知道这两份菜单的接口完全一样，但没有为它们设计一个共同的接口。所以，接下来就要这么做，让女招待更干净一些。  
+Java有一个内置的Iterator接口，让我们先来看看：
+<pre class="mcode">
+public interface Iterator&lt;E&gt; {
+    /**
+     * Returns true if there is at least one more element, false otherwise.
+     * @see #next
+     */
+    public boolean hasNext();
+
+    /**
+     * Returns the next object and advances the iterator.
+     *
+     * @return the next object.
+     * @throws NoSuchElementException
+     *             if there are no more elements.
+     * @see #hasNext
+     */
+    public E next();
+
+    /**
+     * Removes the last object returned by {@code next} from the collection.
+     * This method can only be called once between each call to {@code next}.
+     *
+     * @throws UnsupportedOperationException
+     *             if removing is not supported by the collection being
+     *             iterated.
+     * @throws IllegalStateException
+     *             if {@code next} has not been called, or {@code remove} has
+     *             already been called after the last call to {@code next}.
+     */
+    public void remove();
+}
+</pre>
+这个接口看起来和我们之前定义的一样，只不过多了一个附加的方法，允许我们从聚合中删除由next()方法返回的最后一项。  
+接下来让我们用java.util.Iterator来清理代码。  
+让我们先从煎饼屋菜单开始，先把它改用java.util.Iterator，这很容易，只需要删除煎饼屋菜单迭代器，然后在煎饼屋菜单的代码前面加上 import java.util.Iterator。再改变下面这一行代码就可以了：
+<pre class="mcode">
+public Iterator createIterator() {
+    return menuItems.iterator();
+}
+</pre>
+这样PancakeHouseMenu就完成了。  
+接着，我们处理DinnerMenu，以符合java.util.Iterator的需求。
+<pre class="mcode">
+public class DinnerMenuIterator implements Iterator {
+    MenuItem[] items;
+    int position = 0;
+
+    public DinnerMenuIterator(MenuItem[] items) {
+        this.items = items;
+    }
+
+    public Object next() {
+        MenuItem menuItem = items[position];
+        position = position + 1;
+        return menuItem;
+    }
+    
+    public boolean hasNext() {
+        if (position >= items.length || items[position] == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    // 我们需要实现remove()方法。因为使用的是固定长度的数组，
+    // 所以在remove()方法被调用时，我们将后面的所有元素往前移动一个位置。
+    @Override
+    public void remove() {
+        if (position <= 0) {
+            throw new IllegalStateException("You can't remove
+             an item until you've done at least one next()");
+        }
+        if (items[position - 1] != null) {
+            for (int i = position-1; i < (items.length - 1); i++) {
+                items[i] = items[i + 1];
+            }
+            items[items.length - 1] = null;
+        }
+    }
+}
+</pre>
+我们只需要给菜单一个共同的接口，然后再稍微改一下女招待。这个Menu接口相当简单：
+<pre class="mcode">
+public interface Menu {
+    public Iterator createIterator();
+}
+</pre>
+现在，我们需要让煎饼屋菜单类和餐厅菜单类都实现Menu接口，然后更新女招待的代码：
+<pre class="mcode">
+public class Waitress {
+    Menu pancakeHouseMenu;
+    Menu dinnerMenu;
+
+    // 将具体菜单类改成Menu接口
+    public Waitress(Menu pancakeHouseMenu, Menu dinnerMenu) {
+        this.pancakeHouseMenu = pancakeHouseMenu;
+        this.dinnerMenu = dinnerMenu;
+    }
+
+    // 以下的代码没有修改
+    public void printMenu() {
+        Iterator pancakeIterator = pancakeHouseMenu.createIterator();
+        Iterator dinnerIterator = dinnerMenu.createIterator();
+        printMenu(pancakeIterator);
+        printMenu(dinnerIterator);
+    }
+
+    private void printMenu(Iterator iterator) {
+        while (iterator.hasNext()) {
+            MenuItem menuItem = (MenuItem) iterator.next();
+            System.out.println(menuItem.getName() + " " +
+                    menuItem.getPrice() + " " + menuItem.getDescription());
+        }
+    }
+}
+</pre>
+这为我们带来了什么好处？煎饼屋菜单和餐厅菜单的类，都实现了Menu接口，女招待可以利用接口（而不是具体类）引用每一个菜单对象。这样，通过“针对接口编程，而不针对实现编程”，我们就可以减少女招待和具体类之间的依赖。
+
+### 定义迭代器模式
+现在我们来看看这个模式的正式定义：
+<div class="alert alert-success" role="alert">迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</div>
+迭代器模式让我们能游走于聚合内的每一个元素，而又不暴露内部的表示。把游走的任务放在迭代器上，而不是聚合上，这样简化了聚合的接口和实现，也让责任各得其所。  
+这很有意义：这个模式给你提供了一种方法，可以顺序访问一个聚集对象中的元素，而又不用知道内部是如何表示的。你已经在前面的两个菜单实现中看到了这一点。在设计中使用迭代器的影响是明显的：如果你有一个统一的方法访问聚合中的每一个对象，你就可以编写多态的代码和这些聚合搭配使用，如同前面的printMenu()方法一样，只要有了迭代器这个方法，根本不管菜单项究竟是由数组还是由ArrayList（或者其他能创建迭代器的东西）来保存的。  
+另一个对你的设计造成重要影响的，是迭代器模式把这些元素之间游走的责任交给迭代器，而不是聚合对象。这不仅让聚合的接口和实现变得更简洁，也可以让聚合更专注在它所应该专注的事情上面（也就是管理对象组合），而不必去理会遍历的事情。
+
+### 单一责任
+如果我们允许我们的聚合实现它们内部的集合，以及相关的操作和遍历的方法，又会如何？我们已经知道这会增加聚合中的方法个数，但又怎样呢？为什么这么做不好？  
+想知道为什么，首先你需要认清楚，当我们允许一个类不但要完成自己的事情（管理某种聚合），还同时要担负更多的责任（例如遍历）时，我们就给了这个类两个变化的原因。两个？没错，就是两个！如果这个集合改变的话，这个类也必须改变，如果我们遍历的方式改变的话，这个类也必须跟着改变。所以，再一次地，我们的老朋友“改变”又成了我们设计原则的中心：
+<p class="text-danger">设计原则：一个类应该只有一个引起变化的原因</p>
+我们知道要避免类内的改变，因为修改代码很容易造成许多潜在的错误。如果有一个类具有两个改变的原因，那么这会使得将来该类的变化几率上升，而当它真的改变时，你的设计中同时有两个方面将会受到影响。  
+没错，这听起来很容易，但其实做起来并不简单：区分设计中的责任，是最困难的事情之一。我们的大脑很习惯看着一大群的行为，然后将它们集中在一起，尽管他们可能属于两个或者多个不同的责任。想要成功的唯一方法，就是努力不懈地检查你的设计，随着系统的成长，随时观察有没有迹象显示某个类改变的原因超出一个。
