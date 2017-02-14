@@ -14,15 +14,11 @@ theme:
   social: 
     github: cashow
 
-# Build settings
-markdown: rdiscount
-
 # Permalinks
 permalink: /:title.html
-
 # Pagination config
 paginate: 5
-paginate_path: "page:num"
+paginate_path: "page/:num"
 timezone: Asia/Shanghai
 
 # Files/Folders to be excluded from generated _site folder
@@ -39,3 +35,6 @@ exclude:
 sass:
   sass_dir: assets/css/_sass
   style: :compressed
+
+gems: [jekyll-paginate]
+markdown: kramdown

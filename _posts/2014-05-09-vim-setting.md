@@ -4,11 +4,17 @@ title: "Vim笔记"
 date: 2014-05-09 10:41:05 +0800
 tags: vim 常用工具
 ---
-
+<style type="text/css">
+tr td:first-child{
+  white-space: nowrap;
+}
+tr th:first-child{
+  white-space: nowrap;
+}
+</style>
 以下是vim常用的快捷键和配置  
 
 i | 在光标前插入
-- | ----------
 a | 在光标后插入
 I | 在当前行首插入
 A | 在当前行尾插入
@@ -54,8 +60,8 @@ c$ | 删除从光标所在位置到行尾的字符并进入插入模式
  Ctrl+b | 上一页
  == | 对光标所在的行进行自动缩进  
 
+
 :q! | 放弃更改退出程序
---- | -------------
 :w | 保存文件
 :w 文件名 | 以指定的文件名保存文件(如输入:w text.txt并回车，会保存成text.txt的文本)
 :wq | 强制保存文件并退出，每次保存时刷新文件修改时间
@@ -80,6 +86,8 @@ c$ | 删除从光标所在位置到行尾的字符并进入插入模式
 :tabnew | 新建标签页
 :tabfirst | 移动到第一个标签页
 :tablast | 移动到最后一个标签页
+
+
 ***
 <h4>vimrc_example.vim文件的配置：</h4>
 <table>
@@ -88,36 +96,33 @@ c$ | 删除从光标所在位置到行尾的字符并进入插入模式
       <td>修改这段代码，禁用vim的自动换行功能（在一行输入太多文字后会自动换行）</td>
    </tr>
 </table>
+
 ***
 <h4>_vimrc文件的配置：</h4>
-set nofoldenable | 关闭自动折叠代码功能
----------------- | ----------------
- set guifont=Consolas:h11 | 设置字体为11号Consolas体
- colorscheme molokai | 设置配色方案为molokai
- set lines=40 columns=160 | 启动时窗口宽度为160行，高度为40行
- winpos 255 100 | 启动时窗口位置，左上角是0 0
- set number | 显示行号
- set showmatch | 光标移动到括号时高亮显示匹配的括号
- set expandtab | 输入tab时用空格替代
- set shiftwidth=4 | 设置系统自动缩进所使用的空白长度为4个空格
- set tabshop=4 | 设置tab宽度为4个空格
- set autoindent | 换行时自动缩进，每一行和上一行有同样的缩进量。autoindent的缩进规则是最简单的。
- set smartindent | 换行时智能缩进，每一行和上一行有同样的缩进量，同时在遇到右花括号时取消缩进形式。如果这一行是以#开头，则不采用缩进形式。
- set cindent | 专门用于c语言的缩进。cindent可设置不同的缩进风格，设置项包括cinkeys、cinwords和cinoptions。 
- set nofoldenable | 禁用代码折叠功能
- set foldlevelstart=99 | 不禁用代码折叠，但在开启文件时不自动折叠代码
- set foldmethod=indent | 设置折叠规则为按文件的缩进进行折叠 
- set fileencodings=ucs-bom,utf-8,chinese  | 让vim在使用ansi编码前尝试ucs-born,utf-8,chinese的编码方案
- set clipboard+=unnamed | 将vim的默认缓冲挂到Windows的剪贴版上。这样按y和p键就可以直接实现“复制”和“粘贴”的功能。
- :inoremap ( ()&#60;ESC&#62;i | 输入左括号"("时自动补上右括号，"()&#60;ESC&#62;i"表示在输入"("时改成"()"并按ESC键，再按i键进行插入，这时光标会在括号里面
- :inoremap ) &#60;c-r&#62;=ClosePair(')')<CR> | 输入右括号")"如果有匹配的左括号则不插入右括号，把光标右移一位
 
-<table>
-   <tr>
-      <td>au FileType php setlocal dict+=$VIMRUNTIME/php_funclist.txt
-      <td>为php文件加入php_funclist.txt的字典，用于自动补全代码
-   </tr>
-</table>
+set nofoldenable | 关闭自动折叠代码功能
+set guifont=Consolas:h11 | 设置字体为11号Consolas体
+colorscheme molokai | 设置配色方案为molokai
+set lines=40 columns=160 | 启动时窗口宽度为160行，高度为40行
+winpos 255 100 | 启动时窗口位置，左上角是0 0
+set number | 显示行号
+set showmatch | 光标移动到括号时高亮显示匹配的括号
+set expandtab | 输入tab时用空格替代
+set shiftwidth=4 | 设置系统自动缩进所使用的空白长度为4个空格
+set tabshop=4 | 设置tab宽度为4个空格
+set autoindent | 换行时自动缩进，每一行和上一行有同样的缩进量。autoindent的缩进规则是最简单的。
+set smartindent | 换行时智能缩进，每一行和上一行有同样的缩进量，同时在遇到右花括号时取消缩进形式。如果这一行是以#开头，则不采用缩进形式。
+set cindent | 专门用于c语言的缩进。cindent可设置不同的缩进风格，设置项包括cinkeys、cinwords和cinoptions。 
+set nofoldenable | 禁用代码折叠功能
+set foldlevelstart=99 | 不禁用代码折叠，但在开启文件时不自动折叠代码
+set foldmethod=indent | 设置折叠规则为按文件的缩进进行折叠 
+set fileencodings=ucs-bom,utf-8,chinese  | 让vim在使用ansi编码前尝试ucs-born,utf-8,chinese的编码方案
+set clipboard+=unnamed | 将vim的默认缓冲挂到Windows的剪贴版上。这样按y和p键就可以直接实现“复制”和“粘贴”的功能。
+:inoremap ( ()&#60;ESC&#62;i | 输入左括号"("时自动补上右括号，"()&#60;ESC&#62;i"表示在输入"("时改成"()"并按ESC键，再按i键进行插入，这时光标会在括号里面
+:inoremap ) &#60;c-r&#62;=ClosePair(')')&lt;CR&gt; | 输入右括号")"如果有匹配的左括号则不插入右括号，把光标右移一位
+
+au FileType php setlocal dict+=$VIMRUNTIME/php_funclist.txt | 为php文件加入php_funclist.txt的字典，用于自动补全代码
+
 ClosePair的定义：  
 <pre>
 function ClosePair(char)

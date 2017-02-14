@@ -10,7 +10,7 @@ tags: Android 软键盘
 首先获取到activity布局的最外层layout，通过调用getWindowVisibleDisplayFrame获取到整个应用可以显示的区域，这其中包括ActionBar和状态栏，但不含设备底部的虚拟按键。  
 再通过调用getRootView().getHeight()，获取整个屏幕的高度。同样，这个高度也不含虚拟按键的高度。  
 通过比较这两个高度，可以推断出软键盘是否显示，并且获取到软键盘的高度。  
-<font color='red'>需要注意的是，这种方法前提是软键盘会影响界面布局，所以需要在AndroidManifest里给activity添加android:windowSoftInputMode="adjustResize"</font>  
+<p><font color='red'>需要注意的是，这种方法前提是软键盘会影响界面布局，所以需要在AndroidManifest里给activity添加android:windowSoftInputMode="adjustResize"</font></p>  
 具体实现代码如下：  
 <pre class="mcode">
 private LinearLayout layout_main;
