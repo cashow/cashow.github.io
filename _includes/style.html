@@ -2,6 +2,7 @@
 
 <style type="text/css">
 {% capture include_to_scssify %}
+{% if site.theme.highlight_color && site.theme.highlight_color != '' %}
 a, .post-title a { color: {{ site.theme.highlight_color }};}
 
 a:hover { border-bottom-color: {{ site.theme.highlight_color }};}
@@ -39,6 +40,7 @@ ul.social-media li>a:hover {
   background-color: lighten({{ site.theme.highlight_color }}, 50%);
 }
 
+{% endif %}
 {% endcapture %}
 {{ include_to_scssify | scssify }}
 
