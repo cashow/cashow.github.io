@@ -8,17 +8,17 @@ layout: default
 
     {% if post.banner_image %}
     <div class="banner-image">
-      <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl |  }}" 
+      <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl }}"
         title="{{ post.title }}">
-      <img 
-          src="{{ post.banner_image }}" 
+      <img
+          src="{{ post.banner_image }}"
           alt="{% if post.banner_image_alt %}{{ post.banner_image_alt }}{% else %}{{ post.title }} {% endif %}">
       </a>
     </div>
     {% endif %}
 
     <h2 class="post-title">
-      <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl |  }}">
+      <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl }}">
         {{ post.title }}
       </a>
     </h2>
@@ -31,7 +31,7 @@ layout: default
 
     {{ post.excerpt }}
     </br>
-    <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl |  }}">
+    <a href="{{ post.url | replace: '//', '/' | prepend: site.baseurl }}">
       阅读全文 »
     </a>
   </article>

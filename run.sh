@@ -1,1 +1,1 @@
-jekyll server -w --drafts --baseurl ""
+bundle exec jekyll server -w --drafts --baseurl ""
