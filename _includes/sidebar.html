@@ -4,7 +4,7 @@
 <div class="sidebar" id="sidebar">
 
   {% if site.author_thumbnail && site.author_thumbnail != '' %}
-  <img 
+  <img
     src="{{ site.author_thumbnail | prepend: site.baseurl }}"
     alt="{{ site.title }}" />
 
@@ -20,33 +20,33 @@
 
   <nav class="sidebar-nav">
 
-    <a class="sidebar-nav-item" 
-      href="{{ site.baseurl }}"> 
+    <a class="sidebar-nav-item"
+      href="{{ site.baseurl }}">
       主页
     </a>
 
-    <a class="sidebar-nav-item" 
-      href="{{ '/about' | prepend: site.baseurl }}"> 
+    <a class="sidebar-nav-item"
+      href="{{ '/about' | prepend: site.baseurl }}">
       关于
     </a>
 
-    <a class="sidebar-nav-item" 
-      href="{{ '/links' | prepend: site.baseurl }}"> 
+    <a class="sidebar-nav-item"
+      href="{{ '/links' | prepend: site.baseurl }}">
       友情链接
     </a>
 
-    <a class="sidebar-nav-item" 
-      href="{{ '/copyright' | prepend: site.baseurl }}"> 
+    <a class="sidebar-nav-item"
+      href="{{ '/copyright' | prepend: site.baseurl }}">
       版权声明
     </a>
 
-    <a class="sidebar-nav-item" 
-      href="http://github.com/{{ site.theme.social.github }}"
+    <a class="sidebar-nav-item"
+      href="http://github.com/cashow"
       target="_blank">
       GitHub
     </a>
 
-    <a title="Subscribe via RSS" 
+    <a title="Subscribe via RSS"
         href="{{ '/feed.xml' | prepend: site.baseurl }}"
         class="sidebar-nav-item" target="_blank">
         RSS
