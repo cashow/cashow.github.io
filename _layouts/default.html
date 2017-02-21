@@ -2,7 +2,7 @@
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->  
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     {% comment %}
@@ -13,7 +13,7 @@
     <title>{% if page.title %}{{ page.title | append: ' - cashow的博客'}}{% else %}cashow的博客{% endif %}</title>
     <meta name="description" content="{% if page.meta_description %}{{ page.meta_description }}{% else %}{{ site.description }}{% endif %}">
     {% include open-graph.html %}
-  
+
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | prepend: site.baseurl }}">
     <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}">
@@ -36,16 +36,16 @@
           <div style="float:left">
             <div class="header-logo">{% include logo.html %}</div>
             <div class="header-title">
-              <a href="{{ site.baseurl }}" 
-                title="{{ site.title }}"> 
+              <a href="{{ site.baseurl }}"
+                title="{{ site.title }}">
                 <h3>{{ site.title }}</h3>
               </a>
             </div>
           </div>
-          <input class="search" placeholder="Search">        
-        </div>  
+          <input class="search" placeholder="Search">
+        </div>
       </div>
-      
+
         <section id="main_content">
           <div class="container content">
               {{ content }}
@@ -83,12 +83,12 @@
         {
           c_start=document.cookie.indexOf(c_name + "=")
           if (c_start!=-1)
-          { 
-            c_start=c_start + c_name.length+1 
+          {
+            c_start=c_start + c_name.length+1
             c_end=document.cookie.indexOf(";",c_start)
             if (c_end==-1) c_end=document.cookie.length
               return unescape(document.cookie.substring(c_start,c_end))
-          } 
+          }
         }
         return ""
       }
@@ -121,14 +121,14 @@
             }).get();
             search_text = $(".search").val();
             var isSearchNull = true;
-            searchHtml = "<ul class='posts'>";
+            searchHtml = "<div class='posts'>";
             $.each(data,function(index, post) {
               if(findIgnoreCase(post.title,search_text) || findIgnoreCase(post.tags,search_text)){
-                searchHtml += "<li><h4><a href='" + post.url + "'>" + post.title + "</a></h4></li>";
+                searchHtml += "<h4><a href='" + post.url + "'>" + post.title + "</a></h4>";
                 isSearchNull = false;
               }
             });
-            searchHtml += "</ul>";
+            searchHtml += "</div>";
             if(isSearchNull === true){
               searchHtml = "<p>没有找到标题或标签包含 \"" + search_text + "\" 的文章</p>";
             }
