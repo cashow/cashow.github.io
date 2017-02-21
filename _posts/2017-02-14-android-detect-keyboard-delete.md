@@ -165,3 +165,8 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 </pre>
+
+---------------------------------------
+
+### 源码：
+<https://github.com/cashow/AndroidTricks/tree/master/DeleteDetect>
