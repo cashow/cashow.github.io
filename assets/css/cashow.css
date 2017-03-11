@@ -194,7 +194,7 @@ a.post-tags:focus, a.post-tags:hover {
 }
 
 ::selection {
-    background:#dddddd; 
+    background:#dddddd;
 }
 
 img {
@@ -212,4 +212,10 @@ img {
 
 a {
   text-decoration: none !important
+}
+
+#job_seeking {
+    position: absolute;
+    right: 2em;
+    top: 10em;
 }

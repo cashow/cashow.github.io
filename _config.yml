@@ -34,3 +34,4 @@ sass:
 
 gems: [jekyll-paginate]
 markdown: kramdown
+repository: cashow/cashow.github.io.
