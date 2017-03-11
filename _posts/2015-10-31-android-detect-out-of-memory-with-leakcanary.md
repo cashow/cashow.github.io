@@ -2,7 +2,7 @@
 layout: post
 title: "Android - 利用LeakCanary检测内存泄露"
 date: 2015-10-31 22:39:59 +0800
-tags: Android OutOfMemory 内存泄露 LeakCanary
+tags: Android OutOfMemory 内存泄露 LeakCanary 原创
 ---
 
 Out of memory是android开发过程中常见的问题。在应用出现内存泄露问题时，任何一段需要占用内存的代码都有可能导致应用崩溃，这个时候友盟后台错误分析里给出的stacktrace并没有什么卵用。通过LeakCanary或者Eclipse Memory Analyzer（简称MAT），可以较方便地定位内存泄露的源头。  
@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
 Application的代码：  
 <pre class="mcode">
 public class MyApplication extends Application {
-    @Override 
+    @Override
     public void onCreate() {
         super.onCreate();
         enabledStrictMode();
@@ -99,7 +99,7 @@ public class MyApplication extends Application {
 另外，LeakCanary.install()还会返回一个已经配置好的RefWatcher。通过RefWatcher可以监测理应被系统回收的对象的状态。比如可以通过RefWatcher检测fragment是否泄露：  
 <pre class='mcode'>
 public abstract class BaseFragment extends Fragment {
-    @Override 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
@@ -147,7 +147,7 @@ protected RefWatcher installLeakCanary() {
             }
 
             @Override
-            public void onActivityCreated(Activity activity, 
+            public void onActivityCreated(Activity activity,
                 Bundle savedInstanceState) {
             }
 
@@ -168,7 +168,7 @@ protected RefWatcher installLeakCanary() {
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, 
+            public void onActivitySaveInstanceState(Activity activity,
                 Bundle outState) {
             }
 

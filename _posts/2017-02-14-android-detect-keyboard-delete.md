@@ -2,7 +2,7 @@
 layout: post
 title: Android - 监听软键盘删除事件
 date: 2017-02-14 22:35:05 +0800
-tags: Android 软键盘
+tags: Android 软键盘 原创
 ---
 
 我们项目要做一个类似微博头条文章的图文混排编辑器，在考虑了各种实现方案后，最终定下来的做法就是把每段文字当做一个EditText，每个图片当做一个ImageView，文字和图片放在LinearLayout里。当EditText内容是空的时候，如果用户在软键盘里按删除按钮，要把这个EditText删掉，并将焦点转移到上一个EditText。android官方没有提供监听删除事件的接口，所以只能自己实现。

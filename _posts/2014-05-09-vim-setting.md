@@ -2,7 +2,7 @@
 layout: post
 title: "Vim笔记"
 date: 2014-05-09 10:41:05 +0800
-tags: vim 常用工具
+tags: vim 常用工具 学习笔记
 ---
 <style type="text/css">
 tr td:first-child{
@@ -112,10 +112,10 @@ set shiftwidth=4 | 设置系统自动缩进所使用的空白长度为4个空格
 set tabshop=4 | 设置tab宽度为4个空格
 set autoindent | 换行时自动缩进，每一行和上一行有同样的缩进量。autoindent的缩进规则是最简单的。
 set smartindent | 换行时智能缩进，每一行和上一行有同样的缩进量，同时在遇到右花括号时取消缩进形式。如果这一行是以#开头，则不采用缩进形式。
-set cindent | 专门用于c语言的缩进。cindent可设置不同的缩进风格，设置项包括cinkeys、cinwords和cinoptions。 
+set cindent | 专门用于c语言的缩进。cindent可设置不同的缩进风格，设置项包括cinkeys、cinwords和cinoptions。
 set nofoldenable | 禁用代码折叠功能
 set foldlevelstart=99 | 不禁用代码折叠，但在开启文件时不自动折叠代码
-set foldmethod=indent | 设置折叠规则为按文件的缩进进行折叠 
+set foldmethod=indent | 设置折叠规则为按文件的缩进进行折叠
 set fileencodings=ucs-bom,utf-8,chinese  | 让vim在使用ansi编码前尝试ucs-born,utf-8,chinese的编码方案
 set clipboard+=unnamed | 将vim的默认缓冲挂到Windows的剪贴版上。这样按y和p键就可以直接实现“复制”和“粘贴”的功能。
 :inoremap ( ()&#60;ESC&#62;i | 输入左括号"("时自动补上右括号，"()&#60;ESC&#62;i"表示在输入"("时改成"()"并按ESC键，再按i键进行插入，这时光标会在括号里面

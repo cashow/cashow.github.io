@@ -2,7 +2,7 @@
 layout: post
 title: "网页工具 - 尖括号转义"
 date: 2015-11-22 15:25:15 +0800
-tags: 常用工具
+tags: 常用工具 原创
 ---
 
 要在markdown里显示html代码，需要把小于号 < 和大于号 > 进行转义
@@ -27,13 +27,13 @@ tags: 常用工具
 		var escaped_text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 		$("#text_after").val(escaped_text)
 	});
-	
+
 	$("#text_after").keyup(function(){
 		var text = $("#text_after").val();
 		var unescaped_text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>')
 		$("#text_before").val(unescaped_text)
 	});
-	
+
 	$("#copy_before").click(function(){
 		var text = $("#text_before").val();
 		clipboard.copy(text).then(function(){
@@ -41,13 +41,13 @@ tags: 常用工具
 		  }, function(err){
 		 });
 	})
-	
+
 	$('#copy_before').on('shown.bs.popover', function() {
     	setTimeout(function() {
         	$('#copy_before').popover('hide');
     	}, 1000);
 	});
-	
+
 	$("#copy_after").click(function(){
 		var text = $("#text_after").val();
 		clipboard.copy(text).then(function(){
@@ -55,7 +55,7 @@ tags: 常用工具
 		  }, function(err){
 		 });
 	})
-	
+
 	$('#copy_after').on('shown.bs.popover', function() {
     	setTimeout(function() {
         	$('#copy_after').popover('hide');

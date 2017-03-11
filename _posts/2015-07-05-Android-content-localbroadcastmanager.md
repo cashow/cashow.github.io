@@ -2,7 +2,7 @@
 layout: post
 title: "Android组件 - 利用LocalBroadcastManager在应用内发送广播"
 date: 2015-07-05 19:45:14 +0800
-tags: Android Android组件 Broadcast
+tags: Android Android组件 Broadcast 学习笔记
 ---
 
 LocalBroadcastManager是android support v4包里提供的一个组件，用来在应用内发送广播。与普通的Broadcast相比，LocalBroadcast不需要发送全局广播，效率更高，而且发送的数据不能被其他应用接受，其他应用也不能发送这些广播到我们的app，因此不需要担心数据的安全性问题。  

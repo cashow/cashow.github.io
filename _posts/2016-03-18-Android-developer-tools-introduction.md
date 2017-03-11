@@ -2,7 +2,7 @@
 layout: post
 title: "Android - 我使用过的第三方库以及踩过的坑"
 date: 2016-03-18 00:07:42 +0800
-tags: Android Android开发工具
+tags: Android Android开发工具 学习笔记 原创
 ---
 
 做android开发3年了，接触到了不少第三方库，每一个新接触到的工具都能避免重复造轮子，加快开发进度。然而在使用这些工具的过程中，我也踩过不少的坑。因此特意写篇博客简单介绍下各个库的功能，以及怎么避免踩坑。  
@@ -36,7 +36,7 @@ tags: Android Android开发工具
 
 ### universalImageLoader
 
-#### 官网 
+#### 官网
 <https://github.com/nostra13/Android-Universal-Image-Loader>
 
 #### 简介  
@@ -65,7 +65,7 @@ ImageLoader.getInstance().displayImage(url, image, options, new ImageLoadingList
 });
 </pre>
 这样的代码会导致内存泄露，原因是代码中使用了匿名内部类，非静态内部类（包括匿名内部类）会持有一个隐式的外部类引用，在这里是ImageLoadingListener引用了外部的activity。如果在图片没有完全加载的情况下退出activity，由于匿名内部类还持有对activity的引用，导致activity不能正确地销毁，这就造成了内存泄露。以下两种办法可以避免内存泄露：  
-1.让activity实现ImageLoadingListener接口，在加载图片时使用activity作为图片加载的回调。 
+1.让activity实现ImageLoadingListener接口，在加载图片时使用activity作为图片加载的回调。
 <pre class="mcode">
 public class MainActivity extends Activity implements ImageLoadingListener{
 }
@@ -82,7 +82,7 @@ ImageLoader.getInstance().displayImage(url, image, options, listener);
 
 ### emojicon
 
-#### 官网 
+#### 官网
 <https://github.com/rockerhieu/emojicon>
 
 #### 简介  
@@ -94,9 +94,9 @@ ImageLoader.getInstance().displayImage(url, image, options, listener);
 <pre class="mcode">
 public SpannableStringBuilder getTextBuilder(CharSequence text){
     SpannableStringBuilder builder = new SpannableStringBuilder((CharSequence)text);
-    EmojiconHandler.addEmojis(this.getContext(), 
-        builder, this.mEmojiconSize, this.mEmojiconAlignment, 
-        this.mEmojiconTextSize, this.mTextStart, this.mTextLength, 
+    EmojiconHandler.addEmojis(this.getContext(),
+        builder, this.mEmojiconSize, this.mEmojiconAlignment,
+        this.mEmojiconTextSize, this.mTextStart, this.mTextLength,
         this.mUseSystemDefault);
     return builder;
 }
@@ -107,17 +107,17 @@ public SpannableStringBuilder getTextBuilder(CharSequence text){
 
 ### android-gpuimage
 
-#### 官网 
+#### 官网
 <https://github.com/CyberAgent/android-gpuimage>
 
 #### 简介  
-实现图片滤镜效果的库。 
+实现图片滤镜效果的库。
 
 ***
 
 ### butterknife
 
-#### 官网 
+#### 官网
 <https://github.com/JakeWharton/butterknife>
 
 #### 简介  
@@ -131,7 +131,7 @@ class ExampleActivity extends Activity {
   @Bind(R.id.footer)
   TextView footer;
 
-  @Override 
+  @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.simple_activity);
@@ -145,7 +145,7 @@ class ExampleActivity extends Activity {
 
 ### android-async-http
 
-#### 官网 
+#### 官网
 <https://github.com/loopj/android-async-http>
 
 #### 简介  
@@ -155,7 +155,7 @@ class ExampleActivity extends Activity {
 
 ### gson
 
-#### 官网 
+#### 官网
 <https://github.com/google/gson>
 
 #### 简介  
@@ -165,7 +165,7 @@ class ExampleActivity extends Activity {
 
 ### leakcanary
 
-#### 官网 
+#### 官网
 <https://github.com/square/leakcanary>
 
 #### 简介  
@@ -175,7 +175,7 @@ class ExampleActivity extends Activity {
 
 ### ActiveAndroid
 
-#### 官网 
+#### 官网
 <https://github.com/pardom/ActiveAndroid>
 
 #### 简介  
@@ -183,10 +183,10 @@ class ExampleActivity extends Activity {
 <pre class="mcode">
 // java的Category类对应数据库的Categories表
 @Table(name = "Categories")
-public class Category extends Model { 
+public class Category extends Model {
     @Column(name = "Name")
     public String name;
-} 
+}
 
 // 将数据插入到数据库
 Category restaurants = new Category();
@@ -232,7 +232,7 @@ private void print(String text){
     for (int i = 0; i &lt; testList.size(); i++) {
         Log.d("test", text + " : " + testList.get(i).name);
     }
-} 
+}
 
 // 打印出来的日志是：
 // log 0 : name1
@@ -251,7 +251,7 @@ private void print(String text){
 
 ### jpush
 
-#### 官网 
+#### 官网
 <http://docs.jpush.io/>
 
 #### 简介  
@@ -261,7 +261,7 @@ private void print(String text){
 
 ### umeng
 
-#### 官网 
+#### 官网
 <https://www.umeng.com/>
 
 #### 简介  
@@ -271,7 +271,7 @@ private void print(String text){
 
 ### QrCodeScan
 
-#### 官网 
+#### 官网
 <https://github.com/SkillCollege/QrCodeScan>
 
 #### 简介  
@@ -284,7 +284,7 @@ private void print(String text){
 
 ### AMap
 
-#### 官网 
+#### 官网
 <http://lbs.amap.com/>
 
 #### 简介  
@@ -297,7 +297,7 @@ private void print(String text){
 
 ### retrolambda
 
-#### 官网 
+#### 官网
 <https://github.com/evant/gradle-retrolambda>  
 
 #### 简介  
@@ -310,7 +310,7 @@ private void print(String text){
 
 ### RxJava 和 RxAndroid
 
-#### 官网 
+#### 官网
 <https://github.com/ReactiveX/RxJava>  
 
 <https://github.com/ReactiveX/RxAndroid>   
@@ -325,7 +325,7 @@ private void print(String text){
 
 ### MaterialDialog  
 
-#### 官网 
+#### 官网
 <https://github.com/drakeet/MaterialDialog>
 
 #### 简介
@@ -338,7 +338,7 @@ private void print(String text){
 
 ### Fresco
 
-#### 官网 
+#### 官网
 <https://github.com/facebook/fresco>
 
 #### 简介  
@@ -346,8 +346,8 @@ facebook出的加载图片的库。fresco的最大特点在于，图片不在Jav
 
 #### 踩过的坑  
 1.加入fresco后在64位机型上会崩溃，解决办法：<https://github.com/facebook/fresco/issues/554>。关于so文件的说明可见：<http://www.jianshu.com/p/cb05698a1968>  
-2.在listview里，控件设置了BaseControllerListener之后，如果父控件被设置成了GONE还是会调用onFinalImageSet。解决办法是将DraweeController置为空。 
+2.在listview里，控件设置了BaseControllerListener之后，如果父控件被设置成了GONE还是会调用onFinalImageSet。解决办法是将DraweeController置为空。
 
 ***
 
-以上就是我所用过的第三方库。为了避免在使用新的第三方库时不小心踩进坑里，建议大家先认真看看各个库在github上的issues。一般比较常见的bug都会有相应的issue，所以如果在使用第三方库时先了解这些库目前存在的问题，会更好地帮助你决定是否要引入这个库。 
+以上就是我所用过的第三方库。为了避免在使用新的第三方库时不小心踩进坑里，建议大家先认真看看各个库在github上的issues。一般比较常见的bug都会有相应的issue，所以如果在使用第三方库时先了解这些库目前存在的问题，会更好地帮助你决定是否要引入这个库。

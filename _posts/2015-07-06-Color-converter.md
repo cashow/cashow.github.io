@@ -76,7 +76,7 @@ Material design推荐的颜色：
 			g = dex.substring(1, 2);
 			b = dex.substring(2, 3);
 		}
-		
+
 		rNum = parseInt(r, 16);
 		gNum = parseInt(g, 16);
 		bNum = parseInt(b, 16);

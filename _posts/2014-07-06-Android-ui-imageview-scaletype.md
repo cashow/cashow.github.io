@@ -2,7 +2,7 @@
 layout: post
 title: "Android基础控件 - ImageView的ScaleType属性"
 date: 2014-07-06 22:21:41 +0800
-tags: Android Android基础控件 ImageView
+tags: Android Android基础控件 ImageView 原创
 ---
 <style type="text/css">
 tr td:first-child{
@@ -27,7 +27,7 @@ matrix 			| 绘制图片时使用自定义的matrix
 其中，centerInside和fitCenter的区别在于，当图片比控件小时，centerInside不会对图片进行拉伸，而fitCenter会将图片等比例拉伸到高度或宽度大于控件的高度或宽度。  
 
 ***
-ScaleType的各个属性效果如下（imageview的背景是黑色）： 
+ScaleType的各个属性效果如下（imageview的背景是黑色）：
 
 1.图片比控件小，图片宽度小于图片高度  
 
