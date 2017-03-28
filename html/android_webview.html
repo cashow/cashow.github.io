@@ -25,15 +25,13 @@
 </body>
 <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function () {
+<script type="text/javascript">
     $('#button').on('click', function() {
         window.androidtag.showMessage("world")
     })
 
     function alertMessage(message) {
-        alert(message) 
+        alert('接收到java传来的字符串：' + message)
     }
-});
 </script>
 </html>
