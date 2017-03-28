@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <title>WebView与JavaScript的交互</title>
+    <style>
+      a {
+          display: block;
+          margin-bottom: 20px;
+      }
+      button {
+          width: 100%;
+      }
+      body {
+        padding: 20px;
+      }
+    </style>
+</head>
+<body>
+  <a href="jstag://hello"><button type="button" class="btn btn-default">通过跳转链接(href)调用java代码</button></a>
+  <button id="button" type="button" class="btn btn-default">通过JavascriptInterface调用java代码</button>
+</body>
+<script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#button').on('click', function() {
+        window.androidtag.showMessage("world")
+    })
+});
+</script>
+</html>
