@@ -110,3 +110,8 @@ public static int getStatusBarHeight(Context context) {
     return 0;
 }
 </pre>
+
+---------------------------------------
+
+### 项目链接：
+<https://github.com/cashow/AndroidTricks/tree/master/KeyboardHeight>
