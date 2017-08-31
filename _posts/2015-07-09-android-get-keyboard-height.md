@@ -5,12 +5,19 @@ date: 2015-07-09 00:51:05 +0800
 tags: Android 软键盘 原创
 ---
 
-有时候在开发过程中需要监听软键盘的显示状态，在显示和隐藏键盘时对UI做出相应的调整。Android官方没有提供获取软键盘高度和状态的方法，但是可以通过监听当前应用的高度变化计算出软键盘的高度。  
+### 简介
+有时候在开发过程中需要监听软键盘的显示状态，在显示和隐藏键盘时对UI做出相应的调整。Android官方没有提供获取软键盘高度和状态的方法，但是可以通过监听当前应用的高度变化计算出软键盘的高度。
+
+为了方便调用，我将获取软键盘高度的代码整理成了一个库，感兴趣的同学可以去看我的这个项目：  
+<https://github.com/cashow/CashowKeyboardManager>
+
+### 效果图
 ![效果图](http://7xjvhq.com1.z0.glb.clouddn.com/keyboard-height.gif)  
+
+### 实现方法
 首先获取到activity布局的最外层layout，通过调用getWindowVisibleDisplayFrame获取到整个应用可以显示的区域，这其中包括ActionBar、状态栏和设备底部的虚拟按键。  
 再通过调用getRootView().getHeight()，获取整个屏幕的高度。同样，这个高度会包含虚拟按键的高度。  
 通过比较这两个高度，可以推断出软键盘是否显示，并且获取到软键盘的高度。  
-<p><font color='red'>需要注意的是，这种方法前提是软键盘会影响界面布局，所以需要在AndroidManifest里给activity添加android:windowSoftInputMode="adjustResize"</font></p>  
 具体实现代码如下：  
 <pre class="mcode">
 private LinearLayout layout_main;
