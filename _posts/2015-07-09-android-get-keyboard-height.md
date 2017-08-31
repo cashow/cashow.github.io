@@ -139,8 +139,3 @@ public static int getSoftButtonsBarHeight(Activity activity) {
         return 0;
 }
 </pre>
-
----------------------------------------
-
-### 项目链接：
-<https://github.com/cashow/AndroidTricks/tree/master/KeyboardHeight>
