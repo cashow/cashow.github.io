@@ -85,16 +85,17 @@ hprof-conv from.hprof to.hprof
 # 获取包名为com.example.outofmemorydetect的进程id
 pid=`adb shell ps | grep com.example.outofmemorydetect | grep -v leakcanary | awk '{ print $2 }'`
 # 调用dumpheap生成hprof文件，放在手机的sdcard文件夹里
-adb shell am dumpheap $pid /sdcard/dumpheap.hprof
+adb shell am dumpheap $pid /data/local/tmp/dumpheap.hprof
 sleep 1
 # 将手机里的hprof文件推送到电脑上
-adb pull /sdcard/dumpheap.hprof temp.hprof
+adb pull /data/local/tmp/dumpheap.hprof temp.hprof
 # 创建hprof文件夹
 mkdir -p hprof
 # 转换hprof文件，生成的dumpheap.hprof放在hprof文件夹里
 hprof-conv temp.hprof hprof/dumpheap.hprof
 # 删除临时文件
 rm temp.hprof
+adb shell rm /data/local/tmp/dumpheap.hprof
 </pre>
 执行上面的脚本后，可以在hprof文件夹里找到dumpheap.hprof文件，这个文件就是我们要分析的文件。  
 
