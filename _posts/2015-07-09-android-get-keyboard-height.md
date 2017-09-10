@@ -9,8 +9,8 @@ excerpt: <p>有时候在开发过程中需要监听软键盘的显示状态，�
 ### 简介
 有时候在开发过程中需要监听软键盘的显示状态，在显示和隐藏键盘时对UI做出相应的调整。Android官方没有提供获取软键盘高度和状态的方法，但是可以通过监听当前应用的高度变化计算出软键盘的高度。
 
-为了方便调用，我将获取软键盘高度的代码整理成了一个库，感兴趣的同学可以去看我的这个项目：  
-<https://github.com/cashow/CashowKeyboardManager>
+<div class="alert alert-success" role="alert">为了方便调用，我将获取软键盘高度的代码整理成了一个库，感兴趣的同学可以去看我的这个项目：  
+<https://github.com/cashow/CashowKeyboardManager></div>
 
 ### 效果图
 ![效果图](http://7xjvhq.com1.z0.glb.clouddn.com/keyboard-height.gif)  

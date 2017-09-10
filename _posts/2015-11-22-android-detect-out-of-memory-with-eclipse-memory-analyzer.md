@@ -7,8 +7,8 @@ tags: Android OutOfMemory 内存泄露 EclipseMemoryAnalyzer 原创
 
 Out of memory是android开发过程中常见的问题。在应用出现内存泄露问题时，任何一段需要占用内存的代码都有可能导致应用崩溃，这个时候友盟后台错误分析里给出的stacktrace并没有什么卵用。通过LeakCanary或者Eclipse Memory Analyzer（简称MAT），可以较方便地定位内存泄露的源头。  
 
-为了复现用户使用过程中出现的 OutOfMemory 问题，我做了一个记录内存信息的库，感兴趣的同学可以去看我的这个项目：  
-<https://github.com/cashow/CashowMemoryMonitor>
+<div class="alert alert-success" role="alert">为了复现用户使用过程中出现的 OutOfMemory 问题，我做了一个记录内存信息的库，感兴趣的同学可以去看我的这个项目：  
+<https://github.com/cashow/CashowMemoryMonitor></div>
 
 ***
 
