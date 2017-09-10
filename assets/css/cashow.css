@@ -219,3 +219,7 @@ a {
     right: 2em;
     top: 10em;
 }
+
+.alert-success {
+  line-height: 1.5em;
+}
