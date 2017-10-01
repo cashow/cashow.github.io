@@ -49,6 +49,9 @@ adb start-server
 # 结束adb服务
 adb kill-server
 
+# 显示当前的 activity 栈
+adb shell dumpsys activity activities | sed -En -e '/Stack #/p' -e '/Running activities/,/Run #0/p'
+
 # 进入shell模式，可在手机里执行shell命令
 adb shell
 
