@@ -97,7 +97,9 @@ adb shell pm disable com.example.test
 # 查看系统默认的安装方式，0 [auto]是系统自动决定安装位置，1 [internal]是安装在系统内部存储空间，2 [external]是安装在外置存储卡上
 adb shell pm get-install-location
 
-# 录制屏幕并保存为demo.mp4。该功能只能在Android 4.4(API level 19)或更高的版本运行。按Ctrl-C停止录制，否则在3分钟后自动停止录制。可通过--time-limit 30设置录制时间为30秒。
+# 录制屏幕并保存为demo.mp4。该功能只能在Android 4.4或更高的版本运行。
+# 按Ctrl-C停止录制，否则在3分钟后自动停止录制。
+# 可通过--time-limit 30设置录制时间为30秒。
 adb shell screenrecord /sdcard/demo.mp4  
 </pre>
 ***
