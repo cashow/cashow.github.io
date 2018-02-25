@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 策略模式"
 date: 2015-11-29 18:19:10 +0800
-tags: 设计模式 学习笔记 策略模式
+tags: 设计模式
 excerpt: <p>策略模式定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。</p>
 ---
 
@@ -82,7 +82,7 @@ MuteQuack继承自QuackBehavior，实现不会叫的鸭子的行为。
 public class Duck {
     // 每只鸭子都会引用实现QuackBehavior接口的对象
     QuackBehavior quackBehavior;
-    
+
     public void performQuack(){
         // 鸭子对象不亲自处理呱呱叫行为，而是委托给quackBehavior引用的对象
         quackBehavior.quack();

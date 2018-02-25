@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 观察者模式"
 date: 2015-12-01 00:10:19 +0800
-tags: 设计模式 学习笔记 观察者模式
+tags: 设计模式
 excerpt: <p>观察者模式定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。</p>
 ---
 
@@ -132,12 +132,12 @@ public class WeatherData implements Subject {
             observer.update(temperature, humidity, pressure);
         }
     }
-    
+
     // 当从气象站得到更新观测值时，我们通知观察者
     public void measurementsChanged(){
         notifyObservers();
     }
-    
+
     public void setMeasurements(float temperature, float humidity, float pressure){
         this.temperature = temperature;
         this.humidity = humidity;
@@ -154,13 +154,13 @@ public class CurrentConditionsDisplay implements Observer, DisplayElement {
     private float temperature;
     private float humidity;
     private Subject weatherData;
-    
+
     // 构造器需要WeatherData对象（也就是主题）作为注册之用
     public CurrentConditionsDisplay(Subject weatherData){
         this.weatherData = weatherData;
         weatherData.registerObserver(this);
     }
-    
+
     // display()方法就是把最近的温度和湿度显示出来
     @Override
     public void display() {

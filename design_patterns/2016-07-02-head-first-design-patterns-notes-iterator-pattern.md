@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 迭代器模式"
 date: 2016-07-02 22:50:59 +0800
-tags: 设计模式 学习笔记 迭代器模式
+tags: 设计模式
 excerpt: <p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
 ---
 
@@ -52,7 +52,7 @@ public class MenuItem {
 }
 </pre>
 
-### 两个餐厅的菜单实现 
+### 两个餐厅的菜单实现
 我们先来看看两个餐厅的菜单实现
 <pre class="mcode">
 // 这是煎饼屋的菜单实现
@@ -88,7 +88,7 @@ public class PancakeHouseMenu {
 
     // 要加入一个菜单项，煎饼屋的做法是创建一个新的菜单项对象，
     // 传入每一个变量，然后将它加入ArrayList中
-    public void addItem(String name, String description, 
+    public void addItem(String name, String description,
                         boolean vegetarian, double price) {
         MenuItem menuItem = new MenuItem(name, description, vegetarian, price);
         menuItems.add(menuItem);
@@ -286,7 +286,7 @@ public class DinnerMenu {
     MenuItem[] menuItems;
 
     // ...
-    
+
     // 我们不再需要getMenuItems()方法，事实上，我们根本不想要这个方法，
     // 因为它会暴露我们内部的实现。
     // 这是createIterator()方法，用来从菜单项数组创建一个DinnerMenuIterator，
@@ -303,13 +303,13 @@ public class DinnerMenu {
 public class Waitress {
     PancakeHouseMenu pancakeHouseMenu;
     DinnerMenu dinnerMenu;
-    
+
     // 在构造器中，女招待照顾两个菜单
     public Waitress(PancakeHouseMenu pancakeHouseMenu, DinnerMenu dinnerMenu) {
         this.pancakeHouseMenu = pancakeHouseMenu;
         this.dinnerMenu = dinnerMenu;
     }
-    
+
     public void printMenu() {
         // 这个printMenu()方法为每一个菜单各自创建一个迭代器
         Iterator pancakeIterator = pancakeHouseMenu.createIterator();
@@ -318,12 +318,12 @@ public class Waitress {
         printMenu(pancakeIterator);
         printMenu(dinnerIterator);
     }
-    
+
     // 这个重载的printMenu()方法，使用迭代器来遍历菜单项并打印出来
     private void printMenu(Iterator iterator) {
         while (iterator.hasNext()) {
             MenuItem menuItem = (MenuItem) iterator.next();
-            System.out.println(menuItem.getName() + " " + 
+            System.out.println(menuItem.getName() + " " +
                     menuItem.getPrice() + " " + menuItem.getDescription());
         }
     }
@@ -399,7 +399,7 @@ public class DinnerMenuIterator implements Iterator {
         position = position + 1;
         return menuItem;
     }
-    
+
     public boolean hasNext() {
         if (position >= items.length || items[position] == null) {
             return false;
@@ -407,7 +407,7 @@ public class DinnerMenuIterator implements Iterator {
             return true;
         }
     }
-    
+
     // 我们需要实现remove()方法。因为使用的是固定长度的数组，
     // 所以在remove()方法被调用时，我们将后面的所有元素往前移动一个位置。
     @Override

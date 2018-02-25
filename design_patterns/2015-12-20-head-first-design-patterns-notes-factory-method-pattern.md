@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 工厂方法模式"
 date: 2015-12-20 15:14:59 +0800
-tags: 设计模式 学习笔记 工厂模式 工厂方法模式
+tags: 设计模式
 excerpt: <p>工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到了子类。</p>
 ---
 
@@ -96,7 +96,7 @@ public class SimplePizzaFactory {
     // 首先，在这个工厂内定义一个createPizza()方法，所有客户用这个方法来实例化新对象。
     public Pizza createPizza(String type) {
         Pizza pizza = null;
-        
+
         // 这是从orderPizza()方法中移过来的代码
         if (type.equals("cheese")) {
             pizza = new CheesePizza();
@@ -114,15 +114,15 @@ public class SimplePizzaFactory {
 // 现在我们为PizzaStore加上一个对SimplePizzaFactory的引用
 public class PizzaStore {
     SimplePizzaFactory factory;
-    
+
     // PizzaStore的构造器，需要一个工厂作为参数
     public PizzaStore(SimplePizzaFactory factory){
         this.factory = factory;
     }
-    
+
     public Pizza orderPizza(String type) {
         Pizza pizza;
-        
+
         // orderPizza()方法通过简单传入订单类型来使用工厂创建披萨。
         // 请注意，我们把new操作符替换成工厂对象的创建方法。这里不再使用具体实例化
         pizza = factory.createPizza(type);
@@ -164,7 +164,7 @@ public abstract class PizzaStore {
 
         return pizza;
     }
-    
+
     // 现在把工厂对象移到这个方法中
     // 在PizzaStore里，“工厂方法”现在是抽象的
     abstract Pizza createPizza(String type);
@@ -316,7 +316,7 @@ public class DependentPizzaStore {
             System.out.println("Error");
             return null;
         }
-        
+
         pizza.prepare();
         pizza.bake();
         pizza.cut();

@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 装饰者模式"
 date: 2015-12-13 20:16:38 +0800
-tags: 设计模式 学习笔记 装饰者模式
+tags: 设计模式
 excerpt: <p>装饰者模式动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</p>
 ---
 
@@ -263,7 +263,7 @@ public class Mocha extends CondimentDecorator{
     // 2.想办法让被装饰者（饮料）被记录到实例变量中。
     // 这里的做法是：把饮料当作构造器的参数，再由构造器将此饮料记录在实例变量中
     Beverage beverage;
-    
+
     public Mocha(Beverage beverage){
         this.beverage = beverage;
     }

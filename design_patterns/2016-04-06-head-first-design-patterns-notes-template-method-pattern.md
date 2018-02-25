@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 模板方法模式"
 date: 2016-04-06 23:45:34 +0800
-tags: 设计模式 学习笔记 模板方法模式
+tags: 设计模式
 excerpt: <p>模板方法模式在一个方法中定义了一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
 ---
 
@@ -158,7 +158,7 @@ void prepareRecipe() {
     addCondiments();
 }
 </pre>
-现在我们有了新的prepareRecipe()方法，但是需要让它能够符合代码。要想这么做，我们先从CaffeineBeverage超类开始： 
+现在我们有了新的prepareRecipe()方法，但是需要让它能够符合代码。要想这么做，我们先从CaffeineBeverage超类开始：
 <pre class="mcode">
 public abstract class CaffeineBeverage {
     // 现在，用同一个prepareRecipe()方法来处理茶和咖啡。
@@ -248,7 +248,7 @@ public abstract class AbstractClass {
     // 在这个范例中有两个原语操作，具体子类必须实现它们
     abstract void primitiveOperation1();
     abstract void primitiveOperation2();
-    
+
     // 这个抽象类有一个具体的操作。
     void concreteOperation() {
     	// ...

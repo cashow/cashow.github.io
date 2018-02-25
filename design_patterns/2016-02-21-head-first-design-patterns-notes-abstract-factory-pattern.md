@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 抽象工厂模式"
 date: 2016-02-21 17:46:48 +0800
-tags: 设计模式 学习笔记 工厂模式 抽象工厂模式
+tags: 设计模式
 excerpt: <p>抽象工厂模式提供一个接口，用于创建相关或依赖对象的家族，而不需要明确指定具体类。</p>
 ---
 
@@ -83,19 +83,19 @@ public abstract class Pizza {
     Cheese cheese;
     Pepperoni pepperoni;
     Clams clams;
-    
+
     // 现在把prepare()方法声明成抽象。在这个方法中，我们需要收集披萨所需的原料，而这些原料当然是来自原料工厂了。
     abstract void prepare();
-    
+
     // 其他的方法保持不动
     void bake(){
         // ...
     }
-    
+
     void cut(){
         // ...
     }
-    
+
     void box(){
         // ...
     }
@@ -107,13 +107,13 @@ public abstract class Pizza {
 <pre class="mcode">
 public class CheesePizza extends Pizza {
     PizzaIngredientFactory ingredientFactory;
-    
+
     // 要制作披萨，需要工厂提供原料。
     // 所以每个披萨类都需要从构造器参数中得到一个工厂，并把这个工厂存储在一个实例变量中。
     public CheesePizza(PizzaIngredientFactory ingredientFactory){
         this.ingredientFactory = ingredientFactory;
     }
-    
+
     @Override
     void prepare() {
         // prepare()方法一步一步地创建芝士披萨，每当需要原料时，就跟工厂要。

@@ -2,7 +2,7 @@
 layout: post
 title: "《Head first设计模式》学习笔记 - 命令模式"
 date: 2016-03-05 18:27:36 +0800
-tags: 设计模式 学习笔记 命令模式
+tags: 设计模式
 excerpt: <p>命令模式将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。</p>
 ---
 
@@ -83,13 +83,13 @@ public interface Command {
 // 这是一个命令，所以需要实现Command接口
 public class LightOnCommand implements Command {
     Light light;
-    
+
     // 构造器被传入了某个电灯（比方说：客厅的电灯），然后记录在实例变量中。
     // 一旦调用execute()，就由这个电灯对象成为接收者，负责接收请求。
     public LightOnCommand(Light light){
         this.light = light;
     }
-    
+
     // 这个execute()方法调用接收对象（我们正在控制的电灯）的on()方法
     @Override
     public void execute() {
@@ -104,15 +104,15 @@ public class LightOnCommand implements Command {
 public class SimpleRemoteControl {
     // 有一个插槽持有命令，而这个命令控制着一个装置
     Command slot;
-    
+
     public SimpleRemoteControl(){}
-    
+
     // 这个方法用来设置插槽控制的命令。如果这段代码的客户想要改变遥控器按钮的行为，
     // 可以多次调用这个方法。
     public void setCommand(Command command){
         slot = command;
     }
-    
+
     // 当按下按钮时，这个方法就会被调用，使得当前命令衔接插槽，并调用它的execute()方法
     public void buttonWasPressed(){
         slot.execute();
@@ -177,7 +177,7 @@ public class RemoteControl {
     public void onButtonWasPushed(int slot){
         onCommands[slot].execute();
     }
-    
+
     public void offButtonWasPushed(int slot){
         offCommands[slot].execute();
     }
@@ -252,7 +252,7 @@ public class RemoteControl {
         offCommands[slot].execute();
         undoCommand = offCommands[slot];
     }
-    
+
     // 当按下撤销按钮，我们调用undoCommand实例变量的undo()方法，就可以倒转前一个命令
     public void undoButtonWasPushed(){
         undoCommand.undo();
