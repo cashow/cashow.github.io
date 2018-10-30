@@ -14,7 +14,7 @@ excerpt: <p>有时候在开发过程中需要监听软键盘的显示状态，�
 </div>
 
 ### 效果图
-![效果图](http://7xjvhq.com1.z0.glb.clouddn.com/keyboard-height.gif)  
+![效果图](http://phe7e07bw.bkt.clouddn.com/keyboard-height.gif)  
 
 ### 实现方法
 首先获取到activity布局的最外层layout，通过调用getWindowVisibleDisplayFrame获取到整个应用可以显示的区域，这其中包括ActionBar、状态栏和设备底部的虚拟按键。  

@@ -7,7 +7,7 @@ tags: Android Android动画效果 Listview
 
 社交类app的个人资料页布局一般是：在一张背景图上展示用户的信息，在用户信息的下方则是用户最近发布的内容列表。部分app还会实现下拉时背景图片放大的效果。这种效果看起来很复杂，原理其实很简单。  
 先看效果图：
-![效果图](http://7xjvhq.com1.z0.glb.clouddn.com/pulltozoom.gif)  
+![效果图](http://phe7e07bw.bkt.clouddn.com/pulltozoom.gif)  
 ***
 ###实现方法：  
 ####布局文件：

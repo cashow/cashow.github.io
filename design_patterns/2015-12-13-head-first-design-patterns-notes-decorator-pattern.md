@@ -161,17 +161,17 @@ public class HouseBlend extends Beverage{
 ### 以装饰者模式构造饮料订单
 1.以DarkRoast对象开始。  
 DarkRoast继承自Beverage，且有一个用来计算饮料价钱的cost()方法。    
-![decorator_pattern_darkroast](http://7xjvhq.com1.z0.glb.clouddn.com/decorator_pattern_darkroast.jpg)
+![decorator_pattern_darkroast](http://phe7e07bw.bkt.clouddn.com/decorator_pattern_darkroast.jpg)
 2.顾客想要摩卡（Mocha），所以建立一个Mocha对象，并用它将DarkRoast对象包（wrap）起来。  
-![decorator_pattern_mocha](http://7xjvhq.com1.z0.glb.clouddn.com/decorator_pattern_mocha.jpg)
+![decorator_pattern_mocha](http://phe7e07bw.bkt.clouddn.com/decorator_pattern_mocha.jpg)
 Mocha对象是个装饰者，它的类型“反映”了它所装饰的对象（本例中，就是Beverage）。所谓的“反映”，指的就是两者类型一致。  
 所以Mocha也有一个cost()方法。通过多态，也可以把Mocha所包裹的任何Beverage当成是Beverage（因为Mocha是Beverage的子类型）。  
 3.顾客也想要奶泡（Whip），所以需要建立一个Whip装饰者，并用它将Mocha对象包起来。别忘了，DarkRoast继承自Beverage，且有一个cost()方法，用来计算饮料价钱。  
-![decorator_pattern_whip](http://7xjvhq.com1.z0.glb.clouddn.com/decorator_pattern_whip.jpg)
+![decorator_pattern_whip](http://phe7e07bw.bkt.clouddn.com/decorator_pattern_whip.jpg)
 Whip是一个装饰者，所以它也反映了DarkRoast类型，并包括一个cost()方法。  
 所以，被Mocha和Whip包起来的DarkRoast对象仍然是一个Beverage，仍然可以具有DarkRoast的一切行为，包括调用它的cost()方法。  
 4.现在，该是为顾客算钱的时候了。通过调用最外圈装饰者（Whip）的cost()就可以办得到。Whip的cost()会先委托它装饰的对象（也就是Mocha）计算出价钱，然后再加上奶泡的价钱。  
-![decorator_pattern_cost](http://7xjvhq.com1.z0.glb.clouddn.com/decorator_pattern_cost.jpg)
+![decorator_pattern_cost](http://phe7e07bw.bkt.clouddn.com/decorator_pattern_cost.jpg)
 
 ### 定义装饰者模式
 我们目前所知道的一切：  

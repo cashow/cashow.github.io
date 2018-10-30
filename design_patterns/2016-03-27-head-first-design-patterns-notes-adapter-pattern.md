@@ -16,9 +16,9 @@ excerpt: <p>适配器模式将一个类的接口，转换成客户期望的另�
 
 ### 面向对象适配器
 假设已有一个软件系统，你希望它能和一个新的产商类库搭配使用，但是这个新产商所设计出来的接口，不同于旧产商的接口：  
-![adapter_0](http://7xjvhq.com1.z0.glb.clouddn.com/adapter_0.png)  
+![adapter_0](http://phe7e07bw.bkt.clouddn.com/adapter_0.png)  
 你不想改变现有的代码，解决这个问题（而且你也不能改变产商的代码）。所以该怎么做？你可以写一个类，将新产商接口转换成你所期望的接口。
-![adapter_1](http://7xjvhq.com1.z0.glb.clouddn.com/adapter_1.png)  
+![adapter_1](http://phe7e07bw.bkt.clouddn.com/adapter_1.png)  
 这个适配器工作起来就如同一个中间人，它将客户所发出的请求转换成产商类能理解的请求。这个适配器实现了你的类所期望的接口，而且这个适配器也能和产商的接口沟通。
 
 ### 火鸡转换器

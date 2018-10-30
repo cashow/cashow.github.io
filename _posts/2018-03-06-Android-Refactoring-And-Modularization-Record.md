@@ -50,13 +50,13 @@ tags: Android 设计模式 组件化
 
 项目里原本是按代码类别去拆分 java 文件夹的，例如所有的 Activity 放到 activity 文件夹中，所有的 Listener 放到 listener 文件夹中，如图所示：
 
-![modularization_demo_ori_java](http://7xjvhq.com1.z0.glb.clouddn.com/modularization_demo_ori_java.png)
+![modularization_demo_ori_java](http://phe7e07bw.bkt.clouddn.com/modularization_demo_ori_java.png)
 
 这么做有个缺点是，同一个模块的代码分散在各个文件夹下，当你要移除某个模块的功能，或者将某个模块的代码抽取出来放到另一个项目里，你需要去各个文件夹把这个模块相关的代码提取出来。
 
 在经历过一次提取模块代码到新项目的惨痛经历后，我决定把 java 文件夹按模块整理，模块独有的文件放到模块的文件夹下，各个模块共用的文件放到 common 文件夹下，如果所示：
 
-![modularization_demo_new_java](http://7xjvhq.com1.z0.glb.clouddn.com/modularization_demo_new_java.png)
+![modularization_demo_new_java](http://phe7e07bw.bkt.clouddn.com/modularization_demo_new_java.png)
 
 <div class="alert alert-success" role="alert">demo 项目拆分 java 文件夹的改动记录：<a href="https://github.com/cashow/ModularizationDemo/pull/2/files">点击查看链接</a></div>
 
@@ -68,11 +68,11 @@ tags: Android 设计模式 组件化
 
 拆分前：
 
-![modularization_demo_old_res](http://7xjvhq.com1.z0.glb.clouddn.com/modularization_demo_old_res.png)
+![modularization_demo_old_res](http://phe7e07bw.bkt.clouddn.com/modularization_demo_old_res.png)
 
 拆分后：
 
-![modularization_demo_new_res](http://7xjvhq.com1.z0.glb.clouddn.com/modularization_demo_new_res.png)
+![modularization_demo_new_res](http://phe7e07bw.bkt.clouddn.com/modularization_demo_new_res.png)
 
 要实现这样的拆分，你需要修改 app/build.gradle 文件：
 
@@ -109,33 +109,33 @@ sourceSets {
 
 这是 App 层的 build.gradle：
 
-![app_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/app_dependencies.png)
+![app_dependencies](http://phe7e07bw.bkt.clouddn.com/app_dependencies.png)
 
 这是 Data 层的 build.gradle：
 
-![data_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/data_dependencies.png)
+![data_dependencies](http://phe7e07bw.bkt.clouddn.com/data_dependencies.png)
 
 这是 Domain 层的 build.gradle：
 
-![domain_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/domain_dependencies.png)
+![domain_dependencies](http://phe7e07bw.bkt.clouddn.com/domain_dependencies.png)
 
 可以看到，如果你要给 App 层添加或者删除引用库，你需要先定位到 app/build.gradle 文件，再进行修改，其他层同理。当你的项目里拆分了多个 Module 时，修改各个 Module 的引用库也是件麻烦的事。
 
 为此，我将每个 Module 的引用库整理到了 root 文件夹下的 dependencies.gradle 文件里：
 
-![all_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/all_dependencies.png)
+![all_dependencies](http://phe7e07bw.bkt.clouddn.com/all_dependencies.png)
 
 修改后的 app/build.gradle：
 
-![app_new_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/app_new_dependencies.png)
+![app_new_dependencies](http://phe7e07bw.bkt.clouddn.com/app_new_dependencies.png)
 
 修改后的 data/build.gradle：
 
-![data_new_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/data_new_dependencies.png)
+![data_new_dependencies](http://phe7e07bw.bkt.clouddn.com/data_new_dependencies.png)
 
 修改后的 domain/build.gradle：
 
-![domain_new_dependencies](http://7xjvhq.com1.z0.glb.clouddn.com/domain_new_dependencies.png)
+![domain_new_dependencies](http://phe7e07bw.bkt.clouddn.com/domain_new_dependencies.png)
 
 以后如果要修改每个 Module 引用的库，只需要进入 dependencies.gradle 修改对应的引用库即可。
 
@@ -149,7 +149,7 @@ sourceSets {
 
 这是组件化之前各个模块的依赖关系：
 
-![ori_module](http://7xjvhq.com1.z0.glb.clouddn.com/ori_module.jpg?imageView2/2/w/400)
+![ori_module](http://phe7e07bw.bkt.clouddn.com/ori_module.jpg?imageView2/2/w/400)
 
 可以看到，在实现组件化之前，App 层共有 main、userdetails、userlist 和 common 四个模块的代码，并且这四个模块的代码可以相互调用。
 
@@ -161,7 +161,7 @@ sourceSets {
 
 这是实现了组件化后各个模块的依赖关系：
 
-![new_module](http://7xjvhq.com1.z0.glb.clouddn.com/new_module.jpg?imageView2/2/w/400)
+![new_module](http://phe7e07bw.bkt.clouddn.com/new_module.jpg?imageView2/2/w/400)
 
 可以看到，在实现了组件化后，userdetails 和 userlist 之间没有依赖关系，因此不能相互调用代码，实现了模块间的解耦。
 
@@ -173,15 +173,15 @@ sourceSets {
 
 改动前，跳转到 UserListActivity 的代码：
 
-![navigate_ori](http://7xjvhq.com1.z0.glb.clouddn.com/navigate_ori.png)
+![navigate_ori](http://phe7e07bw.bkt.clouddn.com/navigate_ori.png)
 
 引入 ARouter 后给 UserListActivity 加上 @Route 注解：
 
-![user_list_activity](http://7xjvhq.com1.z0.glb.clouddn.com/user_list_activity.png)
+![user_list_activity](http://phe7e07bw.bkt.clouddn.com/user_list_activity.png)
 
 改动后，跳转到 UserListActivity 的代码：
 
-![navigate_new](http://7xjvhq.com1.z0.glb.clouddn.com/navigate_new.png)
+![navigate_new](http://phe7e07bw.bkt.clouddn.com/navigate_new.png)
 
 <div class="alert alert-success" role="alert">demo 项目引入 ARouter 的改动记录：<a href="https://github.com/cashow/ModularizationDemo/pull/5/files">点击查看链接</a></div>
 

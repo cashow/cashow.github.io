@@ -2,7 +2,7 @@
 layout: page
 title: 我的简介
 permalink: /about/
-banner_image: http://7xjvhq.com1.z0.glb.clouddn.com/banner-about-me.jpg
+banner_image: http://phe7e07bw.bkt.clouddn.com/banner-about-me.jpg
 banner_image_alt: About me
 ---
 
