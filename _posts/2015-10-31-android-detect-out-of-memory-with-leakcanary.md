@@ -88,11 +88,11 @@ public class MyApplication extends Application {
 </pre>
 运行以上代码后，点击按钮并旋转屏幕，这时由于AsyncTask还在执行，导致activity不能正常销毁，这就导致了内存泄露。  
 稍等一会，通知栏就会出现MainActivity已经泄露的提示，如图所示：  
-![leakcanary_notification](http://phe7e07bw.bkt.clouddn.com/leakcanary_notification.png)
+![leakcanary_notification](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/leakcanary_notification.png)
 点进去后，可以看到LeakCanary分析出来的内存泄露的原因。点击右边的加号可以看到更详细的信息。  
-![leakcanary_leak_detail_info](http://phe7e07bw.bkt.clouddn.com/leakcanary_leak_detail_info.png)
+![leakcanary_leak_detail_info](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/leakcanary_leak_detail_info.png)
 在Logcat里也会有相应的信息：  
-![leakcanary_leak_detail_info](http://phe7e07bw.bkt.clouddn.com/leakcanary_logcat.png)
+![leakcanary_leak_detail_info](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/leakcanary_logcat.png)
 由此可看出，MainActivity里面的AsyncTask导致了泄露。  
 
 ***

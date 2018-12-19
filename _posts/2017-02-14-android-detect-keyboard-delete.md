@@ -9,7 +9,7 @@ tags: Android 软键盘 原创
 
 首先来看效果图：
 
-![android delete detect](http://phe7e07bw.bkt.clouddn.com/android_delete_detect.gif)
+![android delete detect](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/android_delete_detect.gif)
 
 -----------------------
 

@@ -34,7 +34,7 @@ android:layout_height="0dp"
 ******
 
 #### 重新签名
-在对反编译后的文件进行修改后，可通过[Auto-sign](http://phe7e07bw.bkt.clouddn.com/Auto-sign.rar)重新签名  
+在对反编译后的文件进行修改后，可通过[Auto-sign](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/Auto-sign.rar)重新签名  
 将dist文件夹里的apk放到Auto-sign的文件夹里，重命名为1.zip，双击Sign.bat，会生成update_signed.zip，重命名成update_signed.apk即可  
 也可以执行以下命令，其中1.zip是未签名的包，update_signed.zip是签名后的文件名字
 <pre class="mcode">

@@ -32,24 +32,24 @@ ScaleType的各个属性效果如下（imageview的背景是黑色）：
 1.图片比控件小，图片宽度小于图片高度  
 
 原始图片 			| center 		| centerCrop | centerInside
-![origin](http://phe7e07bw.bkt.clouddn.com/origin_80x92.jpg) | ![center](http://phe7e07bw.bkt.clouddn.com/center_80x92.png) | ![centerCrop](http://phe7e07bw.bkt.clouddn.com/centerCrop_80x92.png) | ![centerInside](http://phe7e07bw.bkt.clouddn.com/centerInside_80x92.png)
+![origin](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/origin_80x92.jpg) | ![center](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/center_80x92.png) | ![centerCrop](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/centerCrop_80x92.png) | ![centerInside](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/centerInside_80x92.png)
 fitCenter | fitStart | fitEnd | fitXY
-![fitCenter](http://phe7e07bw.bkt.clouddn.com/fitCenter_80x92.png) | ![fitStart](http://phe7e07bw.bkt.clouddn.com/fitStart_80x92.png) | ![fitEnd](http://phe7e07bw.bkt.clouddn.com/fitEnd_80x92.png) | ![fitXY](http://phe7e07bw.bkt.clouddn.com/fitXY_80x92.png)
+![fitCenter](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitCenter_80x92.png) | ![fitStart](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitStart_80x92.png) | ![fitEnd](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitEnd_80x92.png) | ![fitXY](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitXY_80x92.png)
 
 
 2.图片比控件小，图片宽度大于图片高度
 
 原始图片 			| center 		| centerCrop | centerInside
-![origin](http://phe7e07bw.bkt.clouddn.com/origin_105x70.jpg) | ![center](http://phe7e07bw.bkt.clouddn.com/center_105x70.png) | ![centerCrop](http://phe7e07bw.bkt.clouddn.com/centerCrop_105x70.png) | ![centerInside](http://phe7e07bw.bkt.clouddn.com/centerInside_105x70.png)
+![origin](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/origin_105x70.jpg) | ![center](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/center_105x70.png) | ![centerCrop](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/centerCrop_105x70.png) | ![centerInside](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/centerInside_105x70.png)
 fitCenter | fitStart | fitEnd | fitXY
-![fitCenter](http://phe7e07bw.bkt.clouddn.com/fitCenter_105x70.png) | ![fitStart](http://phe7e07bw.bkt.clouddn.com/fitEnd_105x70.png) | ![fitEnd](http://phe7e07bw.bkt.clouddn.com/fitStart_105x70.png) | ![fitXY](http://phe7e07bw.bkt.clouddn.com/fitXY_105x70.png)
+![fitCenter](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitCenter_105x70.png) | ![fitStart](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitEnd_105x70.png) | ![fitEnd](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitStart_105x70.png) | ![fitXY](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitXY_105x70.png)
 
 3.图片比控件大
 
 原始图片 			| center 		| centerCrop | centerInside
-![origin](http://phe7e07bw.bkt.clouddn.com/origin_320x240.jpg) | ![center](http://phe7e07bw.bkt.clouddn.com/center_320x240.png) | ![centerCrop](http://phe7e07bw.bkt.clouddn.com/centerCrop_320x240.png) | ![centerInside](http://phe7e07bw.bkt.clouddn.com/centerInside_320x240.png)
+![origin](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/origin_320x240.jpg) | ![center](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/center_320x240.png) | ![centerCrop](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/centerCrop_320x240.png) | ![centerInside](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/centerInside_320x240.png)
 fitCenter | fitStart | fitEnd | fitXY
-![fitCenter](http://phe7e07bw.bkt.clouddn.com/fitCenter_320x240.png) | ![fitStart](http://phe7e07bw.bkt.clouddn.com/fitStart_320x240.png) | ![fitEnd](http://phe7e07bw.bkt.clouddn.com/fitEnd_320x240.png) | ![fitXY](http://phe7e07bw.bkt.clouddn.com/fitXY_320x240.png)
+![fitCenter](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitCenter_320x240.png) | ![fitStart](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitStart_320x240.png) | ![fitEnd](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitEnd_320x240.png) | ![fitXY](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/fitXY_320x240.png)
 
 
 ***

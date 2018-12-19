@@ -327,7 +327,7 @@ public class DependentPizzaStore {
 }
 </pre>
 如果把这个版本的披萨店和它依赖的对象画成一张图，看起来是这样的：  
-![factory_pattern_dependency](http://phe7e07bw.bkt.clouddn.com/factory_pattern_dependency.png)
+![factory_pattern_dependency](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/factory_pattern_dependency.png)
 这个版本的PizzaStore依赖于所有的披萨对象，因为它直接创建这些披萨对象。  
 如果这些类的实现改变了，那么可能必须修改PizzaStore。  
 每新增一个披萨类型，就等于让PizzaStore多了一个依赖。  
@@ -342,7 +342,7 @@ public class DependentPizzaStore {
 非常依赖披萨店的主要问题在于：它依赖每个披萨类型。因为它是在自己的orderPizza()方法中，实例化这些具体类型的。  
 如何在orderPizza()方法中，将这些实例化对象的代码独立出来？我们知道，工厂方法刚好能派上用场。  
 所以，应用工厂方法后，类图看起来就像这样：  
-![factory_pattern_dependency_2](http://phe7e07bw.bkt.clouddn.com/factory_pattern_dependency_2.png)
+![factory_pattern_dependency_2](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/factory_pattern_dependency_2.png)
 PizzaStore现在依赖Pizza这个抽象类。  
 具体披萨类也依赖Pizza抽象，因为它们实现了Pizza接口。  
 在应用工厂方法后，高层组件（也就是PizzaStore）和低层组件（也就是这些披萨）都依赖了Pizza抽象。想要遵循依赖倒置原则，工厂方法并非是唯一的技巧，但却是最有威力的技巧之一。  

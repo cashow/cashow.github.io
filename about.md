@@ -2,7 +2,7 @@
 layout: page
 title: 我的简介
 permalink: /about/
-banner_image: http://phe7e07bw.bkt.clouddn.com/banner-about-me.jpg
+banner_image: https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/banner-about-me.jpg
 banner_image_alt: About me
 ---
 
