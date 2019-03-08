@@ -78,7 +78,7 @@ public void hideFragment(Fragment fragment, int transition, int transitionStyle)
 
 示意图：
 
-![demo](http://7sbs06.com1.z0.glb.clouddn.com/nested_recycler_view_scroll_down.gif?a=b)
+![demo](https://cashow-github-io-1258334739.cos.ap-shanghai.myqcloud.com/nested_recycler_view_scroll_down.gif)
 
 -------
 
@@ -113,7 +113,7 @@ android:descendantFocusability="blocksDescendants"
 
 给竖向的 RecyclerView 设置了 blocksDescendants 属性后，获取焦点时父控件会覆盖子控件，直接获取焦点。
 
-于是我迫不及待地加上了这段代码。终于，RecyclerView 自动下滑的问题完美解决了。
+我加上这段代码后，终于，RecyclerView 自动下滑的问题完美解决了。
 
 -------
 
